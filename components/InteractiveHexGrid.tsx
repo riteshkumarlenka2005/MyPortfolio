@@ -71,25 +71,28 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = React.memo(
   const applyHexStyle = (polygon: SVGPolygonElement, hex: typeof hexagons[0], influence: number) => {
     if (influence > 0.01) {
       // Glow and scale matching footer cubes effect
-      const strokeOpacity = hex.baseOpacity * (0.12 + 0.78 * influence);
-      const fillOpacity = hex.baseOpacity * (0.03 + 0.27 * influence);
-      const scale = 1 + 0.08 * influence;
+      const strokeOpacity = 0.08 + 0.5 * influence;
+      const glowBlur = 4 + 14 * influence;
+      const fillOpacity = 0.03 + 0.1 * influence;
+      const scale = 1 + 0.018 * influence;
       
       polygon.style.strokeOpacity = String(strokeOpacity);
       polygon.style.fillOpacity = String(fillOpacity);
       polygon.style.transform = `scale(${scale})`;
-      polygon.style.filter = `drop-shadow(0 0 ${3 + 9 * influence}px rgba(0, 224, 90, ${0.45 * influence}))`;
+      polygon.style.filter = `drop-shadow(0 0 ${glowBlur}px rgba(0, 255, 136, ${0.18 * influence})) drop-shadow(0 0 ${glowBlur / 2}px rgba(0, 255, 136, ${0.18 * influence}))`;
+      polygon.style.animationPlayState = 'paused';
     } else {
-      polygon.style.strokeOpacity = String(hex.baseOpacity * 0.12);
-      polygon.style.fillOpacity = String(hex.baseOpacity * 0.03);
-      polygon.style.transform = 'scale(1)';
-      polygon.style.filter = 'none';
+      polygon.style.strokeOpacity = '';
+      polygon.style.fillOpacity = '';
+      polygon.style.transform = '';
+      polygon.style.filter = '';
+      polygon.style.animationPlayState = 'running';
     }
   };
 
   // Direct DOM updates for hover-only movements
   const updateGrid = () => {
-    const maxDist = 180;
+    const maxDist = 240;
 
     hexagons.forEach((hex, idx) => {
       const polygon = polygonsRef.current[idx];
@@ -131,7 +134,7 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = React.memo(
         const dx = hex.cx - mouseState.current.x;
         const dy = hex.cy - mouseState.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        mouseInfluence = Math.max(0, 1 - dist / 180);
+        mouseInfluence = Math.max(0, 1 - dist / 240);
         mouseInfluence = Math.pow(mouseInfluence, 2.2);
       }
 
@@ -228,6 +231,24 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = React.memo(
       ref={containerRef}
       className="absolute top-0 right-0 w-[450px] h-[450px] pointer-events-none z-10 select-none overflow-hidden"
     >
+      <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes hexIdlePulse {
+              0%, 100% {
+                  stroke-opacity: 0.08;
+                  fill-opacity: 0.02;
+                  filter: drop-shadow(0 0 2px rgba(0, 255, 136, 0.0));
+              }
+              50% {
+                  stroke-opacity: 0.18;
+                  fill-opacity: 0.05;
+                  filter: drop-shadow(0 0 6px rgba(0, 255, 136, 0.15));
+              }
+          }
+          .hex-idle-pulse {
+              animation: hexIdlePulse var(--pulse-dur, 8s) ease-in-out infinite;
+              animation-delay: var(--pulse-del, 0s);
+          }
+      `}} />
       <svg
         width="100%"
         height="100%"
@@ -240,16 +261,18 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = React.memo(
               key={hex.id}
               ref={(el) => { if (el) polygonsRef.current[idx] = el; }}
               points={getHexPoints(hex.cx, hex.cy, r - 1.5)} // slight gap between hexagons
-              fill="#00e05a"
-              stroke="#00e05a"
-              strokeWidth="1"
+              fill="#00ff88"
+              stroke="#00ff88"
+              strokeWidth="1.5"
+              className="hex-idle-pulse"
               style={{
-                fillOpacity: hex.baseOpacity * 0.03,
-                strokeOpacity: hex.baseOpacity * 0.12,
+                opacity: hex.baseOpacity,
+                '--pulse-del': '0s',
+                '--pulse-dur': '8s',
                 transformOrigin: `${hex.cx}px ${hex.cy}px`,
                 transform: 'scale(1)',
-                transition: 'fill-opacity 0.15s ease, stroke-opacity 0.15s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease',
-              }}
+                transition: 'fill-opacity 0.4s ease, stroke-opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease',
+              } as React.CSSProperties}
             />
           );
         })}

@@ -101,10 +101,8 @@ export const ProjectStackSection: React.FC<ProjectStackSectionProps> = ({ onStat
         <p className="font-serif text-sm md:text-base max-w-md mx-auto text-parchment-800 dark:text-antique-600">
           A showcase of my recent work, designed to solve problems through engineering and artificial intelligence.
         </p>
-      </div>
-
-      {/* Grid Layout: 1 column on mobile, 2 columns on tablet/desktop */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      </div>      {/* Grid Layout: 1 column on mobile, 2 columns on tablet, 3 columns on desktop */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {PROJECTS.map((project) => (
           <div
             key={project.id}
@@ -112,7 +110,7 @@ export const ProjectStackSection: React.FC<ProjectStackSectionProps> = ({ onStat
             className="group relative flex flex-col bg-white dark:bg-[#0a0a0a] rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border border-parchment-400/20 dark:border-white/5 hover:-translate-y-2"
           >
             {/* ─── IMAGE SECTION ─── */}
-            <div className="relative w-full h-[240px] sm:h-[280px] shrink-0 overflow-hidden">
+            <div className="relative w-full h-[200px] sm:h-[220px] shrink-0 overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
@@ -126,10 +124,10 @@ export const ProjectStackSection: React.FC<ProjectStackSectionProps> = ({ onStat
                 <span className="font-serif text-[10px] md:text-xs font-medium text-white/90 uppercase tracking-widest">{project.era}</span>
               </div>
             </div>
-
+ 
             {/* ─── CONTENT SECTION ─── */}
             <div className="flex flex-col flex-1 p-6 sm:p-8 bg-white dark:bg-[#0a0a0a] text-parchment-900 dark:text-antique-800 relative z-10">
-              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-wide leading-tight mb-3 text-parchment-900 dark:text-white line-clamp-2">
+              <h2 className="font-display text-xl sm:text-2xl font-bold tracking-wide leading-tight mb-3 text-parchment-900 dark:text-white line-clamp-2">
                 {project.title}
               </h2>
 

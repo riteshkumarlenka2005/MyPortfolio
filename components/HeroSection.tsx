@@ -227,9 +227,9 @@ export const HeroSection: React.FC = () => {
         return () => window.removeEventListener('resize', check);
     }, []);
 
-    const photoPosition = isMobile ? 'center center' : 'center bottom';
+    const photoPosition = isMobile ? 'center 40%' : 'center bottom';
     const maskGradient = isMobile 
-        ? 'radial-gradient(ellipse at center 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)'
+        ? 'radial-gradient(ellipse at center 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0) 75%)'
         : 'radial-gradient(ellipse at center 70%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)';
 
     return (
