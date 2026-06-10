@@ -232,6 +232,21 @@ export const HeroSection: React.FC = () => {
             {/* Premium animated curved background lines */}
             <HeroCurves />
 
+            {/* Personal Photo Background Layer */}
+            <div 
+                className="absolute inset-0 pointer-events-none z-0 opacity-[0.15] sm:opacity-[0.25] transition-opacity duration-1000"
+                style={{
+                    backgroundImage: "url('/MyPhoto.png')",
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center 10%',
+                    backgroundRepeat: 'no-repeat',
+                    mixBlendMode: 'lighten',
+                    filter: 'grayscale(50%) contrast(1.1)',
+                    maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%)',
+                    WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%)'
+                }}
+            />
+
             {/* Top-left subtle silver/gray glow */}
             <div
                 className="absolute inset-0 pointer-events-none z-0"
