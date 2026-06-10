@@ -257,7 +257,7 @@ export const InteractiveFooter: React.FC = () => {
 
             {/* Layer 1: Preserved centered logo watermark */}
             <div 
-                className="absolute inset-0 opacity-[0.12] scale-[1.5] md:scale-[2] bg-no-repeat bg-contain bg-center pointer-events-none z-0" 
+                className="absolute inset-0 opacity-[0.35] md:opacity-[0.12] scale-[1.8] md:scale-[2] bg-no-repeat bg-contain bg-center pointer-events-none z-0" 
                 style={{ backgroundImage: "url('/logo.png')" }} 
             />
 
