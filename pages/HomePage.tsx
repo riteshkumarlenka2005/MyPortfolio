@@ -8,6 +8,7 @@ import { ProjectStackSection } from '../components/ProjectStackSection';
 import { HeroSection } from '../components/HeroSection';
 import { CertificationsCarousel } from '../components/CertificationsCarousel';
 import { SkillsSection } from '../components/SkillsSection';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 // Featured projects data
 const FEATURED_PROJECTS = [
@@ -649,57 +650,7 @@ export const HomePage: React.FC = () => {
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* FOOTER */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <footer className="relative py-12 md:py-16 px-6 md:px-12 border-t border-parchment-400/20 dark:border-antique-200/10 overflow-hidden">
-                {/* Logo Background Watermark (Centered, Oversized) */}
-                <div 
-                    className="absolute inset-0 opacity-[0.15] scale-[1.5] md:scale-[2] bg-no-repeat bg-contain bg-center pointer-events-none z-0" 
-                    style={{ backgroundImage: "url('/logo.png')" }} 
-                />
-                
-                <div className="max-w-6xl mx-auto relative z-10">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 text-center md:text-left">
-                        {/* Brand */}
-                        <div className="md:col-span-2 space-y-4 flex flex-col items-center md:items-start relative">
-                            <div className="font-display text-2xl font-bold tracking-widest relative z-10">ARCHIVIST</div>
-                            <p className="font-serif text-sm leading-relaxed max-w-sm mx-auto md:mx-0 relative z-10">
-                                A digital sanctuary for thoughtful work and enduring ideas.
-                                Crafted with intention, preserved with care.
-                            </p>
-                        </div>
-
-                        {/* Quick Links */}
-                        <div className="space-y-4 flex flex-col items-center md:items-start">
-                            <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-parchment-900/50 dark:text-antique-100/50">Navigate</h4>
-                            <ul className="space-y-3 font-serif text-sm flex flex-col items-center md:items-start tracking-wide">
-                                <li><Link to="/about" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">About</Link></li>
-                                <li><Link to="/projects" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">Projects</Link></li>
-                                <li><Link to="/contact" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">Contact</Link></li>
-                            </ul>
-                        </div>
-
-                        {/* Connect */}
-                        <div className="space-y-4 flex flex-col items-center md:items-start">
-                            <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-parchment-900/50 dark:text-antique-100/50">Connect</h4>
-                            <ul className="space-y-3 font-serif text-sm flex flex-col items-center md:items-start tracking-wide">
-                                <li><a href="https://github.com" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">GitHub</a></li>
-                                <li><a href="https://linkedin.com" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">LinkedIn</a></li>
-                                <li><a href="https://twitter.com" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">Twitter</a></li>
-                                <li><a href="mailto:hello@archivist.dev" className="hover:text-green-500 dark:hover:text-green-400 transition-colors">Email</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* Bottom Bar */}
-                    <div className="mt-12 pt-8 border-t border-parchment-400/10 dark:border-antique-200/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
-                        <p className="font-serif text-xs">
-                            © 2024 Archivist. All rights preserved.
-                        </p>
-                        <p className="font-serif text-xs italic">
-                            "Knowledge, once recorded, becomes eternal."
-                        </p>
-                    </div>
-                </div>
-            </footer>
+            <InteractiveFooter />
 
             {/* Decorative Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-900/10 to-transparent pointer-events-none z-50" />
