@@ -247,7 +247,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Solid Black Particle Blocker Layer */}
             <div 
-                className="absolute inset-0 pointer-events-none z-0 bg-black"
+                className="absolute inset-0 pointer-events-none z-0 bg-black hero-blocker-fade-in"
                 style={{
                     maskImage: maskGradient,
                     WebkitMaskImage: maskGradient
@@ -256,7 +256,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Personal Photo Background Layer */}
             <div 
-                className="absolute inset-0 pointer-events-none z-0 opacity-[0.5] sm:opacity-[0.7] transition-opacity duration-1000"
+                className="absolute inset-0 pointer-events-none z-0 hero-photo-fade-in transition-opacity duration-1000"
                 style={{
                     backgroundImage: "url('/BackgroundPhoto.png')",
                     backgroundSize: 'contain',
@@ -265,7 +265,8 @@ export const HeroSection: React.FC = () => {
                     mixBlendMode: 'normal',
                     filter: 'grayscale(15%) contrast(1.1)',
                     maskImage: maskGradient,
-                    WebkitMaskImage: maskGradient
+                    WebkitMaskImage: maskGradient,
+                    ['--photo-target-opacity' as any]: isMobile ? 0.5 : 0.7
                 }}
             />
 
@@ -305,21 +306,21 @@ export const HeroSection: React.FC = () => {
                     <div className="relative">
                         <div className="relative space-y-0 sm:space-y-1 md:space-y-2">
                             {/* RITESH */}
-                            <div className="overflow-hidden">
+                            <div className="overflow-hidden hero-name-reveal" style={{ animationDelay: '0s' }}>
                                 <span className="inline-block font-display text-6xl sm:text-7xl md:text-7xl lg:text-8xl font-bold hero-name-shimmer leading-[0.9] sm:leading-tight">
                                     RITESH
                                 </span>
                             </div>
 
                             {/* KUMAR */}
-                            <div className="overflow-hidden">
+                            <div className="overflow-hidden hero-name-reveal" style={{ animationDelay: '0.2s' }}>
                                 <span className="inline-block font-display text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-semibold hero-name-shimmer-accent leading-[0.9] sm:leading-tight">
                                     KUMAR
                                 </span>
                             </div>
 
                             {/* LENKA */}
-                            <div className="overflow-hidden">
+                            <div className="overflow-hidden hero-name-reveal" style={{ animationDelay: '0.4s' }}>
                                 <span className="inline-block font-display text-6xl sm:text-7xl md:text-7xl lg:text-8xl font-bold hero-name-shimmer leading-[0.9] sm:leading-tight">
                                     LENKA
                                 </span>
@@ -331,7 +332,7 @@ export const HeroSection: React.FC = () => {
                     <div className="h-[2px] w-[180px] mx-auto lg:mx-0 hero-underline bg-gradient-to-r from-green-500 via-green-400 to-transparent dark:from-green-400 dark:via-green-300 dark:to-transparent" />
 
                     {/* Tagline — rotating typing effect on first line, static second line */}
-                    <div className="space-y-3 lg:space-y-3 hero-content-fade" style={{ animationDelay: '1s' }}>
+                    <div className="space-y-3 lg:space-y-3 hero-content-fade" style={{ animationDelay: '3.2s' }}>
                         {/* Rotating typed line — fixed height on mobile to prevent page jitter when text wraps */}
                         <div className="h-[3.6em] sm:h-[4.4em] md:h-[2.4em] flex items-center justify-center lg:justify-start overflow-hidden">
                             <p
@@ -358,7 +359,7 @@ export const HeroSection: React.FC = () => {
                     {/* CTA Buttons — static, plays once */}
                     <div
                         className="flex flex-col sm:flex-row items-center sm:items-center lg:items-start gap-3 lg:gap-4 hero-content-fade"
-                        style={{ animationDelay: '1.3s' }}
+                        style={{ animationDelay: '3.6s' }}
                     >
                         <Link
                             to="/projects"
@@ -387,7 +388,7 @@ export const HeroSection: React.FC = () => {
                     </div>
 
                     {/* Social Media Icons — mobile only (duplicated from right zone) */}
-                    <div className="flex items-center justify-center gap-5 mt-1 lg:hidden hero-content-fade" style={{ animationDelay: '1.6s' }}>
+                    <div className="flex items-center justify-center gap-5 mt-1 lg:hidden hero-content-fade" style={{ animationDelay: '4.0s' }}>
                         <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group relative w-11 h-11 flex items-center justify-center border border-parchment-400/40 dark:border-antique-400/30 rounded-full hover:border-green-500 dark:hover:border-green-400 hover:bg-green-500/10 dark:hover:bg-green-400/10 transition-all duration-400 hover:scale-110 hover:-translate-y-1" aria-label="GitHub">
                             <svg className="w-5 h-5 fill-parchment-700 dark:fill-antique-600 group-hover:fill-green-500 dark:group-hover:fill-green-400 transition-colors duration-300" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
                         </a>
@@ -423,7 +424,7 @@ export const HeroSection: React.FC = () => {
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 {/* RIGHT ZONE - Typographic "R" Identity */}
                 {/* ═══════════════════════════════════════════════════════════════ */}
-                <div className="hidden lg:flex flex-col items-center justify-center gap-2 flex-shrink-0 mt-12">
+                <div className="hidden lg:flex flex-col items-center justify-center gap-2 flex-shrink-0 mt-12 hero-content-fade" style={{ animationDelay: '3.6s' }}>
                     <div className="relative w-64 xl:w-80 h-[360px] xl:h-[420px]">
                         {/* Subtle glow behind R */}
                         <div
@@ -508,7 +509,7 @@ export const HeroSection: React.FC = () => {
 
 
                     {/* Social Media Icons */}
-                    <div className="flex items-center gap-5 mt-4">
+                    <div className="flex items-center gap-5 mt-4 hero-content-fade" style={{ animationDelay: '4.0s' }}>
                         {/* GitHub */}
                         <a
                             href="https://github.com"

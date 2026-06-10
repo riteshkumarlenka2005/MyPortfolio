@@ -501,9 +501,9 @@ button:focus-visible {
     }
 }
 
-.hero-letter {
+.hero-name-reveal {
     opacity: 0;
-    animation: heroLetterReveal 0.5s ease-out forwards;
+    animation: heroLetterReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     will-change: opacity, transform;
 }
 
@@ -522,7 +522,7 @@ button:focus-visible {
 
 .hero-underline {
     width: 0;
-    animation: heroUnderline 1s ease-out 2s forwards;
+    animation: heroUnderline 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
     will-change: width, opacity;
 }
 
@@ -543,6 +543,37 @@ button:focus-visible {
     opacity: 0;
     animation: heroContentFade 0.8s ease-out forwards;
     will-change: opacity, transform;
+}
+
+/* Photo and blocker fade-in animations */
+@keyframes heroPhotoFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: var(--photo-target-opacity, 0.7);
+    }
+}
+
+.hero-photo-fade-in {
+    opacity: 0;
+    animation: heroPhotoFadeIn 1.5s ease-out 1.5s forwards;
+    will-change: opacity;
+}
+
+@keyframes heroBlockerFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.hero-blocker-fade-in {
+    opacity: 0;
+    animation: heroBlockerFadeIn 1.5s ease-out 1.5s forwards;
+    will-change: opacity;
 }
 
 /* R Stem Micro-Text Scroll - slow, continuous, GPU-accelerated */
@@ -685,20 +716,20 @@ button:focus-visible {
     will-change: stroke-dashoffset, transform;
 }
 
-/* Curve 1: draws left-to-right, 2.5s, starts immediately */
+/* Curve 1: draws left-to-right, 2.5s, delayed to 2.2s to match intro sequence */
 .hero-curve-1 {
     --curve-length: 1000;
     animation:
-        heroCurveDraw 2.5s ease-in-out forwards,
-        heroCurveFloat 30s ease-in-out 2.5s infinite;
+        heroCurveDraw 2.5s ease-in-out 2.2s forwards,
+        heroCurveFloat 30s ease-in-out 4.7s infinite;
 }
 
-/* Curve 2: draws right-to-bottom-right, 2.5s, 0.4s delay */
+/* Curve 2: draws right-to-bottom-right, 2.5s, delayed to 2.6s to match intro sequence */
 .hero-curve-2 {
     --curve-length: 1000;
     animation:
-        heroCurveDraw 2.5s ease-in-out 0.4s forwards,
-        heroCurveFloat 38s ease-in-out 2.9s infinite;
+        heroCurveDraw 2.5s ease-in-out 2.6s forwards,
+        heroCurveFloat 38s ease-in-out 5.1s infinite;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
