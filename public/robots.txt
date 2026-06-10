@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://riteshkumarlenka.dev/sitemap.xml

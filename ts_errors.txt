@@ -1,0 +1,1 @@
+﻿components/RealisticBook.tsx(175,41): error TS2365: Operator '<' cannot be applied to types 'string | number' and 'number'.

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ritesh Kumar Lenka | Full Stack Developer & AI Engineer Portfolio</title>
+  <meta name="description" content="Explore the Archive of the Ancients, the professional portfolio of Ritesh Kumar Lenka. A B.Tech CS student, AI Engineer, and Full Stack Developer passionate about Machine Learning and innovative tech solutions." />
+  <meta name="keywords" content="Ritesh Kumar Lenka, Portfolio, AI Engineer, Full Stack Developer, Machine Learning, Data Science, Software Engineering, Archive of the Ancients" />
+  <meta name="author" content="Ritesh Kumar Lenka" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://riteshkumarlenka.dev/" />
+  <meta property="og:title" content="Ritesh Kumar Lenka | Full Stack Developer & AI Engineer Portfolio" />
+  <meta property="og:description" content="Step into the Archive of the Ancients. Discover projects in AI, Machine Learning, and Full Stack Development by Ritesh Kumar Lenka." />
+  <meta property="og:image" content="https://riteshkumarlenka.dev/MyPhoto.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://riteshkumarlenka.dev/" />
+  <meta property="twitter:title" content="Ritesh Kumar Lenka | Full Stack Developer & AI Engineer Portfolio" />
+  <meta property="twitter:description" content="Explore the innovative work of Ritesh Kumar Lenka in AI and Web Engineering." />
+  <meta property="twitter:image" content="https://riteshkumarlenka.dev/MyPhoto.png" />
+
+  <!-- Canonical Link -->
+  <link rel="canonical" href="https://riteshkumarlenka.dev/" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ritesh Kumar Lenka",
+      "url": "https://riteshkumarlenka.dev",
+      "sameAs": [
+        "https://www.linkedin.com/in/ritesh-kumar-lenka-186010320/",
+        "https://github.com/riteshkumarlenka2005",
+        "https://instagram.com/ritesh_kumar_lenka"
+      ],
+      "jobTitle": "Full Stack Developer & AI Engineer",
+      "description": "B.Tech Computer Science student at GIET University. Passionate about AI, Machine Learning, and Full Stack Engineering. Creator of the Archive of the Ancients portfolio.",
+      "image": "https://riteshkumarlenka.dev/MyPhoto.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "India"
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Pinyon+Script&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            display: ['"Cinzel"', 'serif'],
+            script: ['"Pinyon Script"', 'cursive'],
+          },
+          colors: {
+            parchment: {
+              50: '#FFFFFF',
+              100: '#000000',
+              200: '#141414',
+              300: '#1a1a1a',
+              400: '#555555',
+              500: '#6B6B6B',
+              600: '#525252',
+              700: '#00e05a',
+              800: '#e0e0e0',
+              900: '#f0f0f0',
+            },
+            antique: {
+              50: '#000000',
+              100: '#111111',
+              200: '#1e1e1e',
+              300: '#333333',
+              400: '#555555',
+              800: '#e0e0e0',
+              900: '#f5f5f5',
+            }
+          },
+          backgroundImage: {
+            'paper-texture': "url('https://www.transparenttextures.com/patterns/black-linen.png')",
+            'dark-paper-texture': "url('https://www.transparenttextures.com/patterns/black-linen.png')",
+          },
+          animation: {
+            'unroll': 'unroll 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards',
+            'ink-spread': 'inkSpread 0.5s ease-out forwards',
+            'shimmer': 'shimmer 2s infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'gradient-shift': 'gradientShift 3s ease infinite',
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            unroll: {
+              '0%': { height: '2rem', opacity: '0.8' },
+              '100%': { height: '6rem', opacity: '1' },
+            },
+            inkSpread: {
+              '0%': { width: '0%', opacity: '0' },
+              '100%': { width: '100%', opacity: '1' },
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(0, 224, 90, 0.2)' },
+              '50%': { boxShadow: '0 0 40px rgba(0, 224, 90, 0.4)' },
+            },
+            gradientShift: {
+              '0%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+              '100%': { backgroundPosition: '0% 50%' },
+            },
+            fadeInUp: {
+              'from': { opacity: '0', transform: 'translateY(30px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar to match theme */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+
+    .dark ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #00e05a;
+      border-radius: 5px;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+      background: #1e1e1e;
+    }
+
+    /* Subtle noise overlay */
+    .noise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body
+  class="bg-parchment-100 text-parchment-900 dark:bg-antique-50 dark:text-antique-800" style="-webkit-font-smoothing: antialiased; background-color: #000000; color: #e0e0e0;">
+  <div id="root"></div>
+  <div class="noise-bg"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
