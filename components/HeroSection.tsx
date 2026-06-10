@@ -219,6 +219,19 @@ export const HeroSection: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 640);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+
+    const photoPosition = isMobile ? 'center center' : 'center bottom';
+    const maskGradient = isMobile 
+        ? 'radial-gradient(ellipse at center 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)'
+        : 'radial-gradient(ellipse at center 70%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)';
+
     return (
         <section
             ref={heroRef}
@@ -236,8 +249,8 @@ export const HeroSection: React.FC = () => {
             <div 
                 className="absolute inset-0 pointer-events-none z-0 bg-black"
                 style={{
-                    maskImage: 'radial-gradient(ellipse at center 70%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center 70%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)'
+                    maskImage: maskGradient,
+                    WebkitMaskImage: maskGradient
                 }}
             />
 
@@ -247,12 +260,12 @@ export const HeroSection: React.FC = () => {
                 style={{
                     backgroundImage: "url('/BackgroundPhoto.png')",
                     backgroundSize: 'contain',
-                    backgroundPosition: 'center bottom',
+                    backgroundPosition: photoPosition,
                     backgroundRepeat: 'no-repeat',
                     mixBlendMode: 'normal',
                     filter: 'grayscale(15%) contrast(1.1)',
-                    maskImage: 'radial-gradient(ellipse at center 70%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center 70%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 70%)'
+                    maskImage: maskGradient,
+                    WebkitMaskImage: maskGradient
                 }}
             />
 
