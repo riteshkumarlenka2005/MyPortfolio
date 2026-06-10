@@ -1,24 +1,30 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 
 interface InteractiveHexGridProps {
-  heroMousePos: { x: number; y: number } | null;
-  heroWidth: number;
+  heroMousePos?: { x: number; y: number } | null;
+  heroWidth?: number;
 }
 
-export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = ({ heroMousePos, heroWidth }) => {
+export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = React.memo(() => {
   const width = 450;
   const height = 450;
   const r = 32; // Radius of each hexagon
 
-  // Translate global hero section mouse position to local grid coordinates
-  const localMousePos = useMemo(() => {
-    if (!heroMousePos || heroWidth === 0) return null;
-    const leftOffset = heroWidth - width;
-    return {
-      x: heroMousePos.x - leftOffset,
-      y: heroMousePos.y,
-    };
-  }, [heroMousePos, heroWidth]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const polygonsRef = useRef<SVGPolygonElement[]>([]);
+
+  const waveState = useRef({
+    active: false,
+    startTime: 0,
+    centerX: 0,
+    centerY: 0,
+  });
+
+  const mouseState = useRef({
+    active: false,
+    x: 0,
+    y: 0,
+  });
 
   // Pre-calculate hexagons in the grid
   const hexagons = useMemo(() => {
@@ -56,6 +62,160 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = ({ heroMous
     return list;
   }, [width, height, r]);
 
+  // Reset polygonsRef array size
+  useEffect(() => {
+    polygonsRef.current = polygonsRef.current.slice(0, hexagons.length);
+  }, [hexagons.length]);
+
+  // Helper to apply visual styles based on influence
+  const applyHexStyle = (polygon: SVGPolygonElement, hex: typeof hexagons[0], influence: number) => {
+    if (influence > 0.01) {
+      // Glow and scale matching footer cubes effect
+      const strokeOpacity = hex.baseOpacity * (0.12 + 0.78 * influence);
+      const fillOpacity = hex.baseOpacity * (0.03 + 0.27 * influence);
+      const scale = 1 + 0.08 * influence;
+      
+      polygon.style.strokeOpacity = String(strokeOpacity);
+      polygon.style.fillOpacity = String(fillOpacity);
+      polygon.style.transform = `scale(${scale})`;
+      polygon.style.filter = `drop-shadow(0 0 ${3 + 9 * influence}px rgba(0, 224, 90, ${0.45 * influence}))`;
+    } else {
+      polygon.style.strokeOpacity = String(hex.baseOpacity * 0.12);
+      polygon.style.fillOpacity = String(hex.baseOpacity * 0.03);
+      polygon.style.transform = 'scale(1)';
+      polygon.style.filter = 'none';
+    }
+  };
+
+  // Direct DOM updates for hover-only movements
+  const updateGrid = () => {
+    const maxDist = 180;
+
+    hexagons.forEach((hex, idx) => {
+      const polygon = polygonsRef.current[idx];
+      if (!polygon) return;
+
+      if (!mouseState.current.active) {
+        applyHexStyle(polygon, hex, 0);
+        return;
+      }
+
+      const dx = hex.cx - mouseState.current.x;
+      const dy = hex.cy - mouseState.current.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      let influence = Math.max(0, 1 - dist / maxDist);
+      influence = Math.pow(influence, 2.2);
+
+      applyHexStyle(polygon, hex, influence);
+    });
+  };
+
+  // Frame animation loop combining wave and mouse updates
+  const animate = (now: number) => {
+    if (!waveState.current.active) return;
+
+    const elapsed = now - waveState.current.startTime;
+    const progress = Math.min(elapsed / 1000, 1); // 1s duration
+    const maxRadius = Math.max(width, height) * 1.2;
+    const currentRadius = maxRadius * progress;
+    const waveWidth = 120;
+
+    hexagons.forEach((hex, idx) => {
+      const polygon = polygonsRef.current[idx];
+      if (!polygon) return;
+
+      // Mouse influence
+      let mouseInfluence = 0;
+      if (mouseState.current.active) {
+        const dx = hex.cx - mouseState.current.x;
+        const dy = hex.cy - mouseState.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        mouseInfluence = Math.max(0, 1 - dist / 180);
+        mouseInfluence = Math.pow(mouseInfluence, 2.2);
+      }
+
+      // Wave influence
+      const wdx = waveState.current.centerX - hex.cx;
+      const wdy = waveState.current.centerY - hex.cy;
+      const wdist = Math.sqrt(wdx * wdx + wdy * wdy);
+      const distFromWave = Math.abs(wdist - currentRadius);
+      let waveInfluence = Math.max(0, 1 - distFromWave / waveWidth);
+      waveInfluence = Math.pow(waveInfluence, 2) * (1 - progress);
+
+      const totalInfluence = Math.min(1, Math.max(mouseInfluence, waveInfluence * 1.5));
+      applyHexStyle(polygon, hex, totalInfluence);
+    });
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      waveState.current.active = false;
+      updateGrid();
+    }
+  };
+
+  // Monitor mouse movements over the parent hero section directly to avoid React re-render overrides
+  useEffect(() => {
+    const parent = containerRef.current?.parentElement;
+    if (!parent) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = parent.getBoundingClientRect();
+      const heroWidth = rect.width;
+      
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      // Check if mouse is within bounds of HeroSection
+      if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+        const leftOffset = heroWidth - width;
+        const mx = mouseX - leftOffset;
+        const my = mouseY;
+
+        const wasActive = mouseState.current.active;
+        mouseState.current.active = true;
+        mouseState.current.x = mx;
+        mouseState.current.y = my;
+
+        if (!wasActive) {
+          // Trigger entry wake-up wave
+          waveState.current.active = true;
+          waveState.current.startTime = performance.now();
+          waveState.current.centerX = mx;
+          waveState.current.centerY = my;
+          requestAnimationFrame(animate);
+        } else {
+          if (!waveState.current.active) {
+            updateGrid();
+          }
+        }
+      } else {
+        if (mouseState.current.active) {
+          mouseState.current.active = false;
+          if (!waveState.current.active) {
+            updateGrid();
+          }
+        }
+      }
+    };
+
+    const handleMouseLeave = () => {
+      mouseState.current.active = false;
+      if (!waveState.current.active) {
+        updateGrid();
+      }
+    };
+
+    parent.addEventListener('mousemove', handleMouseMove);
+    parent.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      parent.removeEventListener('mousemove', handleMouseMove);
+      parent.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [hexagons.length]);
+
   // Generates SVG points for a flat-topped hexagon
   const getHexPoints = (cx: number, cy: number, radius: number) => {
     const w = radius / 2;
@@ -65,6 +225,7 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = ({ heroMous
 
   return (
     <div
+      ref={containerRef}
       className="absolute top-0 right-0 w-[450px] h-[450px] pointer-events-none z-10 select-none overflow-hidden"
     >
       <svg
@@ -73,36 +234,21 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = ({ heroMous
         viewBox={`0 0 ${width} ${height}`}
         className="w-full h-full"
       >
-        {hexagons.map((hex) => {
-          let hoverMultiplier = 1;
-          const hoverRadius = 85;
-
-          if (localMousePos) {
-            const dx = hex.cx - localMousePos.x;
-            const dy = hex.cy - localMousePos.y;
-            const distToMouse = Math.sqrt(dx * dx + dy * dy);
-
-            if (distToMouse < hoverRadius) {
-              // Non-linear transition: fully vanished under pointer, fades back in smoothly
-              hoverMultiplier = Math.pow(distToMouse / hoverRadius, 2);
-            }
-          }
-
-          // Very light structure opacities matching the reference dark/green theme
-          const strokeOpacity = hex.baseOpacity * hoverMultiplier * 0.12;
-          const fillOpacity = hex.baseOpacity * hoverMultiplier * 0.03;
-
+        {hexagons.map((hex, idx) => {
           return (
             <polygon
               key={hex.id}
+              ref={(el) => { if (el) polygonsRef.current[idx] = el; }}
               points={getHexPoints(hex.cx, hex.cy, r - 1.5)} // slight gap between hexagons
               fill="#00e05a"
               stroke="#00e05a"
               strokeWidth="1"
               style={{
-                fillOpacity,
-                strokeOpacity,
-                transition: 'fill-opacity 0.25s ease-out, stroke-opacity 0.25s ease-out',
+                fillOpacity: hex.baseOpacity * 0.03,
+                strokeOpacity: hex.baseOpacity * 0.12,
+                transformOrigin: `${hex.cx}px ${hex.cy}px`,
+                transform: 'scale(1)',
+                transition: 'fill-opacity 0.15s ease, stroke-opacity 0.15s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease',
               }}
             />
           );
@@ -110,4 +256,4 @@ export const InteractiveHexGrid: React.FC<InteractiveHexGridProps> = ({ heroMous
       </svg>
     </div>
   );
-};
+});

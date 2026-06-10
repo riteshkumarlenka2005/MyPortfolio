@@ -240,7 +240,7 @@ export const HeroSection: React.FC = () => {
             className="relative min-h-screen flex items-center overflow-hidden"
         >
             {/* Interactive Hexagonal Grid background layer */}
-            <InteractiveHexGrid heroMousePos={mousePos} heroWidth={heroWidth} />
+            <InteractiveHexGrid />
 
             {/* Premium animated curved background lines */}
             <HeroCurves />
