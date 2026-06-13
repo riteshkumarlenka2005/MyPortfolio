@@ -79,36 +79,65 @@ const PROJECTS: Project[] = [
 ];
 
 const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
-    const [visible, setVisible] = useState(false);
+    const containerRef = React.useRef<HTMLElement>(null);
+    const contentRef = React.useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setVisible(true);
-                }
-            },
-            { threshold: 0.1 }
-        );
+    React.useEffect(() => {
+        let ticking = false;
 
-        const element = document.getElementById(`project-${project.id}`);
-        if (element) observer.observe(element);
+        const updatePosition = () => {
+            if (!containerRef.current || !contentRef.current) return;
+            // Use the untransformed container to track scroll. 
+            // This prevents CSS transforms from corrupting scroll position tracking!
+            const rect = containerRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            const triggerPoint = windowHeight - 50;
+            const revealDistance = windowHeight * 0.7; 
+            
+            const rawProgress = (triggerPoint - rect.top) / revealDistance;
+            const progress = Math.max(0, Math.min(1, rawProgress));
 
-        return () => observer.disconnect();
-    }, [project.id]);
+            const opacity = progress;
+            const translateY = 150 * (1 - progress);
+            const scale = 0.95 + (0.05 * progress);
+
+            contentRef.current.style.opacity = opacity.toFixed(3);
+            contentRef.current.style.transform = `translateY(${translateY.toFixed(2)}px) scale(${scale.toFixed(3)})`;
+            
+            ticking = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updatePosition);
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        updatePosition(); 
+
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     const isEven = index % 2 === 0;
 
     return (
         <section
+            ref={containerRef}
             id={`project-${project.id}`}
-            className={`
-        relative py-20 md:py-32 border-b border-parchment-400/20 dark:border-antique-200/10
-        transition-all duration-1000 ease-out
-        ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-      `}
+            className="relative py-20 md:py-32 border-b border-parchment-400/20 dark:border-antique-200/10 overflow-hidden"
         >
-            {/* Large Background Number */}
+            <div
+                ref={contentRef}
+                style={{
+                    opacity: 0,
+                    transform: 'translateY(150px) scale(0.95)',
+                    willChange: 'opacity, transform',
+                }}
+            >
+                {/* Large Background Number */}
             <div className={`
         absolute top-8 ${isEven ? 'right-8 md:right-16' : 'left-8 md:left-16'}
         font-display text-[8rem] md:text-[12rem] leading-none
@@ -213,6 +242,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     );
