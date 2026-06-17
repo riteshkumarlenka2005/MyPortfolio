@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ScrollNavbar } from '../components/ScrollNavbar';
+
 import { HeritageFrame } from '../components/HeritageFrame';
 import { ThreeBackground } from '../components/ThreeBackground';
 import { ProjectStackSection } from '../components/ProjectStackSection';
 
-import { HeroSection } from '../components/HeroSection';
+import { BionicHero } from '../components/BionicHero';
+import { SplitReveal } from '../components/SplitReveal';
 import { CertificationsCarousel } from '../components/CertificationsCarousel';
 import { SkillsSection } from '../components/SkillsSection';
 import { InteractiveFooter } from '../components/InteractiveFooter';
@@ -187,19 +188,24 @@ export const HomePage: React.FC = () => {
             {/* 3D Background */}
             <ThreeBackground />
 
-            <ScrollNavbar />
+            {/* ═══════════════════════════════════════════════════════════════ */}
+            {/* SPLIT REVEAL - Covers entire site */}
+            {/* ═══════════════════════════════════════════════════════════════ */}
+            <SplitReveal>
+
+
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* HERO SECTION - Living Identity System */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <HeroSection />
+            <BionicHero />
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* ABOUT PREVIEW SECTION */}
             {/* ═══════════════════════════════════════════════════════════════ */}
             <section
-                ref={aboutRef}
-                id="about-section"
+                    ref={aboutRef}
+                    id="about-section"
                 className="relative py-32 px-6 md:px-12 overflow-hidden"
             >
                 {/* Background decorative elements */}
@@ -654,6 +660,8 @@ export const HomePage: React.FC = () => {
 
             {/* Decorative Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-900/10 to-transparent pointer-events-none z-50" />
+            
+            </SplitReveal>
         </div>
     );
 };

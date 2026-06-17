@@ -9,10 +9,13 @@ import { JourneyPage } from './pages/JourneyPage';
 import { AutobiographyPage } from './pages/AutobiographyPage';
 import { ContactPage } from './pages/ContactPage';
 import { ResourcesPage } from './pages/ResourcesPage';
+import { PremiumLoader } from './components/PremiumLoader';
 
 function App() {
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100">
+    <>
+      <PremiumLoader />
+      <div id="main-content" className="relative min-h-screen w-full overflow-x-hidden selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -25,6 +28,7 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </div>
+    </>
   );
 }
 
