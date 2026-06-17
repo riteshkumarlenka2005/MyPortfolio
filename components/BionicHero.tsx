@@ -228,6 +228,7 @@ const CodeSidebar = () => {
 };
 
 export const BionicHero: React.FC = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     return (
         <section className="w-full h-screen bg-black flex items-center justify-center font-sans overflow-hidden">
             <div className="w-full h-full bg-[#f0f0f4] p-3 lg:p-5 flex flex-col lg:flex-row gap-4 shadow-2xl overflow-hidden relative">
@@ -258,13 +259,46 @@ export const BionicHero: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Mobile Image Fallback with Navbar (Hidden on Desktop, Shows at Top on Mobile) */}
+                <div className="lg:hidden w-full h-[350px] rounded-[32px] overflow-hidden relative mb-2 flex-shrink-0 z-50 shadow-2xl">
+                    <img src="/BackgroundPhoto.png" className="w-full h-full object-cover" alt="Hero" />
+                    
+                    {/* Hamburger Menu Button */}
+                    <button 
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="absolute top-4 right-4 w-11 h-11 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20 z-50 hover:bg-black/60 transition-colors"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            {isMobileMenuOpen 
+                                ? <path d="M18 6L6 18M6 6l12 12" /> 
+                                : <path d="M4 12h16M4 6h16M4 18h16" />
+                            }
+                        </svg>
+                    </button>
+
+                    {/* Mobile Menu Dropdown */}
+                    {isMobileMenuOpen && (
+                        <div className="absolute top-16 right-4 bg-black/80 backdrop-blur-xl border border-white/20 rounded-2xl p-5 flex flex-col gap-4 z-50 min-w-[180px] shadow-2xl animate-fade-in-up">
+                             {[{ label: 'Home', path: '/' }, { label: 'About', path: '/about' }, { label: 'Projects', path: '/projects' }, { label: 'Resources', path: '/resources' }].map((item) => (
+                                <Link key={item.label} to={item.path} className="text-white/90 hover:text-white text-sm font-semibold tracking-widest transition-all">
+                                    {item.label}
+                                </Link>
+                            ))}
+                            <div className="h-px w-full bg-white/20 my-1" />
+                            <button className="text-left text-white text-sm font-semibold tracking-widest hover:text-[#ccff00] transition-colors">
+                                Contact Us
+                            </button>
+                        </div>
+                    )}
+                </div>
+
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 {/* LEFT CONTENT — Glassmorphic Bento Cards                       */}
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 <div className="flex-1 lg:max-w-[50%] h-full flex flex-col justify-between pt-1 pb-4 px-2 lg:pr-6 lg:pl-0 z-10 relative">
 
-                    {/* Top Info Card */}
-                    <div className="bg-white/5 backdrop-blur-md rounded-[28px] p-4 flex gap-4 xl:gap-5 shadow-sm border border-white/10 max-w-[420px] animate-fade-in-up lg:-ml-2 text-white">
+                    {/* Top Info Card (Hidden on Mobile) */}
+                    <div className="hidden lg:flex bg-white/5 backdrop-blur-md rounded-[28px] p-4 gap-4 xl:gap-5 shadow-sm border border-white/10 max-w-[420px] animate-fade-in-up lg:-ml-2 text-white">
                         <div className="w-20 h-24 xl:w-24 xl:h-28 rounded-2xl overflow-hidden bg-gray-800 flex-shrink-0">
                             <img src="/BackgroundPhoto.png" className="w-full h-full object-cover filter grayscale contrast-125" alt="Tech" />
                         </div>
@@ -357,10 +391,7 @@ export const BionicHero: React.FC = () => {
                     </nav>
                 </div>
 
-                {/* Mobile Image Fallback (Hidden on Desktop) */}
-                <div className="lg:hidden w-full h-[300px] rounded-[32px] overflow-hidden mt-8 relative">
-                    <img src="/BackgroundPhoto.png" className="w-full h-full object-cover" alt="Hero" />
-                </div>
+                {/* Mobile image fallback has been moved to the top */}
 
             </div>
         </section>
