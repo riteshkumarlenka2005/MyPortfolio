@@ -260,7 +260,7 @@ export const BionicHero: React.FC = () => {
                 </div>
 
                 {/* Mobile Image Fallback with Navbar (Hidden on Desktop, Shows at Top on Mobile) */}
-                <div className="lg:hidden w-full h-[350px] rounded-[32px] overflow-hidden relative mb-2 flex-shrink-0 z-50 shadow-2xl">
+                <div className="lg:hidden w-full h-[220px] rounded-[32px] overflow-hidden relative flex-shrink-0 z-50 shadow-2xl">
                     <img src="/BackgroundPhoto.png" className="w-full h-full object-cover" alt="Hero" />
                     
                     {/* Hamburger Menu Button */}
@@ -316,9 +316,9 @@ export const BionicHero: React.FC = () => {
                     </div>
 
                     {/* Premium Typography Focal Point */}
-                    <div className="flex flex-col justify-center flex-1 py-8 px-4 lg:px-0 lg:-ml-2 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
+                    <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-2 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
                         <TypewriterEffect />
-                        <p className="mt-8 text-gray-300 font-serif text-lg md:text-xl max-w-[420px] leading-relaxed tracking-wide opacity-90 font-light">
+                        <p className="hidden lg:block mt-8 text-gray-300 font-serif text-lg md:text-xl max-w-[420px] leading-relaxed tracking-wide opacity-90 font-light">
                             Building intelligent digital experiences through modern web development, artificial intelligence, and thoughtful engineering.
                         </p>
                     </div>
