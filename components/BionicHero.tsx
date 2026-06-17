@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { NeuralPattern } from './NeuralPattern';
 
@@ -70,9 +70,10 @@ const TypewriterEffect = () => {
     );
 };
 
-const OrganicImageShape = ({ src }: { src: string }) => {
+const OrganicImageShape = ({ src, scale = 1 }: { src: string, scale?: number }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [dim, setDim] = useState({ w: 0, h: 0 });
+    const maskId = useMemo(() => `organic-mask-${Math.random().toString(36).substr(2, 9)}`, []);
 
     useEffect(() => {
         const observer = new ResizeObserver((entries) => {
@@ -89,21 +90,22 @@ const OrganicImageShape = ({ src }: { src: string }) => {
 
     const { w, h } = dim;
     const k = 0.55228;
+    const s = scale;
 
     // Outer corner radii
-    const tlR = 40;
-    const brR = 40;
+    const tlR = 40 * s;
+    const brR = 40 * s;
 
     // Top-Right pill-shaped pocket
-    const trW = 145;
-    const trH = 60;
-    const trF = 20; // Outer convex fillet blending into the top edge
-    const trR = 20; // Inner concave corner of the pocket
+    const trW = 145 * s;
+    const trH = 60 * s;
+    const trF = 20 * s; // Outer convex fillet blending into the top edge
+    const trR = 20 * s; // Inner concave corner of the pocket
 
     // Bottom-Left notch
-    const blW = 100;
-    const blH = 100;
-    const blF = 40; // Convex fillet blending into the notch
+    const blW = 100 * s;
+    const blH = 100 * s;
+    const blF = 40 * s; // Convex fillet blending into the notch
 
     let path = '';
     if (w > 0 && h > 0) {
@@ -133,15 +135,15 @@ const OrganicImageShape = ({ src }: { src: string }) => {
     }
 
     return (
-        <div ref={containerRef} className="relative w-full h-full pointer-events-none z-0">
-            <svg width="0" height="0">
-                <clipPath id="organic-mask">
+        <div ref={containerRef} className="absolute inset-0 pointer-events-none z-0">
+            <svg width="0" height="0" className="absolute">
+                <clipPath id={maskId}>
                     <path d={path} fill="black" />
                 </clipPath>
             </svg>
             <div
                 className="absolute inset-0 overflow-hidden"
-                style={{ clipPath: 'url(#organic-mask)', WebkitClipPath: 'url(#organic-mask)' }}
+                style={{ clipPath: `url(#${maskId})`, WebkitClipPath: `url(#${maskId})` }}
             >
                 <img src={src} className="w-full h-full object-cover" alt="Hero" />
             </div>
@@ -260,15 +262,15 @@ export const BionicHero: React.FC = () => {
                 </div>
 
                 {/* Mobile Image Fallback with Navbar (Hidden on Desktop, Shows at Top on Mobile) */}
-                <div className="lg:hidden w-full h-[220px] rounded-[32px] overflow-hidden relative flex-shrink-0 z-50 shadow-2xl">
-                    <img src="/BackgroundPhoto.png" className="w-full h-full object-cover" alt="Hero" />
+                <div className="lg:hidden w-full h-[220px] relative flex-shrink-0 z-50 mb-4">
+                    <OrganicImageShape src="/BackgroundPhoto.png" scale={0.7} />
                     
-                    {/* Hamburger Menu Button */}
+                    {/* Hamburger Menu Button - Positions precisely into the organic cutout pocket */}
                     <button 
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="absolute top-4 right-4 w-11 h-11 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20 z-50 hover:bg-black/60 transition-colors"
+                        className="absolute top-[6px] right-[8px] w-9 h-9 bg-black backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-[#ccff00] hover:text-black transition-colors z-50 shadow-lg border border-white/10"
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             {isMobileMenuOpen 
                                 ? <path d="M18 6L6 18M6 6l12 12" /> 
                                 : <path d="M4 12h16M4 6h16M4 18h16" />
@@ -318,7 +320,7 @@ export const BionicHero: React.FC = () => {
                     {/* Premium Typography Focal Point */}
                     <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-2 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
                         <TypewriterEffect />
-                        <p className="hidden lg:block mt-8 text-gray-300 font-serif text-lg md:text-xl max-w-[420px] leading-relaxed tracking-wide opacity-90 font-light">
+                        <p className="mt-4 lg:mt-8 text-gray-300 font-serif text-base lg:text-xl max-w-[420px] leading-relaxed tracking-wide opacity-90 font-light">
                             Building intelligent digital experiences through modern web development, artificial intelligence, and thoughtful engineering.
                         </p>
                     </div>
