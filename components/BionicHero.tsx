@@ -378,24 +378,13 @@ export const BionicHero: React.FC = () => {
                     {/* The dynamically generated organic clip-path image component */}
                     <OrganicImageShape src="/BackgroundPhoto.png" />
 
-                    {/* Contact Us Button (sits inside the horizontal organic top-right concave pocket) */}
-                    <button className="absolute top-[10px] right-[12px] px-6 py-[10px] bg-black border-[1.5px] border-white/30 rounded-full flex items-center justify-center text-white text-[10px] font-medium tracking-[0.05em] hover:bg-white hover:text-black hover:border-white transition-all cursor-pointer shadow-xl z-20">
-                        Contact Us
-                    </button>
-
-                    {/* Top Center Navigation Buttons */}
-                    <nav className="absolute top-[12px] left-[30%] lg:left-[40%] -translate-x-1/2 flex items-center gap-4 bg-[#111111]/90 backdrop-blur-md px-8 py-2 rounded-full z-20 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-                        {[{ label: 'Home', path: '/' }, { label: 'About', path: '/about' }, { label: 'Projects', path: '/projects' }, { label: 'Resources', path: '/resources' }].map((item) => (
-                            <Link key={item.label} to={item.path} className="px-6 py-2 rounded-full text-white/80 hover:text-white text-xs font-semibold tracking-widest transition-all">
-                                {item.label}
-                            </Link>
-                        ))}
-                    </nav>
                 </div>
 
                 {/* Mobile image fallback has been moved to the top */}
 
             </div>
+
+
         </section>
     );
 };

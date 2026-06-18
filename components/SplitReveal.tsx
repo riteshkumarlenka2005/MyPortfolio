@@ -26,7 +26,7 @@ export const SplitReveal: React.FC<SplitRevealProps> = ({ children }) => {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top top",
-                    end: "+=150%", // Pins for 1.5x viewport height to scrub the animation smoothly
+                    end: () => "+=" + (window.innerHeight * 1.5), // Pins for 1.5x viewport height to scrub the animation smoothly
                     scrub: 1.5, // High smooth interpolation
                     pin: true,
                 }
@@ -116,7 +116,7 @@ export const SplitReveal: React.FC<SplitRevealProps> = ({ children }) => {
     );
 
     return (
-        <div ref={containerRef} className="relative w-full bg-black">
+        <div ref={containerRef} data-split-reveal className="relative w-full bg-black">
             
             {/* The Revealed Content */}
             {/* This div flows naturally taking up however much height the children need */}

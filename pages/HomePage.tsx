@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import { HeritageFrame } from '../components/HeritageFrame';
 import { ThreeBackground } from '../components/ThreeBackground';
@@ -141,6 +146,66 @@ export const HomePage: React.FC = () => {
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
+    // Set up Lenis for ultra-smooth native scrolling
+    // DELAYED until PremiumLoader finishes so Lenis doesn't fight the loader's scroll lock
+    useEffect(() => {
+        let lenis: Lenis | null = null;
+        let rafId: number | null = null;
+
+        const initLenis = () => {
+            lenis = new Lenis({
+                lerp: 0.05,
+                smoothWheel: true,
+                wheelMultiplier: 0.8,
+                touchMultiplier: 1.5,
+            });
+
+            lenis.on('scroll', ScrollTrigger.update);
+
+            const update = (time: number) => {
+                lenis!.raf(time * 1000);
+            };
+
+            gsap.ticker.add(update);
+            gsap.ticker.lagSmoothing(0);
+
+            // Store for cleanup
+            rafId = update as unknown as number;
+        };
+
+        // Wait for the PremiumLoader to be removed from DOM
+        const loaderEl = document.querySelector('.z-\\[10000\\]');
+        if (!loaderEl) {
+            // Loader already gone, start immediately
+            initLenis();
+        } else {
+            // Watch for loader removal
+            const observer = new MutationObserver(() => {
+                const stillThere = document.querySelector('.z-\\[10000\\]');
+                if (!stillThere) {
+                    observer.disconnect();
+                    initLenis();
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+
+            return () => {
+                observer.disconnect();
+                if (lenis) {
+                    lenis.destroy();
+                    if (rafId !== null) gsap.ticker.remove(rafId as any);
+                }
+            };
+        }
+
+        return () => {
+            if (lenis) {
+                lenis.destroy();
+                if (rafId !== null) gsap.ticker.remove(rafId as any);
+            }
+        };
+    }, []);
+
     // Intersection Observer for scroll animations
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -183,10 +248,65 @@ export const HomePage: React.FC = () => {
     // Calculate parallax offset
     const getParallaxOffset = (factor: number) => scrollY * factor;
 
+    // GSAP scroll animations: hero sinks down, sections rise up
+    // Delayed to run AFTER SplitReveal's ScrollTrigger pin is established
+    useEffect(() => {
+        let ctx: gsap.Context;
+        const timer = setTimeout(() => {
+            // Refresh so GSAP knows about the SplitReveal pin spacer
+            ScrollTrigger.refresh();
+
+            ctx = gsap.context(() => {
+                // Hero parallax sink — pushes downward + fades + scales down as you scroll past
+                const heroEl = document.querySelector('[data-scroll-hero]');
+                if (heroEl) {
+                    gsap.to(heroEl, {
+                        y: 300,
+                        scale: 0.92,
+                        opacity: 0.3,
+                        ease: 'none',
+                        force3D: true, // Hardware acceleration
+                        autoRound: false, // Prevent pixel-snapping jitter
+                        willChange: 'transform', // Hint to browser
+                        scrollTrigger: {
+                            trigger: heroEl,
+                            // Offset start and end by exactly the SplitReveal pin duration (1.5x viewport height)
+                            start: () => `top+=${window.innerHeight * 1.5} top`,
+                            end: () => `bottom+=${window.innerHeight * 1.5} top`,
+                            scrub: 1.5, // Extreme smoothing for parallax weight
+                        },
+                    });
+                }
+            });
+
+            // Final refresh to lock in correct positions
+            ScrollTrigger.refresh();
+        }, 500); // Wait for SplitReveal's useEffect + pin spacer to be created
+
+        return () => {
+            clearTimeout(timer);
+            if (ctx) ctx.revert();
+        };
+    }, []);
+
     return (
         <div className="min-h-screen bg-parchment-100 dark:bg-antique-50 text-parchment-900 dark:text-antique-800 transition-colors duration-500 overflow-x-hidden" style={{backgroundColor: '#000000', color: '#e0e0e0'}}>
             {/* 3D Background */}
             <ThreeBackground />
+
+            {/* Global Fixed Desktop Navigation — positioned to match original location over right image */}
+            <nav className="hidden lg:flex fixed top-[28px] right-[175px] items-center gap-4 bg-[#111111]/90 backdrop-blur-md px-8 py-2 rounded-full z-[100] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                {[{ label: 'Home', path: '/' }, { label: 'About', path: '/about' }, { label: 'Projects', path: '/projects' }, { label: 'Resources', path: '/resources' }].map((item) => (
+                    <Link key={item.label} to={item.path} className="px-6 py-2 rounded-full text-white/80 hover:text-white text-xs font-semibold tracking-widest transition-all">
+                        {item.label}
+                    </Link>
+                ))}
+            </nav>
+
+            {/* Global Fixed Contact Us Button — top-right corner */}
+            <button className="hidden lg:flex fixed top-[30px] right-[28px] px-6 py-[10px] bg-black border-[1.5px] border-white/30 rounded-full items-center justify-center text-white text-[10px] font-medium tracking-[0.05em] hover:bg-white hover:text-black hover:border-white transition-all cursor-pointer shadow-xl z-[100]">
+                Contact Me
+            </button>
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* SPLIT REVEAL - Covers entire site */}
@@ -198,14 +318,18 @@ export const HomePage: React.FC = () => {
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* HERO SECTION - Living Identity System */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <BionicHero />
+            <div data-scroll-hero>
+                <BionicHero />
+            </div>
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* ABOUT PREVIEW SECTION */}
             {/* ═══════════════════════════════════════════════════════════════ */}
+            <div className="relative z-10 bg-[#000000]">
             <section
                     ref={aboutRef}
                     id="about-section"
+                    data-scroll-section
                 className="relative py-32 px-6 md:px-12 overflow-hidden"
             >
                 {/* Background decorative elements */}
@@ -326,17 +450,23 @@ export const HomePage: React.FC = () => {
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* STATE A: Scroll-Locked Stacked Project Slides */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <ProjectStackSection onStateChange={(active) => console.log('State A active:', active)} />
+            <div data-scroll-section>
+                <ProjectStackSection onStateChange={(active) => console.log('State A active:', active)} />
+            </div>
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* MY SKILLS SECTION */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <SkillsSection />
+            <div data-scroll-section>
+                <SkillsSection />
+            </div>
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* CERTIFICATIONS CAROUSEL */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <CertificationsCarousel />
+            <div data-scroll-section>
+                <CertificationsCarousel />
+            </div>
 
 
 
@@ -346,6 +476,7 @@ export const HomePage: React.FC = () => {
             <section
                 ref={expertiseRef}
                 id="expertise-section"
+                data-scroll-section
                 className="relative py-32 px-6 md:px-12"
             >
                 <div className="max-w-6xl mx-auto">
@@ -405,6 +536,7 @@ export const HomePage: React.FC = () => {
             <section
                 ref={statsRef}
                 id="stats-section"
+                data-scroll-section
                 className="relative py-24 px-6 md:px-12 bg-parchment-900 dark:bg-antique-800 text-parchment-100 dark:text-antique-100"
             >
                 {/* Decorative overlay */}
@@ -446,6 +578,7 @@ export const HomePage: React.FC = () => {
             {/* ═══════════════════════════════════════════════════════════════ */}
             <section
                 id="motivation-section"
+                data-scroll-section
                 className="relative py-32 px-6 md:px-12 bg-parchment-900 dark:bg-antique-800 text-parchment-100 dark:text-antique-100 overflow-hidden"
             >
                 {/* Background pattern */}
@@ -516,6 +649,7 @@ export const HomePage: React.FC = () => {
             {/* ═══════════════════════════════════════════════════════════════ */}
             <section
                 id="insights-section"
+                data-scroll-section
                 className="relative py-32 px-6 md:px-12"
             >
                 <div className="max-w-4xl mx-auto">
@@ -615,6 +749,7 @@ export const HomePage: React.FC = () => {
             <section
                 ref={ctaRef}
                 id="cta-section"
+                data-scroll-section
                 className="relative py-32 px-6 md:px-12"
             >
                 <div
@@ -657,6 +792,7 @@ export const HomePage: React.FC = () => {
             {/* FOOTER */}
             {/* ═══════════════════════════════════════════════════════════════ */}
             <InteractiveFooter />
+            </div>
 
             {/* Decorative Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-900/10 to-transparent pointer-events-none z-50" />
