@@ -238,11 +238,11 @@ export const BionicHero: React.FC = () => {
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 {/* DARK GRADIENT AND NEURAL PATTERN BACKGROUND */}
                 {/* ═══════════════════════════════════════════════════════════════ */}
-                <div className="absolute inset-y-0 left-0 w-full lg:w-[70%] xl:w-[65%] pointer-events-none z-0">
+                <div className="absolute inset-y-0 left-0 w-full lg:w-[75%] xl:w-[70%] pointer-events-none z-0">
                     {/* Base linear gradient from pure black to transparent */}
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 45%, rgba(0,0,0,0) 100%)' }} />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%)' }} />
                     {/* Deep radial dark core on the far left for extra intensity */}
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_50%,rgba(0,0,0,1)_0%,rgba(0,0,0,0.95)_50%,transparent_100%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_0%_50%,rgba(0,0,0,1)_0%,rgba(0,0,0,0.98)_60%,transparent_100%)]" />
                     {/* Colored Dot Pattern Layer */}
                     <NeuralPattern />
                 </div>
@@ -301,8 +301,8 @@ export const BionicHero: React.FC = () => {
 
                     {/* Top Info Card (Hidden on Mobile) */}
                     <div className="hidden lg:flex bg-white/5 backdrop-blur-md rounded-[28px] p-4 gap-4 xl:gap-5 shadow-sm border border-white/10 max-w-[420px] animate-fade-in-up lg:-ml-2 text-white">
-                        <div className="w-20 h-24 xl:w-24 xl:h-28 rounded-2xl overflow-hidden bg-gray-800 flex-shrink-0">
-                            <img src="/BackgroundPhoto.png" className="w-full h-full object-cover filter grayscale contrast-125" alt="Tech" />
+                        <div className="w-20 h-24 xl:w-24 xl:h-28 rounded-2xl overflow-hidden bg-black flex-shrink-0 flex items-center justify-center">
+                            <img src="/logo.png" className="w-full h-full object-cover scale-[1.35] translate-y-2" alt="Logo" />
                         </div>
                         <div className="flex flex-col justify-between py-1">
                             <p className="text-[11px] xl:text-xs leading-[1.4] font-medium text-gray-300">
@@ -320,7 +320,7 @@ export const BionicHero: React.FC = () => {
                     {/* Premium Typography Focal Point */}
                     <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-2 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
                         <TypewriterEffect />
-                        <p className="mt-4 lg:mt-8 text-gray-300 font-serif text-base lg:text-xl max-w-[420px] leading-relaxed tracking-wide opacity-90 font-light">
+                        <p className="mt-4 lg:mt-8 text-white font-serif text-base lg:text-xl max-w-[420px] leading-relaxed tracking-wide">
                             Building intelligent digital experiences through modern web development, artificial intelligence, and thoughtful engineering.
                         </p>
                     </div>
