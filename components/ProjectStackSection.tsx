@@ -245,7 +245,7 @@ export const ProjectStackSection: React.FC<ProjectStackSectionProps> = ({ onStat
       {typeof document !== 'undefined' && createPortal(
         <div 
           ref={cursorRef}
-          className={`fixed top-0 left-0 w-[96px] h-[96px] rounded-full pointer-events-none z-[999999] transition-opacity duration-300 ${isHoveringCard ? 'opacity-100' : 'opacity-0'}`}
+          className={`hidden md:block fixed top-0 left-0 w-[96px] h-[96px] rounded-full pointer-events-none z-[999999] transition-opacity duration-300 ${isHoveringCard ? 'opacity-100' : 'opacity-0'}`}
           style={{
             backdropFilter: 'brightness(1.1) contrast(1.1) saturate(1.1)',
             WebkitBackdropFilter: 'brightness(1.1) contrast(1.1) saturate(1.1)',
