@@ -15,7 +15,7 @@ export const GlobalNavbar: React.FC = () => {
             {/* Logo / Brand Name */}
             <Link 
                 to="/" 
-                className="fixed top-[30px] left-[40px] z-[100] mix-blend-difference text-white text-lg font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-70"
+                className="fixed top-[30px] left-[20px] md:left-[40px] z-[100] mix-blend-difference text-white text-lg font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-70"
             >
                 ARCHIVIST
             </Link>
@@ -25,9 +25,9 @@ export const GlobalNavbar: React.FC = () => {
               Separated into its own fixed container so mix-blend-difference can interact directly with the page background.
               The extra padding (pb-8, pl-8) creates an invisible hover bridge to the dropdown.
             */}
-            <div className="fixed top-[20px] right-[20px] pt-[10px] pr-[20px] pb-[20px] pl-[20px] z-[100] mix-blend-difference text-white cursor-pointer text-lg font-medium tracking-wide flex items-center justify-end gap-3 transition-opacity hover:opacity-80">
-                <span>Menu</span>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className="fixed top-[15px] right-[15px] md:top-[20px] md:right-[20px] p-2 md:pt-[10px] md:pr-[20px] md:pb-[20px] md:pl-[20px] z-[100] mix-blend-normal md:mix-blend-difference text-white cursor-pointer text-lg font-medium tracking-wide flex items-center justify-end gap-3 transition-opacity hover:opacity-80 bg-black/80 backdrop-blur-md md:bg-transparent md:backdrop-blur-none rounded-full md:rounded-none border border-white/10 md:border-transparent">
+                <span className="hidden sm:inline-block">Menu</span>
+                <svg width="24" height="24" className="md:w-[28px] md:h-[28px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -35,7 +35,7 @@ export const GlobalNavbar: React.FC = () => {
             </div>
 
             {/* Dropdown Menu Container */}
-            <div className="fixed top-[70px] right-[40px] z-[99] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right group-hover:translate-y-0 translate-y-2">
+            <div className="fixed top-[70px] right-[20px] md:right-[40px] z-[99] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right group-hover:translate-y-0 translate-y-2">
                 <div className="w-[280px] bg-[#0a0a0a]/70 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col">
                         {navItems.map((item, index) => (
                             <Link 

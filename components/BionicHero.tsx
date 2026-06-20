@@ -260,36 +260,10 @@ export const BionicHero: React.FC = () => {
                 </div>
 
                 {/* Mobile Image Fallback with Navbar (Hidden on Desktop, Shows at Top on Mobile) */}
-                <div className="lg:hidden w-full h-[220px] relative flex-shrink-0 z-50 mb-4">
+                <div className="lg:hidden w-full h-[220px] relative flex-shrink-0 z-50 mb-4 mt-2">
                     <OrganicImageShape src="/BackgroundPhoto.png" scale={0.7} />
                     
-                    {/* Hamburger Menu Button - Positions precisely into the organic cutout pocket */}
-                    <button 
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="absolute top-[6px] right-[8px] w-9 h-9 bg-black backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-[#ccff00] hover:text-black transition-colors z-50 shadow-lg border border-white/10"
-                    >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            {isMobileMenuOpen 
-                                ? <path d="M18 6L6 18M6 6l12 12" /> 
-                                : <path d="M4 12h16M4 6h16M4 18h16" />
-                            }
-                        </svg>
-                    </button>
-
-                    {/* Mobile Menu Dropdown */}
-                    {isMobileMenuOpen && (
-                        <div className="absolute top-16 right-4 bg-black/80 backdrop-blur-xl border border-white/20 rounded-2xl p-5 flex flex-col gap-4 z-50 min-w-[180px] shadow-2xl animate-fade-in-up">
-                             {[{ label: 'Home', path: '/' }, { label: 'About', path: '/about' }, { label: 'Projects', path: '/projects' }, { label: 'Resources', path: '/resources' }].map((item) => (
-                                <Link key={item.label} to={item.path} className="text-white/90 hover:text-white text-sm font-semibold tracking-widest transition-all">
-                                    {item.label}
-                                </Link>
-                            ))}
-                            <div className="h-px w-full bg-white/20 my-1" />
-                            <button className="text-left text-white text-sm font-semibold tracking-widest hover:text-[#ccff00] transition-colors">
-                                Contact Us
-                            </button>
-                        </div>
-                    )}
+                    {/* Hamburger Menu Button and Dropdown removed in favor of GlobalNavbar */}
                 </div>
 
                 {/* ═══════════════════════════════════════════════════════════════ */}
