@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ScrollNavbar } from '../components/ScrollNavbar';
-import { HeritageFrame } from '../components/HeritageFrame';
+
+
 
 
 
@@ -127,8 +127,8 @@ export const ProjectDetailPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-parchment-100 dark:bg-antique-50 text-parchment-900 dark:text-antique-800 transition-colors duration-500">
-            <HeritageFrame />
-            <ScrollNavbar />
+
+
 
             {/* Hero Section */}
             <header className={`

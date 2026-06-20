@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollNavbar } from '../components/ScrollNavbar';
-import { HeritageFrame } from '../components/HeritageFrame';
+
+
 
 // Social links - customize with your actual links
 const SOCIAL_LINKS = [
@@ -48,8 +48,8 @@ export const ContactPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-parchment-100 dark:bg-antique-50 text-parchment-900 dark:text-antique-800 transition-colors duration-500">
-            <HeritageFrame />
-            <ScrollNavbar />
+
+
 
             {/* Main Content */}
             <main className={`

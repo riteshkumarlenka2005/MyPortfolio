@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ScrollNavbar } from '../components/ScrollNavbar';
+
 import { JourneyRopePhysics, Attachment } from '../components/JourneyRopePhysics';
 import { StarfieldBackground } from '../components/StarfieldBackground';
 import { Link } from 'react-router-dom';
@@ -222,7 +222,7 @@ export const JourneyPage: React.FC = () => {
         <StarfieldBackground starCount={320} />
       </div>
 
-      <ScrollNavbar />
+
 
       {/* ═══════ HERO SECTION ═══════ */}
       <div className="relative w-full pt-28 sm:pt-32 md:pt-40 pb-6 sm:pb-8 md:pb-12 text-center z-20 px-5">

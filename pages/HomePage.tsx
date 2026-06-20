@@ -6,7 +6,7 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-import { HeritageFrame } from '../components/HeritageFrame';
+
 import { ThreeBackground } from '../components/ThreeBackground';
 import { ProjectStackSection } from '../components/ProjectStackSection';
 
@@ -294,19 +294,7 @@ export const HomePage: React.FC = () => {
             {/* 3D Background */}
             <ThreeBackground />
 
-            {/* Global Fixed Desktop Navigation — positioned to match original location over right image */}
-            <nav className="hidden lg:flex fixed top-[28px] right-[175px] items-center gap-4 bg-[#111111]/90 backdrop-blur-md px-8 py-2 rounded-full z-[100] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-                {[{ label: 'Home', path: '/' }, { label: 'About', path: '/about' }, { label: 'Projects', path: '/projects' }, { label: 'Resources', path: '/resources' }].map((item) => (
-                    <Link key={item.label} to={item.path} className="px-6 py-2 rounded-full text-white/80 hover:text-white text-xs font-semibold tracking-widest transition-all">
-                        {item.label}
-                    </Link>
-                ))}
-            </nav>
 
-            {/* Global Fixed Contact Us Button — top-right corner */}
-            <button className="hidden lg:flex fixed top-[30px] right-[28px] px-6 py-[10px] bg-black border-[1.5px] border-white/30 rounded-full items-center justify-center text-white text-[10px] font-medium tracking-[0.05em] hover:bg-white hover:text-black hover:border-white transition-all cursor-pointer shadow-xl z-[100]">
-                Contact Me
-            </button>
 
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* SPLIT REVEAL - Covers entire site */}

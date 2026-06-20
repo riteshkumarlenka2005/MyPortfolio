@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ScrollNavbar } from '../components/ScrollNavbar';
+
 import { jsPDF } from 'jspdf';
 
 interface PageSection {
@@ -1160,7 +1160,7 @@ export const AutobiographyPage: React.FC = () => {
         ${pageLoaded ? 'opacity-100' : 'opacity-0'}
       `}
         >
-            <ScrollNavbar />
+
 
             {/* Autobiography sections */}
             <main>

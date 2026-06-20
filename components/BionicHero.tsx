@@ -250,15 +250,13 @@ export const BionicHero: React.FC = () => {
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 {/* LEFT SIDEBAR (Black Pill) */}
                 {/* ═══════════════════════════════════════════════════════════════ */}
-                <div className="hidden lg:flex w-20 xl:w-24 h-full bg-[#0a0a0a] rounded-[40px] flex-col items-center justify-between py-6 flex-shrink-0 z-10 relative shadow-[0_0_15px_rgba(0,255,102,0.1),_inset_0_0_10px_rgba(0,255,102,0.05)] border border-[#00ff66]/20">
+                <div className="hidden lg:flex w-20 xl:w-24 h-full bg-transparent flex-col items-center justify-between py-6 flex-shrink-0 z-10 relative">
 
                     {/* Syntax Highlighted Code Scrolling Effect */}
                     <CodeSidebar />
 
-                    {/* Bottom Profile Avatar */}
-                    <div className="w-12 h-12 rounded-full bg-[#1a1a1a] p-[2px] overflow-hidden border border-[#00ff66]/30 mt-auto z-20 shadow-[0_0_10px_rgba(0,255,102,0.15)] relative">
-                        <img src="/BackgroundPhoto.png" className="w-full h-full object-cover rounded-full filter grayscale contrast-125" alt="Profile" />
-                    </div>
+
+
                 </div>
 
                 {/* Mobile Image Fallback with Navbar (Hidden on Desktop, Shows at Top on Mobile) */}
@@ -299,34 +297,22 @@ export const BionicHero: React.FC = () => {
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 <div className="flex-1 lg:max-w-[50%] h-full flex flex-col justify-between pt-1 pb-4 px-2 lg:pr-6 lg:pl-0 z-10 relative">
 
-                    {/* Top Info Card (Hidden on Mobile) */}
-                    <div className="hidden lg:flex bg-white/5 backdrop-blur-md rounded-[28px] p-4 gap-4 xl:gap-5 shadow-sm border border-white/10 max-w-[420px] animate-fade-in-up lg:-ml-2 text-white">
-                        <div className="w-20 h-24 xl:w-24 xl:h-28 rounded-2xl overflow-hidden bg-black flex-shrink-0 flex items-center justify-center">
-                            <img src="/logo.png" className="w-full h-full object-cover scale-[1.35] translate-y-2" alt="Logo" />
-                        </div>
-                        <div className="flex flex-col justify-between py-1">
-                            <p className="text-[11px] xl:text-xs leading-[1.4] font-medium text-gray-300">
-                                This is the latest technology that allows you to build intelligent digital experiences using artificial intelligence.
-                            </p>
-                            <Link to="/projects" className="group self-start mt-4 pl-4 pr-1 py-1 border border-white/30 rounded-full text-[9px] font-bold tracking-widest flex items-center gap-3 hover:bg-white hover:text-black transition-all duration-300 text-white">
-                                EXPLORE MORE
-                                <span className="w-6 h-6 bg-white text-black rounded-full flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                                </span>
-                            </Link>
-                        </div>
+                    {/* Top Info Card (Hidden to preserve layout) */}
+                    <div className="invisible hidden lg:flex p-4 gap-4 xl:gap-5 max-w-[420px] lg:-ml-2">
+                        <div className="w-20 h-24 xl:w-24 xl:h-28 flex-shrink-0"></div>
                     </div>
 
                     {/* Premium Typography Focal Point */}
-                    <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-2 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
+                    <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-2 -mt-10 lg:-mt-20 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
+                        <h2 className="font-serif italic text-3xl lg:text-5xl text-white mb-2 tracking-wide font-medium">Hi, I'm Ritesh!</h2>
                         <TypewriterEffect />
-                        <p className="mt-4 lg:mt-8 text-white font-serif text-base lg:text-xl max-w-[420px] leading-relaxed tracking-wide">
+                        <p className="mt-2 lg:mt-4 text-white font-serif text-lg lg:text-2xl max-w-[420px] leading-relaxed tracking-wide">
                             Building intelligent digital experiences through modern web development, artificial intelligence, and thoughtful engineering.
                         </p>
                     </div>
 
                     {/* Bottom Actions Row: CTAs & Social Links */}
-                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-4 lg:gap-6 lg:-ml-2 pb-6">
+                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-4 lg:gap-6 lg:-ml-2 pb-6 translate-y-2 lg:translate-y-4">
 
                         <div className="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.25s', animationFillMode: 'both' }}>
                             <Link to="/projects" className="w-full sm:w-auto justify-center px-6 py-3 bg-[#ccff00] text-black font-bold tracking-wider rounded-full text-xs flex items-center gap-2 hover:bg-[#b3e600] transition-colors shadow-[0_0_20px_rgba(204,255,0,0.3)]">

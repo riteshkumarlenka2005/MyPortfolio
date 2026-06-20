@@ -170,7 +170,7 @@ export const RealisticBook: React.FC = () => {
                                     // Let's say 0 = closed.
 
                                     const element = document.getElementById(`sheet-${index}`);
-                                    const currentRot = gsap.getProperty(element, "rotationY");
+                                    const currentRot = gsap.getProperty(element, "rotationY") as number;
 
                                     if (currentRot < -90) {
                                         handleFlip(index, 'backward');
