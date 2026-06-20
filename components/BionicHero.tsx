@@ -270,7 +270,7 @@ export const BionicHero: React.FC = () => {
                     </div>
 
                     {/* Premium Typography Focal Point */}
-                    <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-2 -mt-10 lg:-mt-20 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
+                    <div className="flex flex-col justify-center flex-1 py-2 lg:py-8 px-4 lg:px-0 lg:-ml-12 -mt-10 lg:-mt-20 animate-fade-in-up" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
                         <h2 className="font-serif italic text-3xl lg:text-5xl text-white mb-2 tracking-wide font-medium">Hi, I'm Ritesh!</h2>
                         <TypewriterEffect />
                         <p className="mt-2 lg:mt-4 text-white font-serif text-lg lg:text-2xl max-w-[420px] leading-relaxed tracking-wide">
@@ -279,17 +279,17 @@ export const BionicHero: React.FC = () => {
                     </div>
 
                     {/* Bottom Actions Row: CTAs & Social Links */}
-                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-4 lg:gap-6 lg:-ml-2 pb-6 translate-y-2 lg:translate-y-4">
+                    <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-4 lg:gap-6 lg:-ml-12 pb-6 translate-y-2 lg:translate-y-4">
 
                         <div className="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up w-full sm:w-auto" style={{ animationDelay: '0.25s', animationFillMode: 'both' }}>
-                            <Link to="/projects" className="w-full sm:w-auto justify-center px-6 py-3 bg-[#ccff00] text-black font-bold tracking-wider rounded-full text-xs flex items-center gap-2 hover:bg-[#b3e600] transition-colors shadow-[0_0_20px_rgba(204,255,0,0.3)]">
-                                VIEW MY WORK
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                            <Link to="/projects" className="w-full sm:w-auto justify-center px-8 py-3.5 bg-[#ccff00] text-black font-semibold tracking-wide rounded-full text-sm flex items-center gap-2 hover:bg-[#b3e600] transition-colors shadow-[0_0_20px_rgba(204,255,0,0.3)] whitespace-nowrap">
+                                View My Work
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                             </Link>
 
-                            <a href="/MyRESUME.pdf" download="Ritesh_Kumar_Lenka_Resume.pdf" className="w-full sm:w-auto justify-center px-6 py-3 border border-white/30 text-white font-medium tracking-wider rounded-full text-xs flex items-center gap-2 hover:bg-white hover:text-black transition-colors backdrop-blur-sm bg-white/5">
-                                DOWNLOAD RESUME
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+                            <a href="/MyRESUME.pdf" download="Ritesh_Kumar_Lenka_Resume.pdf" className="w-full sm:w-auto justify-center px-8 py-3.5 border border-white/20 text-white font-medium tracking-wide rounded-full text-sm flex items-center gap-2 hover:bg-white hover:text-black transition-colors backdrop-blur-sm bg-white/5 whitespace-nowrap">
+                                Download Resume
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
                             </a>
                         </div>
 

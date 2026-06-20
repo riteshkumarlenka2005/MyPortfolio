@@ -218,6 +218,12 @@ export const HomePage: React.FC = () => {
                             ...prev,
                             [entry.target.id]: true,
                         }));
+                    } else if (entry.target.id === 'projects-section') {
+                        // Allow project section to slide back out when scrolled away
+                        setSectionsVisible((prev) => ({
+                            ...prev,
+                            'projects-section': false,
+                        }));
                     }
                 });
             },
@@ -320,7 +326,7 @@ export const HomePage: React.FC = () => {
                     ref={aboutRef}
                     id="about-section"
                     data-scroll-section
-                className="relative py-32 px-6 md:px-12 overflow-hidden"
+                className="relative pt-32 pb-8 px-6 md:px-12 overflow-hidden"
             >
                 {/* Background decorative elements */}
                 <div
@@ -362,6 +368,16 @@ export const HomePage: React.FC = () => {
                             </p>
                         </div>
 
+                        {/* Know more link */}
+                        <div className="flex justify-end mt-10">
+                            <Link 
+                                to="/about" 
+                                className="group/link inline-flex items-center gap-2 text-white/60 hover:text-white text-sm md:text-base font-medium tracking-wide transition-all duration-300"
+                            >
+                                Know more about me 
+                                <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1">→</span>
+                            </Link>
+                        </div>
 
                     </div>
                 </div>
@@ -370,8 +386,15 @@ export const HomePage: React.FC = () => {
             {/* ═══════════════════════════════════════════════════════════════ */}
             {/* STATE A: Scroll-Locked Stacked Project Slides */}
             {/* ═══════════════════════════════════════════════════════════════ */}
-            <div data-scroll-section>
-                <ProjectStackSection onStateChange={(active) => console.log('State A active:', active)} />
+            <div 
+                id="projects-section"
+                ref={projectsRef as any}
+                data-scroll-section 
+                className="w-full overflow-hidden"
+            >
+                <div className={`transform transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${sectionsVisible['projects-section'] ? 'translate-x-0 opacity-100' : 'translate-x-[100vw] opacity-0'}`}>
+                    <ProjectStackSection onStateChange={(active) => console.log('State A active:', active)} />
+                </div>
             </div>
 
             {/* ═══════════════════════════════════════════════════════════════ */}
