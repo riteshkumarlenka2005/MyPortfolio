@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Content Report — Ritesh Kumar Lenka</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #080808;
+            --s1: #101010;
+            --s2: #161616;
+            --s3: #1e1e1e;
+            --border: #1f1f1f;
+            --border2: #282828;
+            --gold: #C8A96E;
+            --gold-dim: #7a6234;
+            --gold-bg: rgba(200, 169, 110, 0.06);
+            --text: #e2e2e2;
+            --dim: #7a7a7a;
+            --muted: #3d3d3d;
+            --green: #4caf82;
+            --blue: #5b9cf6;
+            --amber: #e8a030;
+            --red: #e05c5c;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 14.5px;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── COVER ── */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 80px 72px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(200, 169, 110, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 169, 110, 0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .cover-fade {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 0% 100%, rgba(200, 169, 110, 0.06), transparent 60%);
+        }
+
+        .cover-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cover-tag::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.5;
+        }
+
+        .cover-h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(42px, 7vw, 88px);
+            font-weight: 700;
+            line-height: 1.0;
+            letter-spacing: -0.03em;
+            color: #fff;
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .cover-h1 em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .cover-sub {
+            font-size: 15px;
+            color: var(--dim);
+            max-width: 520px;
+            font-weight: 300;
+            position: relative;
+            margin-bottom: 56px;
+            line-height: 1.8;
+        }
+
+        .cover-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .pill {
+            border: 1px solid var(--border2);
+            padding: 6px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            color: var(--dim);
+            border-radius: 1px;
+        }
+
+        /* ── LAYOUT ── */
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* ── CHAPTER ── */
+        .chapter {
+            padding: 96px 0 0;
+        }
+
+        .ch-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold-dim);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ch-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .ch-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 4.5vw, 52px);
+            font-weight: 700;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .ch-desc {
+            font-size: 14px;
+            color: var(--dim);
+            max-width: 560px;
+            font-weight: 300;
+            margin-bottom: 56px;
+        }
+
+        /* ── COPY BLOCK ── */
+        .copy-block {
+            background: var(--s1);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .copy-block-top {
+            padding: 24px 28px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .copy-block-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold-dim);
+            margin-bottom: 6px;
+        }
+
+        .copy-block-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 1px;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+
+        .tag-gold {
+            color: var(--gold);
+            border-color: rgba(200, 169, 110, 0.25);
+            background: rgba(200, 169, 110, 0.05);
+        }
+
+        .tag-green {
+            color: var(--green);
+            border-color: rgba(76, 175, 130, 0.25);
+            background: rgba(76, 175, 130, 0.05);
+        }
+
+        .tag-blue {
+            color: var(--blue);
+            border-color: rgba(91, 156, 246, 0.25);
+            background: rgba(91, 156, 246, 0.05);
+        }
+
+        .tag-amber {
+            color: var(--amber);
+            border-color: rgba(232, 160, 48, 0.25);
+            background: rgba(232, 160, 48, 0.05);
+        }
+
+        .copy-block-body {
+            padding: 28px;
+        }
+
+        /* The actual copy — the hero content */
+        .copy-display {
+            background: var(--s2);
+            border: 1px solid var(--border2);
+            border-radius: 2px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .copy-display::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            color: var(--gold);
+            opacity: 0.08;
+            line-height: 1;
+        }
+
+        .copy-text {
+            font-size: 15.5px;
+            line-height: 1.85;
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        .copy-text strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .copy-text em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        /* Micro copy — labels, taglines, CTAs */
+        .micro-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .micro-cell {
+            background: var(--s2);
+            border: 1px solid var(--border2);
+            padding: 16px 18px;
+            border-radius: 2px;
+        }
+
+        .micro-cell-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .micro-cell-value {
+            font-size: 13.5px;
+            color: var(--text);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .micro-cell-value.gold {
+            color: var(--gold);
+        }
+
+        /* Notes */
+        .note {
+            border-left: 2px solid var(--gold-dim);
+            padding: 14px 18px;
+            background: var(--gold-bg);
+            font-size: 13px;
+            color: var(--dim);
+            border-radius: 0 2px 2px 0;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .note strong {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* Project card simulation */
+        .project-sim {
+            background: var(--s1);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 48px;
+            overflow: hidden;
+        }
+
+        .project-sim-bar {
+            background: var(--s2);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .project-sim-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .project-sim-index {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--gold-dim);
+            letter-spacing: 0.15em;
+        }
+
+        .project-sim-body {
+            padding: 28px;
+        }
+
+        /* Field groups inside project */
+        .field {
+            margin-bottom: 24px;
+        }
+
+        .field-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold-dim);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            max-width: 80px;
+        }
+
+        .field-content {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .field-content.headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #fff;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        .field-content.tagline {
+            font-size: 13px;
+            color: var(--dim);
+            font-style: italic;
+        }
+
+        .field-content strong {
+            color: #fff;
+        }
+
+        .field-content em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .tags-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* CTA examples */
+        .cta-example {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border2);
+            padding: 9px 18px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--dim);
+            letter-spacing: 0.08em;
+            border-radius: 1px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .cta-example.primary {
+            border-color: rgba(200, 169, 110, 0.3);
+            color: var(--gold);
+        }
+
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--s2);
+            border: 1px solid var(--border2);
+            padding: 20px;
+            border-radius: 2px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-desc {
+            font-size: 11px;
+            color: var(--dim);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .report-footer {
+            margin-top: 120px;
+            padding: 64px 48px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-line {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--dim);
+            margin-bottom: 20px;
+        }
+
+        .footer-line span {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .footer-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.15em;
+        }
+
+        @media (max-width: 680px) {
+            .wrap {
+                padding: 0 20px;
+            }
+
+            .cover {
+                padding: 60px 24px;
+            }
+
+            .micro-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- COVER -->
+    <div class="cover">
+        <div class="cover-grid"></div>
+        <div class="cover-fade"></div>
+        <div class="cover-tag">Content Strategy Report · Portfolio Edition</div>
+        <h1 class="cover-h1">Every word.<br><em>Deliberate.</em></h1>
+        <p class="cover-sub">A complete content guide for Ritesh Kumar Lenka's portfolio — written section by section,
+            project by project. Minimal. Factual. Precise.</p>
+        <div class="cover-pills">
+            <div class="pill">Hero Copy</div>
+            <div class="pill">About Section</div>
+            <div class="pill">5 Project Cards</div>
+            <div class="pill">Skills Section</div>
+            <div class="pill">Achievements</div>
+            <div class="pill">Contact Section</div>
+            <div class="pill">Nav + Footer</div>
+            <div class="pill">CTAs Throughout</div>
+        </div>
+    </div>
+
+    <div class="wrap">
+
+        <!-- ═══ CHAPTER 1: HERO ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 01 — Hero Section</div>
+            <h2 class="ch-title">The First 4 Seconds</h2>
+            <p class="ch-desc">Everything on the Hero must earn its place. One name. One identity. One line that sticks.
+                Two actions. Nothing more.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Name</div>
+                        <div class="copy-block-title">Your Name Display</div>
+                    </div>
+                    <span class="tag tag-gold">Use Exactly As Written</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="copy-display">
+                        <div class="copy-text">Ritesh Kumar Lenka</div>
+                    </div>
+                    <div class="note"><strong>Typography note:</strong> Full name, no abbreviation. Display font,
+                        80–120px. Never use "RKL" or initials in the hero — you are not a brand logo yet, you are a
+                        person. The full name signals confidence.</div>
+                </div>
+            </div>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Identity Line</div>
+                        <div class="copy-block-title">Role / Title</div>
+                    </div>
+                    <span class="tag tag-green">One Line Only</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="micro-row">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Option A — Broad</div>
+                            <div class="micro-cell-value">AI/ML Engineer · Full Stack Developer</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Option B — Specific ✦ Recommended</div>
+                            <div class="micro-cell-value gold">AI Engineer & Full Stack Developer</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Option C — Bold</div>
+                            <div class="micro-cell-value">Engineer. Designer. Builder.</div>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Recommendation:</strong> Use Option B. "AI Engineer & Full Stack
+                        Developer" is clean, scannable, and keyword-rich for both recruiters and search. The ampersand
+                        keeps it tight. Avoid listing 4+ roles — it dilutes the identity.</div>
+                </div>
+            </div>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Tagline</div>
+                        <div class="copy-block-title">The Line That Stays</div>
+                    </div>
+                    <span class="tag tag-gold">Most Important Line on the Page</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="copy-display">
+                        <p class="copy-text">I don't just write code — I dive into problems until I understand them
+                            completely, then build something that lasts.</p>
+                    </div>
+                    <div class="note"><strong>Why this works:</strong> It says nothing about skill lists. It reveals
+                        character — depth, patience, intent to build lasting things. A FAANG recruiter reads this and
+                        sees ownership mentality. A startup founder reads this and sees a co-builder. A professor reads
+                        this and sees a researcher's mindset. One line, three audiences.</div>
+                    <div class="micro-row" style="margin-top:16px;">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Primary CTA</div>
+                            <div class="micro-cell-value gold">View My Work →</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Secondary CTA</div>
+                            <div class="micro-cell-value">Download Résumé</div>
+                        </div>
+                    </div>
+                    <div class="note" style="margin-top:8px;"><strong>CTA rule:</strong> The primary CTA scrolls to
+                        Projects. The secondary opens the résumé PDF in a new tab. Never use "Submit," "Explore," or
+                        "Get in touch" as the primary — they are too passive. "View My Work" is an active, confident
+                        directive.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 2: ABOUT (HOME) ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 02 — About Section (Home Page)</div>
+            <h2 class="ch-title">Brief. Human. Unforgettable.</h2>
+            <p class="ch-desc">The home page About is a single paragraph. Its job: convert a stranger into someone who
+                wants to know more. No facts, no lists. Just character.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · About Paragraph (Home)</div>
+                        <div class="copy-block-title">The Paragraph That Represents You Forever</div>
+                    </div>
+                    <span class="tag tag-gold">Use Version 1 — Finalized</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="copy-display">
+                        <p class="copy-text">I'm <strong>Ritesh Kumar Lenka</strong> — a Computer Science engineer with
+                            a deep-rooted passion for Artificial Intelligence, thoughtful engineering, and purposeful
+                            creation. ✦ I don't just write code; I dive into problems with curiosity and don't surface
+                            until I truly understand them. Learning, for me, isn't a phase — it's a permanent state of
+                            being. I am drawn to the kind of work that demands both <em>precision and imagination</em> —
+                            researching ideas at their deepest level, then building them into something real and
+                            meaningful. 🧠 Every project I take on is deliberate, every decision calculated. I believe
+                            the best engineers are not just technically strong — they are <em>thinkers first, builders
+                                second.</em> Whether it's developing intelligent systems, crafting seamless experiences,
+                            or solving problems that don't yet have answers — I show up with depth, intention, and an
+                            unshakeable drive to create. ⚡</p>
+                    </div>
+                    <div class="note"><strong>This paragraph is finalized.</strong> Do not alter it. It is timeless — it
+                        contains no semester, no CGPA, no project name, no year. It will be true in 2026 and in 2036.
+                        This is intentional. Use it exactly as written.</div>
+                    <div class="micro-row" style="margin-top:16px;">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Eyebrow Label</div>
+                            <div class="micro-cell-value">About</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Headline (Optional)</div>
+                            <div class="micro-cell-value">The person behind the work.</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">CTA Below Paragraph</div>
+                            <div class="micro-cell-value gold">Full Story →</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 3: PROJECTS ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 03 — Project Cards</div>
+            <h2 class="ch-title">Five Projects. Five Arguments.</h2>
+            <p class="ch-desc">Each project card has five content layers: eyebrow tag, headline, tagline, description,
+                and tech stack. Every word is chosen for impact. Apple-style copy — no adjectives that don't earn their
+                place.</p>
+
+            <div class="note" style="margin-bottom:32px;"><strong>Section Label:</strong> "Work" or "Projects" — not "My
+                Projects" (possessive is redundant, everyone knows it's yours). Section headline: <em>"Built to solve.
+                    Deployed to prove."</em> — 5 words that frame everything below.</div>
+
+            <!-- PROJECT 1 -->
+            <div class="project-sim">
+                <div class="project-sim-bar">
+                    <div class="project-sim-name">Holistic Interview Intelligence</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span class="project-sim-index">Project 01 · Featured</span>
+                        <span class="tag tag-gold">Primary Slot</span>
+                    </div>
+                </div>
+                <div class="project-sim-body">
+                    <div class="field">
+                        <div class="field-label">Eyebrow / Domain Tag</div>
+                        <div class="tags-row">
+                            <span class="tag tag-blue">AI · Computer Vision · NLP</span>
+                            <span class="tag tag-green">Live Product</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Card Headline</div>
+                        <div class="field-content headline">Interview performance, analyzed in real time — across video,
+                            voice, and language simultaneously.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">One-Line Tagline (Hover or Subtitle)</div>
+                        <div class="field-content tagline">Multimodal AI that sees what interviewers see — before the
+                            interview begins.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Description (40–70 words)</div>
+                        <div class="field-content">A multimodal AI system that processes webcam feeds, speech, and
+                            verbal responses in parallel. Facial expression analysis maps seven emotional states in real
+                            time. NLP pipelines evaluate clarity, pacing, and confidence. A fusion layer synthesizes all
+                            signals into structured, actionable feedback — giving candidates a mirror most people never
+                            get to look into before walking into a room.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Tech Stack Line</div>
+                        <div class="field-content"
+                            style="color:var(--dim); font-family:'JetBrains Mono',monospace; font-size:12px;">Python ·
+                            TensorFlow · MediaPipe · OpenCV · NLP · React.js · Flask</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">CTAs</div>
+                        <div>
+                            <span class="cta-example primary">View Live →</span>
+                            <span class="cta-example">GitHub</span>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Placement:</strong> This is your strongest project — full-width featured
+                        card at the top of the Projects section. The headline leads with the outcome ("analyzed in real
+                        time"), not the technology. The description ends with a human line — "a mirror most people never
+                        get to look into" — which stays in the reader's memory.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 2 -->
+            <div class="project-sim">
+                <div class="project-sim-bar">
+                    <div class="project-sim-name">CyberGuardian AI</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span class="project-sim-index">Project 02 · Featured Grid</span>
+                        <span class="tag tag-amber">Conceptually Bold</span>
+                    </div>
+                </div>
+                <div class="project-sim-body">
+                    <div class="field">
+                        <div class="field-label">Eyebrow / Domain Tag</div>
+                        <div class="tags-row">
+                            <span class="tag tag-amber">Conversational AI · Emotion Detection</span>
+                            <span class="tag tag-green">Live Product</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Card Headline</div>
+                        <div class="field-content headline">An AI that thinks like a scammer — to train you to think
+                            like one too.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">One-Line Tagline</div>
+                        <div class="field-content tagline">The only way to recognize manipulation is to experience it
+                            first.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Description (40–70 words)</div>
+                        <div class="field-content">CyberGuardian simulates real-world scam scenarios using behavioral
+                            modeling and emotional manipulation patterns drawn from actual fraud psychology. The moment
+                            it detects user vulnerability, it breaks character — and delivers targeted cybersecurity
+                            awareness training at exactly the right moment. Teaching people about digital threats by
+                            making them feel the threat. Ethically. Deliberately. Effectively.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Tech Stack Line</div>
+                        <div class="field-content"
+                            style="color:var(--dim); font-family:'JetBrains Mono',monospace; font-size:12px;">Python ·
+                            Conversational AI · Emotion Detection · Behavioral Modeling · React.js</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">CTAs</div>
+                        <div>
+                            <span class="cta-example primary">View Live →</span>
+                            <span class="cta-example">GitHub</span>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Why this headline works:</strong> It creates immediate tension — "thinks
+                        like a scammer" is a provocative, unexpected line for a portfolio project. It demands the reader
+                        continue. The description resolves the tension with the ethical framing. The last three words —
+                        "Ethically. Deliberately. Effectively." — use Apple's rhythm of three-word punches.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="project-sim">
+                <div class="project-sim-bar">
+                    <div class="project-sim-name">Data Science Club Website</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span class="project-sim-index">Project 03 · Featured Grid</span>
+                        <span class="tag tag-blue">Institutional Impact</span>
+                    </div>
+                </div>
+                <div class="project-sim-body">
+                    <div class="field">
+                        <div class="field-label">Eyebrow / Domain Tag</div>
+                        <div class="tags-row">
+                            <span class="tag tag-blue">Full Stack · Responsive Design</span>
+                            <span class="tag tag-green">Live · Official Platform</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Card Headline</div>
+                        <div class="field-content headline">The official digital home for GIET University's Data Science
+                            community.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">One-Line Tagline</div>
+                        <div class="field-content tagline">Built for 200+ members. Designed to grow with them.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Description (40–70 words)</div>
+                        <div class="field-content">Developed and deployed the official web platform for GIET
+                            University's Data Science Club. Fully responsive across all devices. Structured around
+                            events, active projects, and learning resources — with an architecture built to scale as the
+                            community grows. The first version of a system designed to outlast the person who built it.
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Tech Stack Line</div>
+                        <div class="field-content"
+                            style="color:var(--dim); font-family:'JetBrains Mono',monospace; font-size:12px;">HTML · CSS
+                            · JavaScript · Responsive Design · UI/UX</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">CTAs</div>
+                        <div>
+                            <span class="cta-example primary">View Live →</span>
+                            <span class="cta-example">GitHub</span>
+                        </div>
+                    </div>
+                    <div class="note"><strong>The closing line is intentional:</strong> "Designed to outlast the person
+                        who built it" signals maturity — a 2nd-year student thinking about systems, not just code. That
+                        sentence alone separates you from every peer with a similar project.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 4 -->
+            <div class="project-sim">
+                <div class="project-sim-bar">
+                    <div class="project-sim-name">Room Finder</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span class="project-sim-index">Project 04 · Grid Card</span>
+                        <span class="tag tag-green">Real Users · Deployed</span>
+                    </div>
+                </div>
+                <div class="project-sim-body">
+                    <div class="field">
+                        <div class="field-label">Eyebrow / Domain Tag</div>
+                        <div class="tags-row">
+                            <span class="tag tag-green">Full Stack · Real-World Product</span>
+                            <span class="tag tag-gold">50+ Active Users</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Card Headline</div>
+                        <div class="field-content headline">A rental platform that connects tenants and landlords —
+                            location-first, friction-free.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">One-Line Tagline</div>
+                        <div class="field-content tagline">Where working code met a real deployment and real users.
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Description (40–70 words)</div>
+                        <div class="field-content">A full-stack rental platform built from scratch and deployed for real
+                            users handling actual transactions. Location-based search, preference filtering, and
+                            real-time listing data. This project taught the most important lesson in engineering: the
+                            gap between code that works and a product that holds up in the real world.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Tech Stack Line</div>
+                        <div class="field-content"
+                            style="color:var(--dim); font-family:'JetBrains Mono',monospace; font-size:12px;">React.js ·
+                            Node.js · Supabase · REST APIs · Vercel</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">CTAs</div>
+                        <div>
+                            <span class="cta-example primary">View Live →</span>
+                            <span class="cta-example">GitHub</span>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Key line:</strong> "The gap between code that works and a product that
+                        holds up in the real world" — this one sentence signals engineering maturity. Startup founders
+                        specifically look for this awareness. It tells them you've shipped, not just coded.</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 5 -->
+            <div class="project-sim">
+                <div class="project-sim-bar">
+                    <div class="project-sim-name">Task Manager</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span class="project-sim-index">Project 05 · Grid Card</span>
+                        <span class="tag tag-blue">Utility · Clean Engineering</span>
+                    </div>
+                </div>
+                <div class="project-sim-body">
+                    <div class="field">
+                        <div class="field-label">Eyebrow / Domain Tag</div>
+                        <div class="tags-row">
+                            <span class="tag tag-blue">Full Stack · Productivity Tool</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Card Headline</div>
+                        <div class="field-content headline">A task management system built on the belief that simple
+                            tools, done well, get used.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">One-Line Tagline</div>
+                        <div class="field-content tagline">Not everything needs to be complex. Some things just need to
+                            work.</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Description (40–70 words)</div>
+                        <div class="field-content">A clean, full-stack task management application with user
+                            authentication, task creation, priority tagging, and real-time state management. Built as an
+                            exercise in restraint — choosing simplicity over features, clarity over complexity. The kind
+                            of project that reveals more about engineering judgment than a hundred features ever could.
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Tech Stack Line</div>
+                        <div class="field-content"
+                            style="color:var(--dim); font-family:'JetBrains Mono',monospace; font-size:12px;">React.js ·
+                            Node.js · Supabase / MySQL · REST APIs</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">CTAs</div>
+                        <div>
+                            <span class="cta-example primary">View Live →</span>
+                            <span class="cta-example">GitHub</span>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Why include Task Manager:</strong> Recruiters respect developers who can
+                        build simple things well. The copy reframes a "basic" project as a demonstration of engineering
+                        judgment. The line "reveals more about engineering judgment than a hundred features ever could"
+                        is the pivotal sentence that does this work.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 4: SKILLS ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 04 — Skills / Tech Stack</div>
+            <h2 class="ch-title">Labels, not paragraphs.</h2>
+            <p class="ch-desc">Skills sections are scanned in under 6 seconds. Every word here is a label. Nothing needs
+                explaining. Group clearly, keep only what you'd confidently discuss in an interview.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Section Copy</div>
+                        <div class="copy-block-title">Section Label + Intro Line</div>
+                    </div>
+                    <span class="tag tag-gold">Minimal Copy — Labels Only</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="micro-row">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Eyebrow</div>
+                            <div class="micro-cell-value">Skills</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Headline</div>
+                            <div class="micro-cell-value gold">The tools I think with.</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Optional Subline</div>
+                            <div class="micro-cell-value" style="color:var(--dim); font-size:12px; font-style:italic;">
+                                Grouped by domain. Used in production.</div>
+                        </div>
+                    </div>
+
+                    <div class="field" style="margin-top:8px;">
+                        <div class="field-label">Group 01 — AI / Machine Learning</div>
+                        <div class="tags-row">
+                            <span class="tag tag-blue">Python</span>
+                            <span class="tag tag-blue">TensorFlow</span>
+                            <span class="tag tag-blue">PyTorch</span>
+                            <span class="tag tag-blue">Scikit-learn</span>
+                            <span class="tag tag-blue">OpenCV</span>
+                            <span class="tag tag-blue">MediaPipe</span>
+                            <span class="tag tag-blue">NLP</span>
+                            <span class="tag tag-blue">Computer Vision</span>
+                            <span class="tag tag-blue">LSTM · ARIMA</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Group 02 — Web Development</div>
+                        <div class="tags-row">
+                            <span class="tag tag-green">React.js</span>
+                            <span class="tag tag-green">Node.js</span>
+                            <span class="tag tag-green">TypeScript</span>
+                            <span class="tag tag-green">Three.js</span>
+                            <span class="tag tag-green">GSAP</span>
+                            <span class="tag tag-green">Tailwind CSS</span>
+                            <span class="tag tag-green">Flask</span>
+                            <span class="tag tag-green">REST APIs</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Group 03 — Data & Databases</div>
+                        <div class="tags-row">
+                            <span class="tag tag-amber">NumPy</span>
+                            <span class="tag tag-amber">Pandas</span>
+                            <span class="tag tag-amber">Matplotlib</span>
+                            <span class="tag tag-amber">MySQL</span>
+                            <span class="tag tag-amber">Supabase</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Group 04 — Tools & Platforms</div>
+                        <div class="tags-row">
+                            <span class="tag tag-gold">Git · GitHub</span>
+                            <span class="tag tag-gold">Vercel</span>
+                            <span class="tag tag-gold">Figma</span>
+                            <span class="tag tag-gold">Jupyter</span>
+                            <span class="tag tag-gold">Arduino</span>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Do not:</strong> add skill percentage bars, star ratings, or "beginner /
+                        intermediate / expert" labels. These are subjective and recruiters don't trust them. The
+                        grouping itself signals your depth. Let the projects prove the proficiency.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 5: ACHIEVEMENTS ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 05 — Achievements</div>
+            <h2 class="ch-title">Numbers speak. Everything else is noise.</h2>
+            <p class="ch-desc">Achievement cards must lead with a number or a specific fact. Vague achievements have no
+                place here. Every card answers: what happened, when, and how significant.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Section Copy</div>
+                        <div class="copy-block-title">Section Label + Headline</div>
+                    </div>
+                    <span class="tag tag-green">Stat Cards Format</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="micro-row">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Eyebrow</div>
+                            <div class="micro-cell-value">Achievements</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Headline</div>
+                            <div class="micro-cell-value gold">Proof, not promises.</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-grid" style="margin-top:20px;">
+                        <div class="stat-card">
+                            <div class="stat-num">9.82</div>
+                            <div class="stat-desc">CGPA · University Topper<br>1st Year B.Tech</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">5+</div>
+                            <div class="stat-desc">Live Deployed Apps<br>in Production</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">SIH</div>
+                            <div class="stat-desc">Smart India Hackathon<br>2025 Participant</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">₹10K</div>
+                            <div class="stat-desc">Cash Prize · Science Exhibition<br>Solar Panel Wiper</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">PMST</div>
+                            <div class="stat-desc">Merit Scholarship<br>Academic Excellence</div>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Animation note:</strong> Number cards should count up on scroll entry.
+                        "9.82" counts from 0. "5+" counts 1 → 2 → 3 → 4 → 5+. This creates a moment of theatre that
+                        makes the numbers memorable, not just visible.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 6: CONTACT ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 06 — Contact Section</div>
+            <h2 class="ch-title">The last word must open a door.</h2>
+            <p class="ch-desc">A recruiter who reaches Contact has already decided they're interested. Don't lose them
+                with a cold form or a missing email. Warm, specific, frictionless.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · All Contact Copy</div>
+                        <div class="copy-block-title">Section Headline, Subline & Micro Copy</div>
+                    </div>
+                    <span class="tag tag-gold">Final Conversion Point</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="micro-row">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Eyebrow</div>
+                            <div class="micro-cell-value">Contact</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Section Headline</div>
+                            <div class="micro-cell-value gold">Let's build something worth building.</div>
+                        </div>
+                    </div>
+                    <div class="copy-display" style="margin-top:16px;">
+                        <p class="copy-text">Whether you're a recruiter, a founder, a researcher, or someone with an
+                            idea that needs an engineer — I read every message and respond to every one that matters.
+                            Reach out. Let's talk.</p>
+                    </div>
+                    <div class="micro-row">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Primary CTA (Form Submit)</div>
+                            <div class="micro-cell-value gold">Send Message →</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Email Link Label</div>
+                            <div class="micro-cell-value">lenkariteshkumar2005@gmail.com</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Form Placeholder · Name</div>
+                            <div class="micro-cell-value" style="color:var(--dim);">Your name</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Form Placeholder · Message</div>
+                            <div class="micro-cell-value" style="color:var(--dim);">What are you working on?</div>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Why "What are you working on?":</strong> It reframes the message field
+                        from a formal inquiry to a conversation starter. Founders and recruiters both feel more
+                        comfortable writing to this prompt than to a blank "Message" field. Small copy change,
+                        significant psychological difference.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 7: NAV + FOOTER ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 07 — Navigation & Footer</div>
+            <h2 class="ch-title">Invisible when right. Jarring when wrong.</h2>
+            <p class="ch-desc">Navigation copy should be so natural it disappears. Footer copy is your final impression
+                — make it yours.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Navbar Links</div>
+                        <div class="copy-block-title">Navigation Labels</div>
+                    </div>
+                    <span class="tag tag-blue">Keep These Exact</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="micro-row">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Link 01</div>
+                            <div class="micro-cell-value">Work</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Link 02</div>
+                            <div class="micro-cell-value">About</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Link 03</div>
+                            <div class="micro-cell-value">Skills</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Link 04</div>
+                            <div class="micro-cell-value">Contact</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Nav CTA</div>
+                            <div class="micro-cell-value gold">Résumé ↗</div>
+                        </div>
+                    </div>
+                    <div class="note"><strong>Use "Work" not "Projects."</strong> "Work" is the word senior engineers
+                        and designers use. It signals that what you've built is professional output, not just
+                        coursework. "Résumé" with the external link arrow (↗) signals it opens in a new tab — a
+                        micro-detail that builds trust.</div>
+                </div>
+            </div>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Element · Footer</div>
+                        <div class="copy-block-title">Footer Copy</div>
+                    </div>
+                    <span class="tag tag-gold">Memorable Closing Line</span>
+                </div>
+                <div class="copy-block-body">
+                    <div class="copy-display">
+                        <p class="copy-text" style="font-style:italic; font-size:14px; color:var(--dim);">"The best
+                            engineers are not just technically strong — they are thinkers first, builders second."</p>
+                        <p class="copy-text" style="margin-top:12px; font-size:13px; color:var(--muted);">Designed &
+                            built by Ritesh Kumar Lenka &nbsp;·&nbsp; All rights reserved</p>
+                    </div>
+                    <div class="note"><strong>The footer quote</strong> is pulled from your own About section — it
+                        becomes your signature line. Using your own words as the closing quote is a design choice that
+                        signals confidence and self-awareness. It bookends the experience: the portfolio opens with your
+                        name, it closes with your philosophy.</div>
+                    <div class="micro-row" style="margin-top:16px;">
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Footer Social Label</div>
+                            <div class="micro-cell-value">LinkedIn ↗</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Footer Social Label</div>
+                            <div class="micro-cell-value">GitHub ↗</div>
+                        </div>
+                        <div class="micro-cell">
+                            <div class="micro-cell-label">Footer Email</div>
+                            <div class="micro-cell-value gold">Get in Touch ↗</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CHAPTER 8: FULL ABOUT PAGE ═══ -->
+        <div class="chapter">
+            <div class="ch-label">Chapter 08 — Full About Page</div>
+            <h2 class="ch-title">The story behind the work.</h2>
+            <p class="ch-desc">The full About page is only opened intentionally — by people who are already invested.
+                This is where you can go deeper. Three sections: Who, How, Why.</p>
+
+            <div class="copy-block">
+                <div class="copy-block-top">
+                    <div>
+                        <div class="copy-block-label">Full About Page · Complete Content</div>
+                        <div class="copy-block-title">Three-Part Story Structure</div>
+                    </div>
+                    <span class="tag tag-gold">Timeless · No Dates or Numbers</span>
+                </div>
+                <div class="copy-block-body">
+
+                    <div class="field">
+                        <div class="field-label">Page Headline</div>
+                        <div class="field-content headline">Not just an engineer. A person who builds with intention.
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-label">Section 01 · Who</div>
+                        <div class="copy-display">
+                            <p class="copy-text">I'm <strong>Ritesh Kumar Lenka</strong> — a Computer Science engineer
+                                from Odisha, India, working at the intersection of Artificial Intelligence and Full
+                                Stack development. I study at Gandhi Institute of Engineering and Technology, where I'm
+                                pursuing my degree while simultaneously building and shipping real products that live on
+                                the internet and serve real users.</p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-label">Section 02 · How I Think</div>
+                        <div class="copy-display">
+                            <p class="copy-text">My approach to any problem begins with a question I can't leave
+                                unanswered. I don't move toward a solution until I understand the problem at its root —
+                                not its surface. This makes me slow in some rooms, and invaluable in others. I research
+                                deeply, build deliberately, and ship only when the work is genuinely ready. <em>Every
+                                    decision is calculated.</em> Every line of code has a reason. I am not interested in
+                                building things quickly — I am interested in building things that last.</p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-label">Section 03 · Why It Matters</div>
+                        <div class="copy-display">
+                            <p class="copy-text">I came into engineering because I wanted to understand how the world is
+                                shaped by the systems inside it. AI is not just a technology to me — it is a lens
+                                through which genuinely hard human problems become solvable. The projects I've built
+                                reflect this: simulating human emotion to educate people about cyber threats, building
+                                systems that read interview performance across multiple human signals at once, creating
+                                platforms that connect people to opportunities they couldn't easily access before. The
+                                common thread is not the technology — it is the <em>intent to make something real, and
+                                    make it matter.</em></p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="field-label">Closing Line (Page Footer of About)</div>
+                        <div class="copy-display">
+                            <p class="copy-text" style="font-style:italic; color:var(--dim);">I'm always open to
+                                conversations about ambitious problems, interesting ideas, and the kind of work that's
+                                worth doing well.</p>
+                        </div>
+                    </div>
+
+                    <div class="note"><strong>Structure note:</strong> Three sections, no headers needed — the flow
+                        speaks for itself. Total word count: ~280 words. This is the maximum for a full About page. It
+                        respects the reader's time while giving depth to those who want it. No CGPA, no semester, no
+                        year — fully timeless.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="report-footer">
+            <div class="footer-line">"Precision is not the absence of creativity. It is <span>the highest form of
+                    it.</span>"</div>
+            <div class="footer-sub">Content Strategy Report · Ritesh Kumar Lenka · Portfolio Edition · 2026</div>
+        </div>
+
+    </div><!-- end wrap -->
+</body>
+
+</html>

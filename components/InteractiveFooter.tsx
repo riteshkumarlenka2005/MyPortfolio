@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const socialLinks = [
@@ -43,8 +43,32 @@ const navLinks = [
 ];
 
 export const InteractiveFooter: React.FC = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsVisible(entry.isIntersecting);
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px 50px 0px', // Trigger slightly before it fully enters
+            }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <footer className="relative w-full bg-[#0a0a0a] text-white py-12 md:py-16 px-6 md:px-16 flex flex-col justify-between">
+        <div ref={containerRef} className="w-full overflow-hidden">
+            <footer 
+                className={`relative w-full bg-[#0a0a0a] text-white py-12 md:py-16 px-6 md:px-16 flex flex-col justify-between transform transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}
+            >
             {/* Warm, grainy film-leak gradient at the bottom */}
             <div 
                 className="absolute bottom-0 left-0 w-full h-[140px] pointer-events-none z-0"
@@ -131,6 +155,7 @@ export const InteractiveFooter: React.FC = () => {
                 <p className="font-medium">@ 2025 Archivist</p>
                 <p className="text-center md:text-right font-medium">"Knowledge, once recorded, becomes eternal."</p>
             </div>
-        </footer>
+            </footer>
+        </div>
     );
 };

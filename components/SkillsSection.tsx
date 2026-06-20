@@ -1,4 +1,5 @@
 import React from 'react';
+import { AnimatedHeading } from './AnimatedHeading';
 
 
 
@@ -61,9 +62,7 @@ export const SkillsSection: React.FC = () => {
         >
             {/* Title */}
             <div className="text-center pb-12 z-20">
-                <h2 className="text-6xl md:text-8xl font-black tracking-widest uppercase text-white/90 drop-shadow-2xl">
-                    TECH STACK
-                </h2>
+                <AnimatedHeading text="TECH STACK" />
             </div>
 
             {/* Columns Layout */}

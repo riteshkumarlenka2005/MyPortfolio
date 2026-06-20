@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-
+import { TimelineSection } from '../components/TimelineSection';
 
 export const AboutPage: React.FC = () => {
     const [visible, setVisible] = useState(false);
@@ -185,6 +184,10 @@ export const AboutPage: React.FC = () => {
                         </p>
                     </div>
                 </section>
+
+                <div className="mb-16 -mx-6 md:-mx-12">
+                    <TimelineSection />
+                </div>
 
                 {/* Technical Interests */}
                 <section className="mb-16">

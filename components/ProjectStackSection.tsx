@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { AnimatedHeading } from "./AnimatedHeading";
 
 interface StackProject {
   id: number;
@@ -115,7 +116,7 @@ const AnimatedProjectCard = ({ project, index, setCursorHover }: { project: Stac
   return (
     <div 
       ref={containerRef} 
-      className="h-[280px] sm:h-[340px] [perspective:1500px] cursor-none [&_*]:cursor-none" 
+      className="[perspective:1500px] cursor-none [&_*]:cursor-none" 
       onMouseEnter={() => setCursorHover(true)}
       onMouseLeave={() => { setIsFlipped(false); setCursorHover(false); }}
     >
@@ -126,10 +127,10 @@ const AnimatedProjectCard = ({ project, index, setCursorHover }: { project: Stac
           transform: 'translateY(150px) scale(0.95)',
           willChange: 'opacity, transform',
         }}
-        className="group relative rounded-none h-full w-full"
+        className="group relative flex flex-col gap-5 w-full"
       >
         {/* Inner Card Flipper */}
-        <div className="relative w-full h-full rounded-none z-10 [transform-style:preserve-3d] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]" style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+        <div className="relative w-full h-[280px] sm:h-[340px] rounded-none z-10 [transform-style:preserve-3d] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]" style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
           
           {/* FRONT FACE */}
           <div className={`absolute inset-0 w-full h-full rounded-none overflow-hidden bg-[#0a0a0a] [backface-visibility:hidden] ${isFlipped ? 'pointer-events-none' : ''}`}>
@@ -155,11 +156,7 @@ const AnimatedProjectCard = ({ project, index, setCursorHover }: { project: Stac
                 READ
               </button>
             </div>
-            {/* Era badge (visible before hover) */}
-            <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg border border-white/5 opacity-100 group-hover:opacity-0 transition-opacity duration-300 z-10">
-              <div className="w-1.5 h-1.5 border border-green-500 rotate-45" />
-              <span className="font-serif text-[10px] md:text-xs font-medium text-white/90 uppercase tracking-widest">{project.era}</span>
-            </div>
+
           </div>
 
           {/* BACK FACE */}
@@ -201,36 +198,62 @@ const AnimatedProjectCard = ({ project, index, setCursorHover }: { project: Stac
           </div>
 
         </div>
+        
+        {/* Project Title Below Card */}
+        <h3 className="text-xl md:text-2xl font-bold text-white text-center font-display tracking-wide uppercase transition-colors group-hover:text-white/80">
+          {project.title}
+        </h3>
+
       </div>
     </div>
   );
 };
 
 export const ProjectStackSection: React.FC<ProjectStackSectionProps> = ({ onStateChange }) => {
+  const sectionRef = useRef<HTMLElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHoveringCard, setIsHoveringCard] = useState(false);
+  const mousePos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current = { x: e.clientX, y: e.clientY };
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${e.clientX - 48}px, ${e.clientY - 48}px, 0)`;
       }
     };
+
+    const handleScroll = () => {
+      if (!isHoveringCard) return; // Only check if currently visible
+      
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const { x, y } = mousePos.current;
+        // If mouse is outside the section boundaries after scrolling, hide the cursor
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          setIsHoveringCard(false);
+        }
+      }
+    };
     
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isHoveringCard]);
 
   return (
     <>
       <section
+        ref={sectionRef}
         className="relative bg-[#000000] text-white overflow-hidden pt-8 pb-24 px-4 md:px-12"
+        onMouseLeave={() => setIsHoveringCard(false)}
       >
         {/* Section Header */}
         <div className="text-center pb-16">
-          <h2 className="text-6xl md:text-8xl font-black tracking-widest uppercase mb-8 text-center text-white/90 drop-shadow-2xl">
-            PROJECTS
-          </h2>
+          <AnimatedHeading text="PROJECTS" className="mb-8" />
         </div>
 
         {/* Grid Layout: 1 column on mobile, 2 columns on tablet, 3 columns on desktop */}
