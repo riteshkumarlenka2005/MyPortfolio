@@ -13,6 +13,8 @@ import { ProjectStackSection } from '../components/ProjectStackSection';
 import { BionicHero } from '../components/BionicHero';
 import { SplitReveal } from '../components/SplitReveal';
 import { CertificationsCarousel } from '../components/CertificationsCarousel';
+import { StatsSection } from '../components/StatsSection';
+import { ScrollRevealText } from '../components/ScrollRevealText';
 import { SkillsSection } from '../components/SkillsSection';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 
@@ -328,109 +330,39 @@ export const HomePage: React.FC = () => {
                     }}
                 />
 
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        {/* Text Content */}
-                        <div
-                            className={`
-                                order-2 lg:order-1
-                                space-y-8
-                                transform transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]
-                                ${sectionsVisible['about-section'] ? 'opacity-100 translate-x-0 scale-100 rotate-0 blur-none grayscale-0' : 'opacity-0 -translate-x-24 scale-90 rotate-3 blur-sm grayscale'}
-                            `}
-                        >
-                            <div className="flex items-center gap-4 opacity-50">
-                                <div className="h-[1px] w-8 bg-current" />
-                                <span className="font-serif italic text-sm tracking-widest uppercase">About</span>
-                            </div>
+                <div className="w-full px-4 mx-auto flex flex-col items-center z-10 relative">
+                    {/* Big Centered ABOUT ME Heading */}
+                    <h2 
+                        className={`
+                            text-6xl md:text-8xl font-black tracking-widest uppercase mb-16 text-center text-white/90 drop-shadow-2xl
+                            transform transition-all duration-1000 ease-out
+                            ${sectionsVisible['about-section'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
+                        `}
+                    >
+                        ABOUT ME
+                    </h2>
 
-                            <h2 className="font-display text-4xl md:text-5xl font-semibold tracking-wide">
-                                The Mind Behind
-                                <span className="block text-green-500 dark:text-green-400">the Archive</span>
-                            </h2>
-
-                            <div className="font-serif text-lg leading-relaxed space-y-6">
-                                <p className="first-letter:text-4xl first-letter:font-display first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:leading-none first-letter:text-green-500 dark:first-letter:text-green-400">
-                                    In an age of fleeting attention and ephemeral content, I have chosen a different path.
-                                    This archive represents not merely a collection of work, but a philosophy of careful
-                                    consideration—each project approached with patience and precision.
-                                </p>
-                                <p>
-                                    My journey through the digital landscape has been guided by a singular conviction:
-                                    that technology, at its finest, should serve as a bridge between human intention
-                                    and meaningful outcome.
-                                </p>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-6 pt-4">
-                                <Link
-                                    to="/about"
-                                    className="inline-flex items-center gap-3 font-serif text-lg border-b border-transparent hover:border-green-500 dark:hover:border-green-400 transition-colors duration-300 group"
-                                >
-                                    <span>Read Full Biography</span>
-                                    <span className="transform group-hover:translate-x-2 transition-transform duration-300">→</span>
-                                </Link>
-
-                                <Link
-                                    to="/contact"
-                                    className="inline-flex items-center justify-center px-8 py-3 bg-green-600 hover:bg-green-500 dark:bg-green-500 dark:hover:bg-green-400 text-parchment-100 dark:text-antique-100 font-serif font-bold tracking-widest uppercase text-sm transition-all duration-300 shadow-xl hover:shadow-green-900/30 rounded-sm hover:-translate-y-0.5"
-                                >
-                                    Hire me
-                                </Link>
-                            </div>
+                    {/* Content Box */}
+                    <div
+                        className={`
+                            w-full max-w-7xl bg-black border border-white/10 rounded-3xl p-8 md:p-16 shadow-[0_0_50px_rgba(0,0,0,0.8)]
+                            transform transition-all duration-1000 delay-200 ease-[cubic-bezier(0.25,1,0.5,1)]
+                            ${sectionsVisible['about-section'] ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-24 scale-95'}
+                        `}
+                    >
+                        <div className="font-sans text-lg md:text-xl leading-relaxed space-y-8 text-center text-gray-300">
+                            <p className="text-2xl md:text-3xl font-bold text-white">
+                                <ScrollRevealText text="I'm Ritesh Kumar Lenka — a Computer Science engineer with a deep-rooted passion for Artificial Intelligence, thoughtful engineering, and purposeful creation. ✦" />
+                            </p>
+                            <p>
+                                <ScrollRevealText text="I don't just write code; I dive into problems with curiosity and don't surface until I truly understand them. Learning, for me, isn't a phase — it's a permanent state of being. I am drawn to the kind of work that demands both precision and imagination — researching ideas at their deepest level, then building them into something real and meaningful. 🧠" />
+                            </p>
+                            <p>
+                                <ScrollRevealText text="Every project I take on is deliberate, every decision calculated. I believe the best engineers are not just technically strong — they are thinkers first, builders second. Whether it's developing intelligent systems, crafting seamless experiences, or solving problems that don't yet have answers — I show up with depth, intention, and an unshakeable drive to create. ⚡" />
+                            </p>
                         </div>
 
-                        {/* Profile Photo */}
-                        <div
-                            className={`
-                                order-1 lg:order-2
-                                relative flex items-center justify-center
-                                transform transition-all duration-1000 delay-200 ease-[cubic-bezier(0.25,1,0.5,1)] animate-ultra-float
-                                ${sectionsVisible['about-section'] ? 'opacity-100 translate-x-0 scale-100 rotate-0 blur-none grayscale-0' : 'opacity-0 translate-x-24 scale-75 -rotate-6 blur-md grayscale'}
-                            `}
-                        >
-                            {/* Outer decorative ring with curved text */}
-                            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 shrink-0 z-10">
-                                {/* Rotating SVG ring placed OUTSIDE the original photo bounds */}
-                                <svg
-                                    className="absolute -inset-10 sm:-inset-12 md:-inset-16 w-[calc(100%+80px)] sm:w-[calc(100%+96px)] md:w-[calc(100%+128px)] h-[calc(100%+80px)] sm:h-[calc(100%+96px)] md:h-[calc(100%+128px)] animate-spin-slow pointer-events-none"
-                                    viewBox="0 0 400 400"
-                                >
-                                    <defs>
-                                        <path
-                                            id="circlePathOuter"
-                                            d="M 200,200 m -185,0 a 185,185 0 1,1 370,0 a 185,185 0 1,1 -370,0"
-                                        />
-                                    </defs>
-                                    <text className="fill-green-600 dark:fill-green-400 drop-shadow-sm opacity-90" style={{ fontSize: '18px', fontWeight: 800, letterSpacing: '12px', fontFamily: 'sans-serif', textTransform: 'uppercase' }}>
-                                        <textPath href="#circlePathOuter" startOffset="0%">
-                                            OPEN TO WORK • OPEN TO WORK • OPEN TO WORK •
-                                        </textPath>
-                                    </text>
-                                </svg>
 
-                                {/* EXACT ORIGINAL PHOTO STRUCTURE (Ensures circle shape and correct size) */}
-                                {/* Animated border ring */}
-                                <div className="absolute inset-0 rounded-full border-2 border-green-500/20 dark:border-green-400/20" />
-                                <div className="absolute inset-2 rounded-full border border-parchment-400/30 dark:border-antique-300/20" />
-
-                                {/* Photo container */}
-                                <div className="absolute inset-4 rounded-full overflow-hidden shadow-2xl shadow-green-900/20 dark:shadow-green-600/10">
-                                    <img
-                                        src="/MyPhoto.png"
-                                        alt="Ritesh Kumar Lenka"
-                                        className="w-full h-full object-cover"
-                                        loading="lazy"
-                                    />
-                                    {/* Subtle overlay for blend */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-parchment-900/10 to-transparent dark:from-antique-900/10" />
-                                </div>
-
-                                {/* Corner decorations */}
-                                <div className="absolute -top-2 -left-2 w-6 h-6 border-l-2 border-t-2 border-green-500/30 dark:border-green-400/30 hidden sm:block" />
-                                <div className="absolute -bottom-2 -right-2 w-6 h-6 border-r-2 border-b-2 border-green-500/30 dark:border-green-400/30 hidden sm:block" />
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>

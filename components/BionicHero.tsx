@@ -248,16 +248,9 @@ export const BionicHero: React.FC = () => {
                 </div>
 
                 {/* ═══════════════════════════════════════════════════════════════ */}
-                {/* LEFT SIDEBAR (Black Pill) */}
+                {/* LEFT SIDEBAR SPACER (Maintains Original Alignment) */}
                 {/* ═══════════════════════════════════════════════════════════════ */}
-                <div className="hidden lg:flex w-20 xl:w-24 h-full bg-transparent flex-col items-center justify-between py-6 flex-shrink-0 z-10 relative">
-
-                    {/* Syntax Highlighted Code Scrolling Effect */}
-                    <CodeSidebar />
-
-
-
-                </div>
+                <div className="hidden lg:flex w-20 xl:w-24 h-full bg-transparent flex-shrink-0 z-10 relative" />
 
                 {/* Mobile Image Fallback with Navbar (Hidden on Desktop, Shows at Top on Mobile) */}
                 <div className="lg:hidden w-full h-[220px] relative flex-shrink-0 z-50 mb-4 mt-2">

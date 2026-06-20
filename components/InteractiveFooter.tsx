@@ -1,353 +1,135 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
+const socialLinks = [
+    {
+        label: 'GitHub',
+        href: 'https://github.com',
+        icon: (
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+        )
+    },
+    {
+        label: 'LinkedIn',
+        href: 'https://linkedin.com',
+        icon: (
+            <span className="font-bold text-[#0A66C2] text-xl tracking-tight leading-none">in</span>
+        )
+    },
+    {
+        label: 'Email',
+        href: 'mailto:ritesh@example.com',
+        icon: (
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" className="w-5 h-5 object-contain" />
+        )
+    },
+    {
+        label: 'Twitter',
+        href: 'https://twitter.com',
+        icon: (
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+        )
+    }
+];
+
+const navLinks = [
+    { label: 'About', href: '/about' },
+    { label: 'Work', href: '/projects' },
+    { label: 'Contact', href: '/contact' }
+];
+
 export const InteractiveFooter: React.FC = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const cellsRef = useRef<HTMLDivElement[]>([]);
-    
-    const [grid, setGrid] = useState({ cols: 0, rows: 0, cellSize: 72, gap: 10 });
-
-    const waveState = useRef({
-        active: false,
-        startTime: 0,
-        centerX: 0,
-        centerY: 0,
-    });
-
-    const mouseState = useRef({
-        active: false,
-        x: 0,
-        y: 0,
-    });
-
-    // Handle screen resize and calculate grid density
-    useEffect(() => {
-        if (!containerRef.current) return;
-
-        const handleResize = (entries: ResizeObserverEntry[]) => {
-            for (const entry of entries) {
-                const width = entry.contentRect.width;
-                const height = entry.contentRect.height;
-                
-                const isMobile = window.innerWidth < 768;
-                const cellSize = isMobile ? 48 : 56;
-                const gap = isMobile ? 5 : 6;
-                
-                const cols = Math.floor(width / (cellSize + gap));
-                const rows = Math.floor(height / (cellSize + gap));
-                
-                setGrid({ cols: Math.max(cols, 1), rows: Math.max(rows, 1), cellSize, gap });
-            }
-        };
-
-        const observer = new ResizeObserver(handleResize);
-        observer.observe(containerRef.current);
-
-        return () => observer.disconnect();
-    }, []);
-
-    const totalCells = grid.cols * grid.rows;
-
-    // Reset cellsRef array size
-    useEffect(() => {
-        cellsRef.current = cellsRef.current.slice(0, totalCells);
-    }, [totalCells]);
-
-    // Compute cell center position in grid-local coordinates
-    const getCellCenter = (r: number, c: number) => {
-        const { cellSize, gap } = grid;
-        const step = cellSize + gap;
-        return {
-            cx: c * step + cellSize / 2,
-            cy: r * step + cellSize / 2,
-        };
-    };
-
-    // Get grid offset (top-left of grid relative to container)
-    const getGridOffset = () => {
-        if (!containerRef.current) return { ox: 0, oy: 0 };
-        const rect = containerRef.current.getBoundingClientRect();
-        const { cols, rows, cellSize, gap } = grid;
-        const step = cellSize + gap;
-        const gridWidth = cols * step - gap;
-        const gridHeight = rows * step - gap;
-        return {
-            ox: (rect.width - gridWidth) / 2,
-            oy: (rect.height - gridHeight) / 2,
-        };
-    };
-
-    // Apply style to a single cell based on influence (0..1)
-    const applyCellStyle = (cell: HTMLDivElement, influence: number) => {
-        if (influence > 0.01) {
-            // Green edge glow + outer glow bleeding through gaps
-            const glowSpread = 2 + 8 * influence;
-            const glowBlur = 4 + 14 * influence;
-            cell.style.boxShadow = `0 0 ${glowBlur}px ${glowSpread}px rgba(0, 255, 136, ${0.18 * influence})`;
-            cell.style.borderColor = `rgba(0, 255, 136, ${0.08 + 0.5 * influence})`;
-            cell.style.transform = `scale(${1 + 0.018 * influence})`;
-        } else {
-            cell.style.boxShadow = '';
-            cell.style.borderColor = '';
-            cell.style.transform = '';
-        }
-    };
-
-    // Update grid style when only mouse is active (no wave animation running)
-    const updateGridWithMouseOnly = () => {
-        if (!containerRef.current) return;
-        const { cellSize, gap } = grid;
-        const { ox, oy } = getGridOffset();
-        const maxDist = 240;
-
-        cellsRef.current.forEach((cell) => {
-            if (!cell) return;
-
-            if (!mouseState.current.active) {
-                applyCellStyle(cell, 0);
-                return;
-            }
-
-            const r = parseInt(cell.getAttribute('data-row') || '0', 10);
-            const c = parseInt(cell.getAttribute('data-col') || '0', 10);
-            const { cx, cy } = getCellCenter(r, c);
-
-            const gmx = mouseState.current.x - ox;
-            const gmy = mouseState.current.y - oy;
-
-            const dx = gmx - cx;
-            const dy = gmy - cy;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            let mouseInfluence = Math.max(0, 1 - dist / maxDist);
-            mouseInfluence = Math.pow(mouseInfluence, 2.2);
-
-            applyCellStyle(cell, mouseInfluence);
-        });
-    };
-
-    // Frame-by-frame animation loop combining wave and mouse positions
-    const animateWave = (now: number) => {
-        if (!waveState.current.active || !containerRef.current) return;
-
-        const { cols, rows, cellSize, gap } = grid;
-        const step = cellSize + gap;
-        const gridWidth = cols * step - gap;
-        const gridHeight = rows * step - gap;
-        const { ox, oy } = getGridOffset();
-
-        const elapsed = now - waveState.current.startTime;
-        const progress = Math.min(elapsed / 800, 1);
-        const maxRadius = Math.max(gridWidth, gridHeight) * 0.9;
-        const currentRadius = maxRadius * progress;
-        const waveWidth = 160;
-
-        cellsRef.current.forEach((cell) => {
-            if (!cell) return;
-
-            const r = parseInt(cell.getAttribute('data-row') || '0', 10);
-            const c = parseInt(cell.getAttribute('data-col') || '0', 10);
-            const { cx, cy } = getCellCenter(r, c);
-
-            // Mouse influence
-            let mouseInfluence = 0;
-            if (mouseState.current.active) {
-                const gmx = mouseState.current.x - ox;
-                const gmy = mouseState.current.y - oy;
-                const dx = gmx - cx;
-                const dy = gmy - cy;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                mouseInfluence = Math.max(0, 1 - dist / 240);
-                mouseInfluence = Math.pow(mouseInfluence, 2.2);
-            }
-
-            // Wave influence
-            const wdx = waveState.current.centerX - cx;
-            const wdy = waveState.current.centerY - cy;
-            const wdist = Math.sqrt(wdx * wdx + wdy * wdy);
-            const distFromWave = Math.abs(wdist - currentRadius);
-            let waveInfluence = Math.max(0, 1 - distFromWave / waveWidth);
-            waveInfluence = Math.pow(waveInfluence, 2) * (1 - progress);
-
-            const totalInfluence = Math.min(1, Math.max(mouseInfluence, waveInfluence * 1.5));
-            applyCellStyle(cell, totalInfluence);
-        });
-
-        if (progress < 1) {
-            requestAnimationFrame(animateWave);
-        } else {
-            waveState.current.active = false;
-            updateGridWithMouseOnly();
-        }
-    };
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!containerRef.current) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-
-        mouseState.current.x = mx;
-        mouseState.current.y = my;
-
-        if (!waveState.current.active) {
-            updateGridWithMouseOnly();
-        }
-    };
-
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!containerRef.current) return;
-        const rect = containerRef.current.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-
-        mouseState.current.active = true;
-        mouseState.current.x = mx;
-        mouseState.current.y = my;
-
-        // Trigger wake-up wave
-        const { ox, oy } = getGridOffset();
-        waveState.current.active = true;
-        waveState.current.startTime = performance.now();
-        waveState.current.centerX = mx - ox;
-        waveState.current.centerY = my - oy;
-
-        requestAnimationFrame(animateWave);
-    };
-
-    const handleMouseLeave = () => {
-        mouseState.current.active = false;
-
-        if (!waveState.current.active) {
-            updateGridWithMouseOnly();
-        }
-    };
-
-    const { cols, rows, cellSize, gap } = grid;
-    const step = cellSize + gap;
-    const gridWidth = cols * step - gap;
-    const gridHeight = rows * step - gap;
-
     return (
-        <footer 
-            ref={containerRef}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="relative py-12 md:py-16 px-6 md:px-12 overflow-hidden select-none"
-            style={{ background: 'transparent' }}
-        >
-            {/* Embedded CSS for idle floating pulse */}
-            <style dangerouslySetInnerHTML={{ __html: `
-                @keyframes tileIdlePulse {
-                    0%, 100% {
-                        border-color: rgba(0, 255, 136, 0.08);
-                        box-shadow: 0 0 4px 1px rgba(0, 255, 136, 0.0);
-                    }
-                    50% {
-                        border-color: rgba(0, 255, 136, 0.18);
-                        box-shadow: 0 0 8px 2px rgba(0, 255, 136, 0.05);
-                    }
-                }
-                .tile-idle-pulse {
-                    animation: tileIdlePulse var(--pulse-dur, 8s) ease-in-out infinite;
-                    animation-delay: var(--pulse-del, 0s);
-                }
-            `}} />
-
-            {/* Layer 1: Preserved centered logo watermark */}
+        <footer className="relative w-full bg-[#0a0a0a] text-white py-12 md:py-16 px-6 md:px-16 flex flex-col justify-between">
+            {/* Warm, grainy film-leak gradient at the bottom */}
             <div 
-                className="absolute inset-0 opacity-[0.35] md:opacity-[0.12] scale-[1.8] md:scale-[2] bg-no-repeat bg-contain bg-center pointer-events-none z-0" 
-                style={{ backgroundImage: "url('/logo.png')" }} 
-            />
-
-            {/* Layer 2: 3D tile grid */}
-            <div 
-                className="absolute pointer-events-none z-10"
+                className="absolute bottom-0 left-0 w-full h-[140px] pointer-events-none z-0"
                 style={{
-                    width: gridWidth > 0 ? gridWidth : '100%',
-                    height: gridHeight > 0 ? gridHeight : '100%',
-                    left: '50%',
-                    top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    display: 'grid',
-                    gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,
-                    gridTemplateRows: `repeat(${rows}, ${cellSize}px)`,
-                    gap: `${gap}px`,
+                    background: 'linear-gradient(to right, #050505 0%, #4a1511 40%, #b8401b 75%, #e69022 100%)',
+                    WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 100%)',
+                    maskImage: 'linear-gradient(to top, black 10%, transparent 100%)'
                 }}
             >
-                {Array.from({ length: totalCells }).map((_, idx) => {
-                    const r = Math.floor(idx / (cols || 1));
-                    const c = idx % (cols || 1);
-                    
-                    const pulseDel = `${(Math.random() * -14).toFixed(2)}s`;
-                    const pulseDur = `${(6 + Math.random() * 6).toFixed(2)}s`;
-                    
-                    return (
-                        <div
-                            key={idx}
-                            ref={(el) => { if (el) cellsRef.current[idx] = el; }}
-                            data-row={r}
-                            data-col={c}
-                            className="tile-idle-pulse transform-gpu"
-                            style={{
-                                '--pulse-del': pulseDel,
-                                '--pulse-dur': pulseDur,
-                                width: cellSize,
-                                height: cellSize,
-                                borderRadius: '10px',
-                                background: 'transparent',
-                                border: '1px solid rgba(0, 255, 136, 0.08)',
-                                transition: 'box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease',
-                            } as React.CSSProperties}
-                        />
-                    );
-                })}
+                {/* Heavy film grain noise overlay */}
+                <div 
+                    className="absolute inset-0 opacity-40 mix-blend-overlay" 
+                    style={{ 
+                        backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' 
+                    }} 
+                />
             </div>
 
-            {/* Layer 4: Footer content */}
-            <div className="max-w-6xl mx-auto relative z-30 pointer-events-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 text-center md:text-left">
-                    {/* Brand */}
-                    <div className="md:col-span-2 space-y-4 flex flex-col items-center md:items-start relative">
-                        <div className="font-display text-2xl font-bold tracking-widest text-white">ARCHIVIST</div>
-                        <p className="font-serif text-sm leading-relaxed max-w-sm mx-auto md:mx-0 text-zinc-400">
-                            A digital sanctuary for thoughtful work and enduring ideas.
-                            Crafted with intention, preserved with care.
-                        </p>
-                    </div>
+            <div className="relative z-10 flex flex-col lg:flex-row justify-between w-full max-w-7xl mx-auto gap-16 lg:gap-8">
+                {/* Left Side: Brand and Description */}
+                <div className="flex flex-col items-start max-w-xl">
+                    <h2 className="text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase">
+                        ARCHIVIST
+                    </h2>
 
-                    {/* Quick Links */}
-                    <div className="space-y-4 flex flex-col items-center md:items-start">
-                        <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-zinc-500">Navigate</h4>
-                        <ul className="space-y-3 font-serif text-sm flex flex-col items-center md:items-start tracking-wide text-zinc-400">
-                            <li><Link to="/about" className="hover:text-green-400 transition-colors">About</Link></li>
-                            <li><Link to="/projects" className="hover:text-green-400 transition-colors">Projects</Link></li>
-                            <li><Link to="/contact" className="hover:text-green-400 transition-colors">Contact</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Connect */}
-                    <div className="space-y-4 flex flex-col items-center md:items-start">
-                        <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-zinc-500">Connect</h4>
-                        <ul className="space-y-3 font-serif text-sm flex flex-col items-center md:items-start tracking-wide text-zinc-400">
-                            <li><a href="https://github.com" className="hover:text-green-400 transition-colors">GitHub</a></li>
-                            <li><a href="https://linkedin.com" className="hover:text-green-400 transition-colors">LinkedIn</a></li>
-                            <li><a href="https://twitter.com" className="hover:text-green-400 transition-colors">Twitter</a></li>
-                            <li><a href="mailto:hello@archivist.dev" className="hover:text-green-400 transition-colors">Email</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className="mt-12 pt-8 border-t border-zinc-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-center text-zinc-500">
-                    <p className="font-serif text-xs">
-                        © 2024 Archivist. All rights preserved.
-                    </p>
-                    <p className="font-serif text-xs italic">
-                        "Knowledge, once recorded, becomes eternal."
+                    <p className="mt-8 text-zinc-400 font-serif text-lg leading-relaxed max-w-md">
+                        A digital sanctuary for thoughtful work and enduring ideas. Crafted with intention, preserved with care.
                     </p>
                 </div>
+
+                {/* Right Side: Links Columns */}
+                <div className="flex flex-col sm:flex-row gap-12 lg:gap-16 w-full lg:w-auto">
+                    {/* Navigation Column */}
+                    <div className="flex flex-col w-full sm:w-[220px]">
+                        <h3 className="text-zinc-500 font-serif italic mb-6"></h3>
+                        <div className="flex flex-col border-t border-white/10">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.label}
+                                    to={link.href}
+                                    className="group/item relative flex items-center justify-between px-5 py-4 text-white hover:text-black transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden border-b border-white/10"
+                                >
+                                    <div className="absolute bottom-0 left-0 right-0 h-0 bg-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:h-full z-0" />
+                                    <span className="text-lg font-medium tracking-wide relative z-10">{link.label}</span>
+                                    <span className="text-xl transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] font-light relative z-10">
+                                        <span className="block group-hover/item:hidden">→</span>
+                                        <span className="hidden group-hover/item:block">↗</span>
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Socials Column */}
+                    <div className="flex flex-col w-full sm:w-[220px]">
+                        <h3 className="text-zinc-500 font-serif italic mb-6"></h3>
+                        <div className="flex flex-col border-t border-white/10">
+                            {socialLinks.map((link) => (
+                                <a
+                                    key={link.label}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="group/item relative flex items-center justify-between px-5 py-4 text-white hover:text-black transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden border-b border-white/10"
+                                >
+                                    <div className="absolute bottom-0 left-0 right-0 h-0 bg-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:h-full z-0" />
+                                    <div className="flex items-center gap-3 relative z-10">
+                                        {link.icon}
+                                        <span className="text-lg font-medium tracking-wide">{link.label}</span>
+                                    </div>
+                                    <span className="text-xl transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] font-light relative z-10">
+                                        <span className="block group-hover/item:hidden">→</span>
+                                        <span className="hidden group-hover/item:block">↗</span>
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="relative z-10 flex flex-col md:flex-row justify-between items-center md:items-end w-full max-w-7xl mx-auto mt-16 lg:mt-24 text-zinc-200 font-serif italic text-base md:text-lg tracking-wide drop-shadow-md gap-4">
+                <p className="font-medium">@ 2025 Archivist</p>
+                <p className="text-center md:text-right font-medium">"Knowledge, once recorded, becomes eternal."</p>
             </div>
         </footer>
     );
