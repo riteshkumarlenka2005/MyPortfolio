@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 
 
@@ -302,16 +303,7 @@ export const ProjectDetailPage: React.FC = () => {
                 </div>
             </nav>
 
-            {/* Footer */}
-            <footer className="py-16 text-center border-t border-parchment-400/10 dark:border-antique-200/5">
-                <Link
-                    to="/"
-                    className="inline-flex items-center gap-3 font-serif text-lg hover:text-amber-700 dark:hover:text-amber-600 transition-colors duration-300"
-                >
-                    <span>←</span>
-                    <span>Return to Archive</span>
-                </Link>
-            </footer>
+            <InteractiveFooter />
 
             {/* Decorative Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-900/10 to-transparent pointer-events-none z-50" />

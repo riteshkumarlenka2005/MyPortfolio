@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 
 import { HexKnowledgeCluster } from '../components/HexKnowledgeCluster';
@@ -446,6 +447,7 @@ export const ResourcesPage: React.FC = () => {
 
             {/* Subtle Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-900/10 to-transparent pointer-events-none" />
+            <InteractiveFooter />
         </div>
     );
 };

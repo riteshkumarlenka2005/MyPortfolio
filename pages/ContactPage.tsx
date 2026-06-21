@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 
 
@@ -304,6 +305,7 @@ export const ContactPage: React.FC = () => {
 
             {/* Subtle Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-900/10 to-transparent pointer-events-none"></div>
+            <InteractiveFooter />
         </div>
     );
 };

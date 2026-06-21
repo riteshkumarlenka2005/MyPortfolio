@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 
 
@@ -296,12 +297,7 @@ export const ProjectsPage: React.FC = () => {
                 ))}
             </main>
 
-            {/* Footer */}
-            <footer className="py-20 text-center">
-                <p className="font-serif text-lg italic">
-                    — End of Catalog —
-                </p>
-            </footer>
+            <InteractiveFooter />
 
             {/* Subtle Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-900/10 to-transparent pointer-events-none"></div>

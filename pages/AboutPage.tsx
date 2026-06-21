@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Lenis from 'lenis';
 import { TimelineSection } from '../components/TimelineSection';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 export const AboutPage: React.FC = () => {
     const [visible, setVisible] = useState(false);
@@ -260,6 +261,7 @@ export const AboutPage: React.FC = () => {
 
             {/* Subtle Footer Line */}
             <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent pointer-events-none"></div>
+            <InteractiveFooter />
         </div>
     );
 };

@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { JourneyRopePhysics, Attachment } from '../components/JourneyRopePhysics';
 import { StarfieldBackground } from '../components/StarfieldBackground';
 import { Link } from 'react-router-dom';
+import { InteractiveFooter } from '../components/InteractiveFooter';
 
 
 /* ───── Timeline Data ───── */
@@ -526,6 +527,7 @@ export const JourneyPage: React.FC = () => {
           </div>
         </div>
       )}
+      <InteractiveFooter />
     </div>
   );
 };
