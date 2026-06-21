@@ -8,6 +8,10 @@ if (!rootElement) {
   throw new Error("Could not find root element to mount to");
 }
 
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>

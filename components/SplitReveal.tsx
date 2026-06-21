@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -16,12 +16,18 @@ export const SplitReveal: React.FC<SplitRevealProps> = ({ children }) => {
     const textTopRef = useRef<HTMLDivElement>(null);
     const textBottomRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // Use GSAP to handle all transforms so there are no conflicts with Tailwind classes during scale
         gsap.set(textTopRef.current, { xPercent: -50, yPercent: -50, left: "50%", top: "100%" });
         gsap.set(textBottomRef.current, { xPercent: -50, yPercent: -50, left: "50%", top: "0%" });
 
+        // If returning via Home/Archivist, jump scroll before GSAP initializes so it doesn't play the scrub animation!
+        if ((window as any).__scrollToHero) {
+            window.scrollTo(0, window.innerHeight * 1.5);
+        }
+
         const ctx = gsap.context(() => {
+            // Normal first-visit path: animated door split with scrub
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,

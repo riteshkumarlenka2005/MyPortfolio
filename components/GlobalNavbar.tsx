@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const navItems = [
     { label: 'Home', path: '/' },
@@ -10,15 +10,50 @@ const navItems = [
 ];
 
 export const GlobalNavbar: React.FC = () => {
+    const navigate = useNavigate();
+
+    const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        if (window.location.pathname === '/') {
+            // Already on home — smooth scroll to hero via Lenis
+            window.dispatchEvent(new CustomEvent('scrollToTop'));
+        } else {
+            // Set a global flag so HomePage knows to scroll past SplitReveal on mount
+            (window as any).__scrollToHero = true;
+            navigate('/');
+        }
+    };
+
     return (
         <div className="group font-sans">
             {/* Logo / Brand Name */}
             <Link 
                 to="/" 
-                className="fixed top-[30px] left-[20px] md:left-[40px] z-[100] mix-blend-difference text-white text-lg font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-70"
+                onClick={handleHomeClick}
+                className="peer fixed top-[30px] left-[20px] md:left-[40px] z-[100] mix-blend-difference text-white text-lg font-semibold tracking-[0.2em] uppercase transition-opacity hover:opacity-70 pb-6"
             >
                 ARCHIVIST
             </Link>
+
+            {/* Premium Tooltip */}
+            <div className="fixed top-[70px] left-[20px] md:left-[40px] z-[101] w-[260px] sm:w-[320px] p-5 rounded-2xl bg-[#0A0A0A]/95 backdrop-blur-md border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.5)] opacity-0 invisible peer-hover:opacity-100 peer-hover:visible hover:opacity-100 hover:visible transition-all duration-300 ease-out transform translate-y-2.5 peer-hover:translate-y-0 hover:translate-y-0">
+                
+                {/* Subtle connecting pointer/arrow */}
+                <div className="absolute -top-2 left-8 w-4 h-4 bg-[#0A0A0A] border-t border-l border-white/10 transform rotate-45"></div>
+
+                <div className="relative z-10 flex flex-col gap-3 font-sans">
+                    <div className="text-white font-bold tracking-[0.15em] text-sm">
+                        ARCHIVIST
+                    </div>
+                    <p className="text-[#a1a1aa] text-xs sm:text-sm leading-relaxed">
+                        One who researches, structures, and preserves valuable records.
+                    </p>
+                    <div className="w-full h-px bg-white/10 my-1"></div>
+                    <div className="flex items-center gap-2 text-[#e4e4e7] text-xs sm:text-sm font-medium">
+                        Archivist <span className="text-green-400 font-bold">→</span> Me and my Portfolio
+                    </div>
+                </div>
+            </div>
 
             {/* 
               Menu Trigger 
@@ -41,6 +76,13 @@ export const GlobalNavbar: React.FC = () => {
                             <Link 
                                 key={item.label} 
                                 to={item.path} 
+                                onClick={(e) => {
+                                    if (item.path === '/') {
+                                        handleHomeClick(e);
+                                    } else {
+                                        window.scrollTo(0, 0);
+                                    }
+                                }}
                                 className={`
                                     group/item relative flex items-center justify-between px-6 py-5 
                                     text-white hover:text-black transition-colors duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden

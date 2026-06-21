@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -142,11 +142,26 @@ export const HomePage: React.FC = () => {
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
+    // __scrollToHero handled in SplitReveal.tsx to ensure GSAP initializes with correct state
+
     // Set up Lenis for ultra-smooth native scrolling
     // DELAYED until PremiumLoader finishes so Lenis doesn't fight the loader's scroll lock
     useEffect(() => {
         let lenis: Lenis | null = null;
         let rafId: number | null = null;
+
+        const handleScrollToTop = () => {
+            // SplitReveal pins for 1.5× viewport height before the hero is visible.
+            // Scroll to that position so we land on the actual BionicHero section.
+            const heroScrollY = window.innerHeight * 1.5;
+            if (lenis) {
+                lenis.scrollTo(heroScrollY, { duration: 1.2, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            } else {
+                window.scrollTo({ top: heroScrollY, behavior: 'smooth' });
+            }
+        };
+
+        window.addEventListener('scrollToTop', handleScrollToTop);
 
         const initLenis = () => {
             lenis = new Lenis({
@@ -165,8 +180,13 @@ export const HomePage: React.FC = () => {
             gsap.ticker.add(update);
             gsap.ticker.lagSmoothing(0);
 
-            // Store for cleanup
             rafId = update as unknown as number;
+
+            // Force Lenis to instantly adopt the hero scroll position
+            if ((window as any).__scrollToHero) {
+                lenis.scrollTo(window.innerHeight * 1.5, { immediate: true, force: true });
+                (window as any).__scrollToHero = false;
+            }
         };
 
         // Wait for the PremiumLoader to be removed from DOM
@@ -186,6 +206,7 @@ export const HomePage: React.FC = () => {
             observer.observe(document.body, { childList: true, subtree: true });
 
             return () => {
+                window.removeEventListener('scrollToTop', handleScrollToTop);
                 observer.disconnect();
                 if (lenis) {
                     lenis.destroy();
@@ -195,6 +216,7 @@ export const HomePage: React.FC = () => {
         }
 
         return () => {
+            window.removeEventListener('scrollToTop', handleScrollToTop);
             if (lenis) {
                 lenis.destroy();
                 if (rafId !== null) gsap.ticker.remove(rafId as any);
@@ -308,7 +330,7 @@ export const HomePage: React.FC = () => {
                 {/* ═══════════════════════════════════════════════════════════════ */}
                 {/* HERO SECTION - Living Identity System */}
                 {/* ═══════════════════════════════════════════════════════════════ */}
-                <div data-scroll-hero>
+                <div id="hero-section" data-scroll-hero>
                     <BionicHero />
                 </div>
 
