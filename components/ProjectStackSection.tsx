@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 import { AnimatedHeading } from "./AnimatedHeading";
 
 interface StackProject {
@@ -18,8 +19,8 @@ const PROJECTS: StackProject[] = [
     id: 1,
     title: "Data Science Club Website",
     era: "Web Development",
-    context: "Centralized digital platform for GIET University's Data Science community — showcasing projects, events, and learning resources.",
-    tags: ["HTML/CSS/JS", "UI/UX"],
+    context: "Architected and launched the official digital hub for GIET University's Data Science Club, serving a 200+ member community. The platform centralizes event announcements, workshop registrations, student project showcases, and curated AI/ML resources — transforming fragmented club communication into a structured, accessible online ecosystem with measurable impact on engagement.",
+    tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "UI/UX"],
     image: "/DataScience.png",
     liveUrl: "https://www.gietdsclub.me/",
     sourceUrl: "https://github.com/riteshkumarlenka2005/DS_ClubOfficial",
@@ -28,8 +29,8 @@ const PROJECTS: StackProject[] = [
     id: 2,
     title: "Room Finder Platform",
     era: "Full Stack",
-    context: "Platform connecting tenants and landlords with intelligent matching, real-time listings, and secure communication.",
-    tags: ["Full Stack"],
+    context: "A production-deployed full-stack rental platform engineered to solve accommodation discovery challenges in Indian cities. Delivers real-time listings with location-based search and preference filtering through a verified landlord-tenant system — actively serving 50+ users navigating housing decisions with reliability and precision.",
+    tags: ["React.js", "Node.js", "Supabase", "REST API", "Vercel"],
     image: "/RoomFinder.png",
     liveUrl: "https://room-finder-kappa.vercel.app/",
     sourceUrl: "https://github.com/riteshkumarlenka2005/RoomFinder",
@@ -38,8 +39,8 @@ const PROJECTS: StackProject[] = [
     id: 3,
     title: "CyberGuardian AI",
     era: "Adversarial AI",
-    context: "AI simulating scammer behavior for cybersecurity awareness training, using adversarial techniques to educate users.",
-    tags: ["Cybersecurity", "Psychology"],
+    context: "An adversarial AI trainer that simulates 5+ realistic scam scenarios using the same emotional manipulation tactics — fear, urgency, greed — deployed by actual fraudsters. When user vulnerability is detected, the system breaks character and delivers targeted cybersecurity education, achieving 85% user awareness improvement across all simulation sessions.",
+    tags: ["Python", "NLP", "Conversational AI", "Flask", "Emotion Detection"],
     image: "/CyberGuardianAI.png",
     liveUrl: "https://www.cyberguardianai.tech/",
     sourceUrl: "https://github.com/riteshkumarlenka2005/CyberGuardianAI",
@@ -48,8 +49,8 @@ const PROJECTS: StackProject[] = [
     id: 4,
     title: "Interview Prep Platform",
     era: "Multimodal AI",
-    context: "AI analyzing interview performance through computer vision, speech analysis, and natural language processing.",
-    tags: ["Computer Vision", "Speech"],
+    context: "A multimodal AI platform that simultaneously evaluates interview performance across three data streams: facial expression analysis tracking 7 emotional states via computer vision, speech clarity scoring through NLP-driven tone and pace evaluation, and response content assessment — delivering actionable feedback to power student placement readiness.",
+    tags: ["Python", "OpenCV", "NLP", "React.js", "Flask", "Computer Vision"],
     image: "/Interview.png",
     liveUrl: "https://www.vivasense.app/",
     sourceUrl: "https://github.com/riteshkumarlenka2005/Holistic-Interview-Intelligence",
@@ -58,8 +59,8 @@ const PROJECTS: StackProject[] = [
     id: 6,
     title: "TaskManager",
     era: "Productivity & Cloud",
-    context: "A modern, all-in-one productivity platform combining smart task management, note-taking, and secure cloud synchronization.",
-    tags: ["Java", "React", "Cloud Sync"],
+    context: "A modern productivity platform built for individuals and teams who demand reliability. Combines intelligent task management with rich note-taking and secure cross-device cloud synchronization — engineered with Java on the backend for robust performance and React.js on the frontend for a fast, responsive user experience.",
+    tags: ["Java", "React.js", "MySQL", "REST API", "Cloud Sync"],
     image: "/TaskManager.png",
     liveUrl: "https://task-manager-java.vercel.app/",
     sourceUrl: "https://github.com/riteshkumarlenka2005/TaskManager-JAVA-",
@@ -160,38 +161,63 @@ const AnimatedProjectCard = ({ project, index, setCursorHover }: { project: Stac
           </div>
 
           {/* BACK FACE */}
-          <div className={`absolute inset-0 w-full h-full rounded-none bg-[#0a0a0a] border border-white/10 flex flex-col items-center justify-center p-6 text-center [backface-visibility:hidden] ${!isFlipped ? 'pointer-events-none' : ''}`} style={{ transform: 'rotateY(180deg)' }}>
-            <h3 className="text-2xl font-bold text-white mb-4 tracking-wide">{project.title}</h3>
-            <p className="text-sm text-gray-300 mb-6 leading-relaxed line-clamp-4">
-              {project.context}
-            </p>
-            <div className="flex gap-2 flex-wrap justify-center mb-6">
-              {project.tags.map(tag => (
-                <span
-                  key={tag}
-                  className="font-serif text-xs md:text-sm font-semibold border border-green-500/30 bg-green-500/10 text-green-400 px-3 py-1 rounded-sm"
-                >
-                  {tag}
-                </span>
-              ))}
+          <div className={`absolute inset-0 w-full h-full rounded-none bg-black border border-white/[0.08] flex flex-col justify-between p-5 [backface-visibility:hidden] ${!isFlipped ? 'pointer-events-none' : ''}`} style={{ transform: 'rotateY(180deg)' }}>
+
+            {/* Subtle top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+
+            {/* Top: Era + Description */}
+            <div className="flex-1 overflow-hidden pr-8">
+              <span className="inline-block text-[10px] uppercase tracking-[0.18em] text-amber-400 font-mono mb-2.5">
+                {project.era}
+              </span>
+              <p className="text-[11px] sm:text-[12px] text-white/85 leading-relaxed">
+                {project.context}
+              </p>
             </div>
-            {project.sourceUrl && (
-              <a
-                href={project.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+
+            {/* Middle: Tech Stack */}
+            <div className="my-3">
+              <p className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-mono mb-2">Stack</p>
+              <div className="flex gap-1.5 flex-wrap">
+                {project.tags.map(tag => (
+                  <span
+                    key={tag}
+                    className="font-mono text-[10px] sm:text-[11px] tracking-wide text-white/80 border border-white/25 bg-white/[0.07] px-2 py-[3px] rounded-none"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom: Action Buttons */}
+            <div className="w-full flex flex-row gap-2">
+              {project.sourceUrl && (
+                <a
+                  href={project.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative z-30 flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 border border-white/35 text-white font-mono text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-200 rounded-none"
+                >
+                  <svg className="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
+                  GitHub
+                </a>
+              )}
+              <Link
+                to={`/project/${project.id}`}
                 onClick={(e) => e.stopPropagation()}
-                className="mt-auto relative z-30 inline-flex items-center justify-center px-6 py-2.5 bg-white/5 border border-white/10 text-white rounded-lg font-serif text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
+                className="relative z-30 flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 border border-amber-400/70 text-amber-300 font-mono text-[10px] uppercase tracking-widest hover:bg-amber-400 hover:text-black hover:border-amber-400 transition-all duration-200 rounded-none"
               >
-                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                GitHub Repo
-              </a>
-            )}
-            
-            {/* Close Button on back */}
-            <button 
-              onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }} 
-              className="absolute top-3 right-3 text-white/50 hover:text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors z-30"
+                Read More
+              </Link>
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
+              className="absolute top-3 right-3 text-white/50 hover:text-white w-7 h-7 flex items-center justify-center hover:bg-white/10 transition-colors z-30 text-xs"
             >
               ✕
             </button>

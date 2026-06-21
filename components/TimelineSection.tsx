@@ -1,227 +1,259 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 interface Milestone {
   id: string;
+  step: string;
+  year: string;
   title: string;
   subtitle: string;
-  date: string;
   description: string;
   details?: string[];
   achievement?: string;
+  quote?: string;
   isCurrent?: boolean;
-  icon: string;
 }
 
 const MILESTONES: Milestone[] = [
   {
-    id: 'current',
-    title: 'Second Year (4th Semester)',
-    subtitle: 'Current Stage',
-    date: '2026 — Present',
-    description: 'Currently in 4th Semester — the final semester of Second Year. Through consistent effort and learning, performance has improved again.',
-    details: [
-      'Algorithms and problem solving',
-      'Full-stack web development',
-      'Artificial Intelligence & Data Science',
-      'Building impactful projects and developer portfolio',
-    ],
-    achievement: '📊 Current CGPA — 8.98',
-    isCurrent: true,
-    icon: '🚀',
-  },
-  {
-    id: 'sem3',
-    title: 'Challenges and Growth',
-    subtitle: 'Second Year Begins — 3rd Semester',
-    date: '2025',
-    description: 'Entered Second Year and completed 3rd Semester. This phase came with academic challenges, and CGPA dropped compared to the first year. However, it became an important learning period that strengthened discipline and focus.',
-    icon: '⚡',
-  },
-  {
-    id: 'btech1',
-    title: 'Beginning of Engineering Journey',
-    subtitle: 'First Year Completed',
-    date: '2024',
-    description: 'Joined B.Tech in Computer Science Engineering. Completed First Year (1st & 2nd Semester) and built strong foundations.',
-    achievement: '🏆 First Year CGPA — 9.82',
-    icon: '💻',
-  },
-  {
-    id: 'explore',
-    title: 'Exploring Academic Direction',
-    subtitle: 'The Search for the Right Path',
-    date: '2023',
-    description: 'After completing +2, initially joined +3 (Undergraduate program) and completed one semester, while exploring the right academic path and future direction. Soon after, the decision was made to pursue a career in Computer Science and Technology.',
-    icon: '📚',
-  },
-  {
-    id: 'plus2',
-    title: 'Higher Secondary Education (+2)',
-    subtitle: 'Exploring Academic Depth',
-    date: '2021 — 2023',
-    description: 'Completed +2 (Higher Secondary) from Nalanda Vidya Mandir, Berhampur. During this stage, interest in technology, computers, and problem solving began to grow stronger.',
-    achievement: '80.1% (481/600)',
-    icon: '🎓',
+    id: 'school',
+    step: '01',
+    year: '2010 — 2018',
+    title: 'EARLY SCHOOL EDUCATION',
+    subtitle: 'The Learning Foundations',
+    description:
+      'Completed early schooling up to 8th standard, developing a strong interest in mathematics, science, creativity, and logical thinking. These years quietly built the intellectual scaffolding that would later carry the weight of engineering ambitions.',
   },
   {
     id: 'tenth',
-    title: 'Secondary School (10th Grade)',
+    step: '02',
+    year: '2019 — 2021',
+    title: 'SECONDARY SCHOOL',
     subtitle: 'The Spark of Innovation',
-    date: '2019 — 2021',
-    description: 'Completed 10th grade from Khallingi High School, Khallingi, Ganjam. This phase strengthened curiosity toward science and technology.',
+    description:
+      'Completed 10th grade from Khallingi High School, Ganjam. This phase sharpened curiosity toward science and technology — and produced a first real invention that reached the district stage.',
     details: [
-      '82.5% (495/600) in board examination',
-      'Built a Solar Panel Wiper project for science exhibition',
-      'Project selected for next round — received ₹10,000 award',
+      '82.5% (495/600) in BSE board examination',
+      'Built a Solar Panel Wiper project for the district science exhibition',
+      'Project selected for the next round — received Rs.10,000 cash award',
     ],
-    icon: '🧪',
+    achievement: 'Board Result — 82.5%',
   },
   {
-    id: 'school',
-    title: 'Early School Education',
-    subtitle: 'The Learning Foundations',
-    date: '2010 — 2018',
-    description: 'Completed early schooling up to 8th standard, developing strong interest in mathematics, science, creativity, and logical thinking.',
-    icon: '🎒',
+    id: 'plus2',
+    step: '03',
+    year: '2021 — 2023',
+    title: 'HIGHER SECONDARY',
+    subtitle: 'Exploring Academic Depth',
+    description:
+      'Completed +2 from Nalanda Vidya Mandir, Berhampur with the Science stream. During this period, deep interest in technology, computers, and problem solving crystallized into a clear career direction.',
+    achievement: '80.1% (481/600) — CHSE',
+  },
+  {
+    id: 'explore',
+    step: '04',
+    year: '2023',
+    title: 'FINDING DIRECTION',
+    subtitle: 'The Search for the Right Path',
+    description:
+      'After completing +2, briefly joined a +3 undergraduate program and completed one semester while exploring the right academic path. The search led to a decisive pivot — towards Computer Science and Engineering.',
+    quote: '"Not every path is a detour. Some are necessary discoveries."',
+  },
+  {
+    id: 'btech',
+    step: '05',
+    year: '2024 — Present',
+    title: 'BACHELOR OF TECHNOLOGY',
+    subtitle: 'Engineering Journey — GIET University',
+    description:
+      'Joined B.Tech in Computer Science Engineering at Gandhi Institute of Engineering and Technology, Gunupur. Built strong academic foundations in the first year, overcame challenges in the second year, and continue building real-world AI and full-stack applications.',
+    details: [
+      'Algorithms, Data Structures and Problem Solving',
+      'Full-Stack Web Development — React, Node.js, TypeScript',
+      'Artificial Intelligence, Computer Vision and NLP',
+      '5+ deployed applications serving real users',
+    ],
+    achievement: 'Current CGPA — 8.98 / 10',
+    isCurrent: true,
   },
 ];
 
+const MilestoneContent: React.FC<{ m: Milestone }> = ({ m }) => (
+  <>
+    <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-green-700 mb-4">{m.year}</p>
+    <h3
+      className="font-black uppercase leading-none tracking-tight text-[#0a0a0a] mb-3"
+      style={{ fontSize: 'clamp(1.6rem, 4vw, 3.2rem)' }}
+    >
+      {m.title}
+    </h3>
+    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35 mb-7">{m.subtitle}</p>
+    <div className="mb-7 h-[1px] w-10" style={{ background: m.isCurrent ? '#16a34a' : 'rgba(0,0,0,0.15)' }} />
+    <p className="text-[#555] text-base md:text-lg leading-relaxed w-full mb-7">{m.description}</p>
+
+    {m.details && (
+      <ul className="space-y-3 mb-7">
+        {m.details.map((d, i) => (
+          <li key={i} className="flex items-start gap-3.5 text-[#666] text-sm md:text-base leading-relaxed">
+            <span className="mt-[0.45rem] w-1.5 h-1.5 flex-shrink-0 rounded-full" style={{ background: '#16a34a' }} />
+            <span>{d}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {m.achievement && (
+      <div className="inline-flex items-center gap-2.5 border border-green-700/20 bg-green-700/[0.06] px-4 py-2 mb-5">
+        <span className="w-1.5 h-1.5 bg-green-700 flex-shrink-0" />
+        <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] text-green-800">{m.achievement}</span>
+      </div>
+    )}
+
+    {m.quote && (
+      <p className="font-serif italic text-black/30 text-base md:text-lg max-w-[44ch] mt-2">{m.quote}</p>
+    )}
+
+    {m.isCurrent && (
+      <div className="mt-6 flex items-center gap-3">
+        <span className="w-2 h-2 rounded-full bg-green-600 animate-pulse" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-green-700">Currently Here</span>
+      </div>
+    )}
+  </>
+);
+
 export const TimelineSection: React.FC = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
+  const sectionRef   = useRef<HTMLElement>(null);
+  // refs to the LEFT cells (one per milestone)
+  const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // refs to the number spans inside each left cell
+  const numRefs  = useRef<(HTMLSpanElement | null)[]>([]);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                setVisibleItems(prev => {
-                    const newSet = new Set(prev);
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const index = Number(entry.target.getAttribute('data-index'));
-                            newSet.add(index);
-                        }
-                    });
-                    return newSet;
-                });
-            },
-            {
-                threshold: 0.2,
-                rootMargin: '0px 0px -100px 0px'
-            }
-        );
+  useEffect(() => {
+    // ── JS-BASED STICKY ──────────────────────────────────────────────
+    // We manually reimplement position:sticky here because CSS sticky
+    // is unreliable when ancestor elements have CSS transforms.
+    // STICKY TARGET: 38vh from top of viewport (upper-center of screen)
+    const TARGET_VH = 0.38;
 
-        if (containerRef.current) {
-            const elements = containerRef.current.querySelectorAll('.timeline-item');
-            elements.forEach(el => observer.observe(el));
+    const tick = () => {
+      const targetY = window.innerHeight * TARGET_VH;
+      const lastIndex = numRefs.current.length - 1;
+
+      numRefs.current.forEach((numEl, i) => {
+        const cell = cellRefs.current[i];
+        if (!numEl || !cell) return;
+
+        // Last number (05) scrolls normally — no sticky
+        if (i === lastIndex) {
+          numEl.style.transform = 'translateY(0)';
+          return;
         }
 
-        return () => observer.disconnect();
-    }, []);
+        const cellRect = cell.getBoundingClientRect();
+        const numH     = numEl.offsetHeight;
+        const cellH    = cell.offsetHeight;
 
-    return (
-        <section className="relative py-32 px-6 md:px-12 bg-transparent overflow-hidden">
-            <div className="max-w-6xl mx-auto relative z-10" ref={containerRef}>
-                <div className="text-center mb-24">
-                    <h2 className="text-5xl md:text-7xl font-black tracking-widest uppercase text-parchment-900/90 dark:text-white/90 drop-shadow-sm dark:drop-shadow-2xl mb-6">
-                        Timeline
-                    </h2>
-                    <p className="font-serif text-lg md:text-xl text-parchment-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        My journey from the beginning, driven by an unshakeable curiosity and passion for technology.
-                    </p>
-                </div>
+        const scrolledPast = targetY - cellRect.top;
 
-                <div className="relative">
-                    {/* The Center Line */}
-                    <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-parchment-400/50 dark:via-white/20 to-transparent transform md:-translate-x-1/2" />
+        let translateY: number;
 
-                    <div className="space-y-16 md:space-y-24">
-                        {MILESTONES.map((milestone, index) => {
-                            const isVisible = visibleItems.has(index);
-                            const isEven = index % 2 === 0;
+        if (scrolledPast <= 0) {
+          translateY = 0;
+        } else if (scrolledPast >= cellH - numH) {
+          translateY = cellH - numH;
+        } else {
+          translateY = scrolledPast;
+        }
 
-                            return (
-                                <div 
-                                    key={milestone.id}
-                                    data-index={index}
-                                    className={`timeline-item relative flex flex-col md:flex-row items-start md:items-center w-full group
-                                        ${isVisible ? 'opacity-100' : 'opacity-0'}
-                                        transition-all duration-1000 ease-out
-                                    `}
-                                    style={{ transitionDelay: `${index * 100}ms` }}
-                                >
-                                    {/* The Node on the line */}
-                                    <div className={`
-                                        absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-parchment-100 dark:bg-[#050510] border-2 z-10
-                                        transform -translate-x-1/2 mt-6 md:mt-0
-                                        transition-all duration-500
-                                        ${milestone.isCurrent ? 'border-amber-600 dark:border-green-400 scale-125' : 'border-parchment-400 dark:border-white/30 group-hover:border-amber-600 dark:group-hover:border-green-400 group-hover:scale-110'}
-                                    `}>
-                                        {milestone.isCurrent && (
-                                            <div className="absolute inset-0 rounded-full bg-amber-600 dark:bg-green-400 blur-sm opacity-50 animate-pulse" />
-                                        )}
-                                    </div>
+        numEl.style.transform = `translateY(${translateY}px)`;
+      });
+    };
 
-                                    {/* Content Container */}
-                                    <div className={`
-                                        ml-12 md:ml-0 w-full md:w-1/2 flex
-                                        ${isEven ? 'md:pr-16 md:justify-end' : 'md:pl-16 md:justify-start md:ml-auto'}
-                                        ${isVisible 
-                                            ? 'translate-x-0' 
-                                            : (isEven ? 'md:-translate-x-12 -translate-x-8' : 'md:translate-x-12 -translate-x-8')
-                                        }
-                                        transition-transform duration-1000 ease-out
-                                    `}>
-                                        <div className={`
-                                            relative p-6 md:p-8 rounded-2xl w-full max-w-xl
-                                            backdrop-blur-sm bg-white/40 dark:bg-white/[0.02] border border-parchment-200/50 dark:border-white/5
-                                            hover:bg-white/60 dark:hover:bg-white/[0.04] hover:border-parchment-300 dark:hover:border-white/10
-                                            transition-all duration-300 shadow-sm dark:shadow-none
-                                            ${isEven ? 'md:text-right' : 'md:text-left'}
-                                        `}>
-                                            <div className={`flex items-center gap-3 mb-4 ${isEven ? 'md:justify-end' : 'md:justify-start'}`}>
-                                                <span className="text-2xl">{milestone.icon}</span>
-                                                <span className="text-xs md:text-sm font-sans font-bold tracking-widest uppercase text-amber-700 dark:text-green-400">
-                                                    {milestone.date}
-                                                </span>
-                                            </div>
+    window.addEventListener('scroll', tick, { passive: true });
+    tick(); // run once on mount
 
-                                            <h3 className="text-2xl md:text-3xl font-display font-bold text-parchment-900 dark:text-white mb-2">
-                                                {milestone.title}
-                                            </h3>
-                                            
-                                            <div className="text-sm font-sans tracking-wider uppercase text-parchment-600 dark:text-gray-400 mb-4">
-                                                {milestone.subtitle}
-                                            </div>
+    return () => window.removeEventListener('scroll', tick);
+  }, []);
 
-                                            <p className="text-parchment-700 dark:text-gray-300 font-serif leading-relaxed mb-4 text-sm md:text-base">
-                                                {milestone.description}
-                                            </p>
+  return (
+    <section ref={sectionRef} className="relative bg-[#f5f4f0] text-[#0a0a0a]">
 
-                                            {milestone.details && (
-                                                <ul className={`space-y-2 mb-4 ${isEven ? 'md:items-end flex flex-col' : ''}`}>
-                                                    {milestone.details.map((detail, i) => (
-                                                        <li key={i} className="flex items-start gap-2 text-parchment-600 dark:text-gray-400 text-sm">
-                                                            {!isEven && <span className="text-amber-600 dark:text-green-500 mt-1">✦</span>}
-                                                            <span className={isEven ? 'md:text-right' : ''}>{detail}</span>
-                                                            {isEven && <span className="text-amber-600 dark:text-green-500 mt-1">✦</span>}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            )}
+      {/* ── TITLE ── */}
+      <div className="text-center pt-16 pb-8 px-6">
+        <h2
+          className="font-black uppercase leading-none tracking-tighter text-[#0a0a0a]"
+          style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}
+        >
+          Timeline
+        </h2>
+      </div>
 
-                                            {milestone.achievement && (
-                                                <div className={`inline-block px-4 py-2 rounded-lg bg-amber-700/10 dark:bg-green-500/10 border border-amber-700/20 dark:border-green-500/20 text-amber-700 dark:text-green-400 text-sm font-bold mt-2`}>
-                                                    {milestone.achievement}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+      {/* ── DESKTOP: two-column grid ── */}
+      <div className="hidden md:grid" style={{ gridTemplateColumns: '26% 1fr' }}>
+        {MILESTONES.map((m, i) => (
+          <React.Fragment key={m.id}>
+
+            {/* LEFT CELL: number moves via JS sticky */}
+            <div
+              ref={el => { cellRefs.current[i] = el; }}
+              className="border-t border-black/[0.08] pl-8 md:pl-10 pt-10 pb-10"
+              style={{ minHeight: '60vh' }}
+            >
+              <span
+                ref={el => { numRefs.current[i] = el; }}
+                className="block font-black leading-none select-none text-[#0a0a0a]"
+                style={{
+                  fontSize: 'clamp(5rem, 10vw, 11rem)',
+                  letterSpacing: '-0.06em',
+                  opacity: 1,
+                  willChange: 'transform',
+                }}
+              >
+                {m.step}
+              </span>
             </div>
-        </section>
-    );
+
+            {/* RIGHT CELL: plain normal scroll — zero JS involved */}
+            <div
+              className="border-t border-l border-black/[0.08] py-10 md:py-14 pl-8 md:pl-14 pr-6 md:pr-16 lg:pr-20"
+              style={{ minHeight: '60vh' }}
+            >
+              <MilestoneContent m={m} />
+            </div>
+
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* ── MOBILE: stacked ── */}
+      <div className="md:hidden">
+        {MILESTONES.map((m) => (
+          <div key={m.id} className="border-t border-black/[0.08] px-6 py-10">
+            <p
+              className="font-black leading-none tracking-tighter text-[#0a0a0a]/60 mb-6"
+              style={{ fontSize: '5rem', letterSpacing: '-0.06em' }}
+            >
+              {m.step}
+            </p>
+            <MilestoneContent m={m} />
+          </div>
+        ))}
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div className="relative flex flex-col items-center justify-center min-h-[40vh] border-t border-black/[0.06] px-6 text-center bg-[#f0efe9]">
+        <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-green-700/60 mb-4">The Summit Ahead</p>
+        <h3
+          className="font-black uppercase leading-none tracking-tight text-[#0a0a0a] mb-5"
+          style={{ fontSize: 'clamp(1.8rem, 5vw, 4rem)', opacity: 0.8 }}
+        >
+          Future Vision
+        </h3>
+        <p className="font-serif italic text-black/35 text-base md:text-lg max-w-md leading-relaxed">
+          &ldquo;To architect scalable systems and craft intelligent AI solutions that leave a lasting legacy in the world.&rdquo;
+        </p>
+      </div>
+
+    </section>
+  );
 };
