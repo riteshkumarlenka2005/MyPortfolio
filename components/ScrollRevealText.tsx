@@ -82,7 +82,7 @@ export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({
                         style={{ 
                             color: wordProgress > 0.1 ? '#ffffff' : '#4b5563', // #4b5563 is Tailwind gray-600
                             opacity: 0.3 + (0.7 * wordProgress),
-                            textShadow: wordProgress > 0.8 ? `0 0 12px rgba(255,255,255,0.5)` : 'none',
+                            textShadow: wordProgress > 0.8 ? `0 0 4px rgba(255,255,255,0.2)` : 'none',
                         }} 
                     >
                         {word}

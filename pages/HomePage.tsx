@@ -350,8 +350,12 @@ export const HomePage: React.FC = () => {
                                     </p>
                                 </div>
 
-                                {/* Know more link */}
-                                <div className="flex justify-end mt-10">
+                                {/* Bottom info and link */}
+                                <div className="flex flex-col lg:flex-row justify-between items-center mt-10 gap-4">
+                                    <div className="flex flex-row flex-wrap justify-center lg:justify-start gap-4 md:gap-8 text-white/60 text-sm md:text-base font-medium">
+                                        <span>Location: Odisha, India</span>
+                                        <span>Education: B.Tech CSE, GIET University</span>
+                                    </div>
                                     <Link
                                         to="/about"
                                         className="group/link inline-flex items-center gap-2 text-white/60 hover:text-white text-sm md:text-base font-medium tracking-wide transition-all duration-300"
