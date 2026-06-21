@@ -21,10 +21,10 @@ export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({
                 const windowHeight = window.innerHeight;
                 
                 // Define start and end points for the reveal
-                // Starts revealing when element enters the bottom 85% of the viewport
+                // Starts revealing when element enters the bottom 90% of the viewport
                 const startReveal = windowHeight * 0.90; 
-                // Fully revealed when element reaches 40% of the viewport
-                const endReveal = windowHeight * 0.40;   
+                // Fully revealed when element reaches 30% of the viewport
+                const endReveal = windowHeight * 0.30;   
                 
                 // Use the element's top position
                 const currentPos = rect.top;
@@ -78,7 +78,7 @@ export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({
                 return (
                     <span 
                         key={i} 
-                        className="inline-block transition-colors duration-100"
+                        className="inline-block transition-colors duration-300"
                         style={{ 
                             color: wordProgress > 0.1 ? '#ffffff' : '#4b5563', // #4b5563 is Tailwind gray-600
                             opacity: 0.3 + (0.7 * wordProgress),
