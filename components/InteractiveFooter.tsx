@@ -66,95 +66,129 @@ export const InteractiveFooter: React.FC = () => {
 
     return (
         <div ref={containerRef} className="w-full overflow-hidden">
-            <footer 
-                className={`relative w-full bg-[#0a0a0a] text-white py-12 md:py-16 px-6 md:px-16 flex flex-col justify-between transform transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}
+            <footer
+                className={`relative w-full overflow-hidden bg-[#0a0a0a] text-white py-12 md:py-16 px-6 md:px-16 flex flex-col justify-between transform transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}
             >
-            {/* Warm, grainy film-leak gradient at the bottom */}
-            <div 
-                className="absolute bottom-0 left-0 w-full h-[140px] pointer-events-none z-0"
-                style={{
-                    background: 'linear-gradient(to right, #050505 0%, #4a1511 40%, #b8401b 75%, #e69022 100%)',
-                    WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 100%)',
-                    maskImage: 'linear-gradient(to top, black 10%, transparent 100%)'
-                }}
-            >
-                {/* Heavy film grain noise overlay */}
-                <div 
-                    className="absolute inset-0 opacity-40 mix-blend-overlay" 
-                    style={{ 
-                        backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E")' 
-                    }} 
-                />
-            </div>
+                {/* Huge Background Typography (Bottom Anchored like Reference) */}
+                <div className="absolute bottom-0 left-0 w-full pointer-events-none z-0 overflow-hidden flex items-end justify-center select-none">
+                    <span
+                        className="font-bold text-white/[0.04] tracking-tighter leading-none whitespace-nowrap"
+                        style={{ 
+                            fontSize: '26vw', 
+                            transform: isVisible ? 'translateY(12%)' : 'translateY(150%)',
+                            opacity: isVisible ? 1 : 0,
+                            transition: 'transform 1.5s cubic-bezier(0.16,1,0.3,1) 0.5s, opacity 1.5s ease 0.5s'
+                        }}
+                    >
+                        RITESH
+                    </span>
+                </div>
 
-            <div className="relative z-10 flex flex-col lg:flex-row justify-between w-full max-w-7xl mx-auto gap-16 lg:gap-8">
-                {/* Left Side: Brand and Description */}
-                <div className="flex flex-col items-start max-w-xl">
-                    <h2 className="text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase">
-                        ARCHIVIST
-                    </h2>
+                <div className="relative z-10 flex flex-col lg:flex-row justify-between w-full max-w-7xl mx-auto gap-16 lg:gap-8">
+                    {/* Left Side: Brand and Description */}
+                    <div className="flex flex-col items-start max-w-xl">
+                        {/* Availability Indicator */}
+                        <div className="flex items-center gap-3 mt-2 mb-4">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                            <span className="text-green-400 text-xs font-semibold tracking-widest uppercase">Available for work</span>
+                        </div>
 
-                    <p className="mt-8 text-zinc-400 font-serif text-lg leading-relaxed max-w-md">
-                        A digital sanctuary for thoughtful work and enduring ideas. Crafted with intention, preserved with care.
+                        <p className="mt-4 text-zinc-300 font-sans text-xl md:text-2xl font-bold leading-relaxed max-w-md">
+                            Crafting intelligent digital experiences through modern web development, AI engineering, and purposeful design.
+                        </p>
+                        
+                        <a 
+                            href="/resume.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-8 inline-flex items-center gap-2 px-8 py-3 bg-white/5 hover:bg-white text-white hover:text-black border border-white/10 hover:border-white font-medium tracking-wide text-sm transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                        >
+                            Résumé <span className="text-lg leading-none font-light">↗</span>
+                        </a>
+                    </div>
+
+                    {/* Right Side: Links Columns */}
+                    <div className="flex flex-col sm:flex-row gap-12 lg:gap-16 w-full lg:w-auto">
+                        {/* Navigation Column */}
+                        <div className="flex flex-col w-full sm:w-[220px]">
+                            <h3 className="text-zinc-500 font-serif italic mb-6"></h3>
+                            <div className="flex flex-col border-t border-white/10">
+                                {navLinks.map((link) => {
+                                    const linkClasses = "group/item relative flex items-center justify-between px-5 py-4 text-white hover:text-black transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden border-b border-white/10";
+                                    const innerContent = (
+                                        <>
+                                            <div className="absolute bottom-0 left-0 right-0 h-0 bg-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:h-full z-0" />
+                                            <span className="text-lg font-medium tracking-wide relative z-10">{link.label}</span>
+                                            <span className="text-xl transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] font-light relative z-10">
+                                                <span className="block group-hover/item:hidden">→</span>
+                                                <span className="hidden group-hover/item:block">↗</span>
+                                            </span>
+                                        </>
+                                    );
+
+                                    return link.external ? (
+                                        <a
+                                            key={link.label}
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className={linkClasses}
+                                        >
+                                            {innerContent}
+                                        </a>
+                                    ) : (
+                                        <Link
+                                            key={link.label}
+                                            to={link.href}
+                                            className={linkClasses}
+                                        >
+                                            {innerContent}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Socials Column */}
+                        <div className="flex flex-col w-full sm:w-[220px]">
+                            <h3 className="text-zinc-500 font-serif italic mb-6"></h3>
+                            <div className="flex flex-col border-t border-white/10">
+                                {socialLinks.map((link) => (
+                                    <a
+                                        key={link.label}
+                                        href={link.href}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="group/item relative flex items-center justify-between px-5 py-4 text-white hover:text-black transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden border-b border-white/10"
+                                    >
+                                        <div className="absolute bottom-0 left-0 right-0 h-0 bg-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:h-full z-0" />
+                                        <div className="flex items-center gap-3 relative z-10">
+                                            {link.icon}
+                                            <span className="text-lg font-medium tracking-wide">{link.label}</span>
+                                        </div>
+                                        <span className="text-xl transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] font-light relative z-10">
+                                            <span className="block group-hover/item:hidden">→</span>
+                                            <span className="hidden group-hover/item:block">↗</span>
+                                        </span>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="relative z-10 flex flex-col justify-start items-center md:items-start w-full max-w-7xl mx-auto mt-16 lg:mt-24 gap-4">
+                    <p className="font-serif italic text-zinc-300 text-base md:text-lg font-semibold text-center md:text-left">
+                        "The best engineers are not just technically strong — they are thinkers first, builders second."
+                    </p>
+                    <p className="font-sans text-zinc-400 text-sm md:text-base font-medium tracking-wide text-center md:text-left">
+                        Designed & built by Ritesh Kumar Lenka &nbsp;·&nbsp; All rights reserved
                     </p>
                 </div>
-
-                {/* Right Side: Links Columns */}
-                <div className="flex flex-col sm:flex-row gap-12 lg:gap-16 w-full lg:w-auto">
-                    {/* Navigation Column */}
-                    <div className="flex flex-col w-full sm:w-[220px]">
-                        <h3 className="text-zinc-500 font-serif italic mb-6"></h3>
-                        <div className="flex flex-col border-t border-white/10">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.label}
-                                    to={link.href}
-                                    className="group/item relative flex items-center justify-between px-5 py-4 text-white hover:text-black transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden border-b border-white/10"
-                                >
-                                    <div className="absolute bottom-0 left-0 right-0 h-0 bg-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:h-full z-0" />
-                                    <span className="text-lg font-medium tracking-wide relative z-10">{link.label}</span>
-                                    <span className="text-xl transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] font-light relative z-10">
-                                        <span className="block group-hover/item:hidden">→</span>
-                                        <span className="hidden group-hover/item:block">↗</span>
-                                    </span>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Socials Column */}
-                    <div className="flex flex-col w-full sm:w-[220px]">
-                        <h3 className="text-zinc-500 font-serif italic mb-6"></h3>
-                        <div className="flex flex-col border-t border-white/10">
-                            {socialLinks.map((link) => (
-                                <a
-                                    key={link.label}
-                                    href={link.href}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="group/item relative flex items-center justify-between px-5 py-4 text-white hover:text-black transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden border-b border-white/10"
-                                >
-                                    <div className="absolute bottom-0 left-0 right-0 h-0 bg-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:h-full z-0" />
-                                    <div className="flex items-center gap-3 relative z-10">
-                                        {link.icon}
-                                        <span className="text-lg font-medium tracking-wide">{link.label}</span>
-                                    </div>
-                                    <span className="text-xl transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] font-light relative z-10">
-                                        <span className="block group-hover/item:hidden">→</span>
-                                        <span className="hidden group-hover/item:block">↗</span>
-                                    </span>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Bottom Bar */}
-            <div className="relative z-10 flex flex-col md:flex-row justify-between items-center md:items-end w-full max-w-7xl mx-auto mt-16 lg:mt-24 text-zinc-200 font-serif italic text-base md:text-lg tracking-wide drop-shadow-md gap-4">
-                <p className="font-medium">@ 2025 Archivist</p>
-                <p className="text-center md:text-right font-medium">"Knowledge, once recorded, becomes eternal."</p>
-            </div>
             </footer>
         </div>
     );

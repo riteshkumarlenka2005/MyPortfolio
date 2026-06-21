@@ -413,12 +413,11 @@ export const HomePage: React.FC = () => {
                         ref={statsRef}
                         id="stats-section"
                         data-scroll-section
-                        className="relative py-24 px-6 md:px-12 bg-parchment-900 dark:bg-antique-800 text-parchment-100 dark:text-antique-100"
+                        className="relative py-24 px-6 md:px-12 bg-[#0a0a0a] text-white"
                     >
-                        {/* Decorative overlay */}
-                        <div className="absolute inset-0 opacity-10">
-                            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-green-600/20 to-transparent" />
-                        </div>
+                        {/* Top border line */}
+                        <div className="absolute top-0 left-0 w-full h-px bg-white/10" />
+                        <div className="absolute bottom-0 left-0 w-full h-px bg-white/10" />
 
                         <div className="max-w-6xl mx-auto relative z-10">
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
@@ -427,17 +426,17 @@ export const HomePage: React.FC = () => {
                                         key={stat.label}
                                         className={`
                                     text-center
-                                    transition-all duration-1000 ease-out
+                                    transition-all duration-700 ease-out
                                     ${sectionsVisible['stats-section'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                                 `}
                                         style={{
-                                            transitionDelay: sectionsVisible['stats-section'] ? `${index * 150}ms` : '0ms',
+                                            transitionDelay: sectionsVisible['stats-section'] ? `${index * 120}ms` : '0ms',
                                         }}
                                     >
-                                        <div className="font-display text-5xl md:text-6xl font-bold mb-3 text-green-400 dark:text-green-500">
+                                        <div className="text-5xl md:text-6xl font-black mb-3 text-green-400">
                                             {stat.value}
                                         </div>
-                                        <div className="font-serif text-sm uppercase tracking-wider">
+                                        <div className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
                                             {stat.label}
                                         </div>
                                     </div>
@@ -463,30 +462,30 @@ export const HomePage: React.FC = () => {
                         <div
                             className={`
                         max-w-3xl mx-auto text-center space-y-8
-                        transition-all duration-1000 ease-out
+                        transition-all duration-700 ease-out
                         ${sectionsVisible['cta-section'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
                     `}
                         >
-                            {/* Decorative element */}
-                            <div className="flex items-center justify-center gap-6 opacity-30">
-                                <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-current" />
-                                <div className="w-3 h-3 rotate-45 border border-current" />
-                                <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-current" />
+                            {/* Decorative divider */}
+                            <div className="flex items-center justify-center gap-6 opacity-20">
+                                <div className="h-px w-16 bg-white" />
+                                <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                                <div className="h-px w-16 bg-white" />
                             </div>
 
                             <div className="mb-8">
                                 <AnimatedHeading text="LET'S CONNECT" />
                             </div>
 
-                            <p className="font-serif text-xl leading-relaxed">
-                                Whether you have a project in mind, a question to ask, or simply wish to connect—
+                            <p className="text-xl leading-relaxed text-white/60 font-sans">
+                                Whether you have a project in mind, a question to ask, or simply wish to connect —
                                 I welcome the opportunity to explore new collaborations.
                             </p>
 
                             <div className="pt-8">
                                 <Link
                                     to="/contact"
-                                    className="inline-flex items-center gap-4 px-12 py-6 bg-green-600 dark:bg-green-500 text-parchment-100 dark:text-antique-100 font-serif font-bold tracking-widest uppercase text-sm hover:bg-green-700 dark:hover:bg-green-600 transition-all duration-500 hover:shadow-xl hover:shadow-green-900/30 transform hover:-translate-y-1"
+                                    className="inline-flex items-center gap-3 px-10 py-4 bg-green-400 text-black font-semibold tracking-widest uppercase text-sm rounded-full hover:bg-green-300 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,222,128,0.25)] hover:-translate-y-0.5"
                                 >
                                     Begin a Conversation
                                     <span>→</span>

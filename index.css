@@ -377,6 +377,13 @@ section {
 html {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar completely for a clean, immersive look */
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* Mobile touch improvements */

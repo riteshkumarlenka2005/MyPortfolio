@@ -12,11 +12,12 @@ export const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, classNam
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
+                // Re-animate every time — no disconnect
                 setIsVisible(entry.isIntersecting);
             },
             {
-                threshold: 0.1, // Lower threshold to ensure it triggers
-                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.2,
+                rootMargin: '0px 0px -40px 0px',
             }
         );
 
@@ -32,32 +33,27 @@ export const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, classNam
     return (
         <h2
             ref={headingRef}
-            className={`flex flex-wrap justify-center gap-x-4 md:gap-x-8 text-6xl md:text-8xl font-black uppercase drop-shadow-2xl ${className}`}
+            className={`flex flex-wrap justify-center gap-x-5 md:gap-x-10 text-6xl md:text-8xl font-black uppercase tracking-tight overflow-hidden ${className}`}
         >
             {words.map((word, wordIndex) => (
-                <span key={wordIndex} className="inline-flex">
-                    {word.split('').map((char, charIndex) => {
-                        const previousChars = words.slice(0, wordIndex).reduce((sum, w) => sum + w.length, 0);
-                        const delay = (previousChars + charIndex) * 50; 
-
-                        return (
-                            <span
-                                key={charIndex}
-                                className="inline-block"
-                                style={{ 
-                                    transition: 'all 1500ms cubic-bezier(0.2, 0.8, 0.2, 1)',
-                                    transitionDelay: `${delay}ms`,
-                                    letterSpacing: isVisible ? '0.1em' : '0.5em',
-                                    filter: isVisible ? 'blur(0px)' : 'blur(16px)',
-                                    opacity: isVisible ? 1 : 0,
-                                    transform: isVisible ? 'scale(1) translateY(0)' : 'scale(1.3) translateY(20px)',
-                                    color: isVisible ? 'rgba(255, 255, 255, 0.95)' : 'rgba(34, 197, 94, 1)' // Starts bright green, becomes white
-                                }}
-                            >
-                                {char === ' ' ? '\u00A0' : char}
-                            </span>
-                        );
-                    })}
+                <span
+                    key={wordIndex}
+                    className="overflow-hidden inline-block"
+                    aria-label={word}
+                >
+                    <span
+                        className="inline-block"
+                        style={{
+                            transform: isVisible ? 'translateY(0)' : 'translateY(110%)',
+                            opacity: isVisible ? 1 : 0,
+                            transition: `transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease`,
+                            transitionDelay: `${wordIndex * 100}ms`,
+                            color: 'rgba(255, 255, 255, 0.95)',
+                            willChange: 'transform',
+                        }}
+                    >
+                        {word}
+                    </span>
                 </span>
             ))}
         </h2>

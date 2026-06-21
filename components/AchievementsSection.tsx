@@ -8,7 +8,7 @@ const ACHIEVEMENTS = [
         title: "University First Rank",
         description: "Among 500+ students",
         colSpan: "md:col-span-1 lg:col-span-1",
-        accent: "text-emerald-400"
+        accent: "text-green-400"   // single site accent
     },
     {
         stat: "SIH 2025",
@@ -32,7 +32,7 @@ const ACHIEVEMENTS = [
         title: "Science Exhibition Winner",
         description: "Solar Panel Wiper Project",
         colSpan: "md:col-span-1 lg:col-span-1",
-        accent: "text-amber-400"
+        accent: "text-white"
     }
 ];
 
