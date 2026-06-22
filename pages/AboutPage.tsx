@@ -4,7 +4,7 @@ import Lenis from 'lenis';
 import { TimelineSection } from '../components/TimelineSection';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 import { AnimatedPen } from '../components/AnimatedPen';
-import { BlurReveal } from '../components/BlurReveal';
+
 
 export const AboutPage: React.FC = () => {
     const [visible, setVisible] = useState(false);
@@ -194,27 +194,13 @@ export const AboutPage: React.FC = () => {
                             </div>
                         </div>
                         <div className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify space-y-5">
-                            <BlurReveal delay={0}>
-                                <p>I believe every life is a project under construction.</p>
-                            </BlurReveal>
-                            <BlurReveal delay={200}>
-                                <p>Every choice shapes the future. Every habit writes a new chapter. Every challenge carries a lesson waiting to be discovered.</p>
-                            </BlurReveal>
-                            <BlurReveal delay={400}>
-                                <p>I am not searching for the perfect moment to begin. I believe growth comes from starting, learning, failing, improving, and moving forward.</p>
-                            </BlurReveal>
-                            <BlurReveal delay={600}>
-                                <p>As a student and aspiring engineer, I see technology as more than a career path — it is a tool for turning ideas into reality.</p>
-                            </BlurReveal>
-                            <BlurReveal delay={800}>
-                                <p className="font-semibold text-white/90">My philosophy is simple:</p>
-                            </BlurReveal>
-                            <BlurReveal delay={1000}>
-                                <p className="font-bold text-white tracking-wide">Stay curious. Build consistently. Learn endlessly.</p>
-                            </BlurReveal>
-                            <BlurReveal delay={1200}>
-                                <p>The destination matters, but the person I become along the way matters even more.</p>
-                            </BlurReveal>
+                            <p>I believe every life is a project under construction.</p>
+                            <p>Every choice shapes the future. Every habit writes a new chapter. Every challenge carries a lesson waiting to be discovered.</p>
+                            <p>I am not searching for the perfect moment to begin. I believe growth comes from starting, learning, failing, improving, and moving forward.</p>
+                            <p>As a student and aspiring engineer, I see technology as more than a career path — it is a tool for turning ideas into reality.</p>
+                            <p className="font-semibold text-white/90">My philosophy is simple:</p>
+                            <p className="font-bold text-white tracking-wide">Stay curious. Build consistently. Learn endlessly.</p>
+                            <p>The destination matters, but the person I become along the way matters even more.</p>
                         </div>
                     </section>
                 </div>
@@ -234,36 +220,24 @@ export const AboutPage: React.FC = () => {
                     {/* Introduction */}
                     <section className="mb-16" style={{ marginLeft: 'calc(-50vw + 50%)' }}>
                         <div className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify space-y-6">
-                            <BlurReveal delay={0}>
-                                <p className="first-letter:text-5xl first-letter:font-sans first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:leading-none first-letter:text-amber-500">
+                            <p className="first-letter:text-5xl first-letter:font-sans first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:leading-none first-letter:text-amber-500">
                                     I am Ritesh Kumar Lenka, a Computer Science Engineering student at GIET University, Gunupur, originally from the village of Mohiguda in Odisha, India.
                                 </p>
-                            </BlurReveal>
-                            <BlurReveal delay={200}>
-                                <p>
+                            <p>
                                     Growing up in a small village taught me lessons that continue to shape the way I think today — curiosity, adaptability, and the importance of making the most of every opportunity. Those early experiences developed a mindset of learning, building, and continuously improving, which eventually led me toward the world of technology.
                                 </p>
-                            </BlurReveal>
-                            <BlurReveal delay={400}>
-                                <p>
+                            <p>
                                     My primary interests lie in Artificial Intelligence and Machine Learning, where I explore how intelligent systems can solve real-world problems. Alongside AI, I enjoy Full Stack Web Development and Product Design, disciplines that allow me to transform ideas into practical, user-centered digital experiences.
                                 </p>
-                            </BlurReveal>
-                            <BlurReveal delay={600}>
-                                <p>
+                            <p>
                                     What interests me most about technology is not simply writing code, but understanding how systems are designed, how products evolve, and how thoughtful engineering can create meaningful impact. I enjoy breaking down complex problems, exploring new technologies, and turning concepts into solutions that are both functional and intuitive.
                                 </p>
-                            </BlurReveal>
-                            <BlurReveal delay={800}>
-                                <p>
+                            <p>
                                     This archive serves as a record of that journey — a collection of projects, experiments, lessons, and experiences that reflect my growth as an engineer and builder. Every project represents an opportunity to learn something new, refine my thinking, and deepen my understanding of the craft.
                                 </p>
-                            </BlurReveal>
-                            <BlurReveal delay={1000}>
-                                <p>
+                            <p>
                                     My long-term goal is to contribute to the development of intelligent products and scalable systems that improve people's lives. I believe great technology is built at the intersection of engineering, creativity, and continuous learning, and I am committed to growing within all three.
                                 </p>
-                            </BlurReveal>
                         </div>
                     </section>
                 </div>
@@ -411,7 +385,29 @@ export const AboutPage: React.FC = () => {
                         </div>
                     </div>
                 </section>
+                {/* Outside The Screen Section */}
+                <section className="mt-20 mb-20 flex flex-col items-center text-center relative z-10 w-full max-w-4xl mx-auto px-4">
+                    <h2 className="font-sans text-4xl md:text-5xl font-bold text-white mb-8">
+                        Outside The Screen
+                    </h2>
+                    
+                    <div className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed space-y-6 mb-12">
+                            <p>Technology is a significant part of my life, but it is not the whole story.</p>
+                            <p>Beyond engineering, I enjoy photography, design, storytelling, and exploring the experiences that shape how we see the world. These interests have taught me to observe details, think creatively, and appreciate perspectives beyond code and algorithms. Many of the lessons that influence my approach to technology were learned not from a computer screen, but from people, places, conversations, and experiences throughout my journey.</p>
+                    </div>
 
+                        <Link 
+                            to="/autobiography"
+                            className="group relative inline-flex items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-[#1a1a1a] border border-white/10 rounded-full overflow-hidden transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                        >
+                            <span className="relative z-10 flex items-center gap-3">
+                                Read My Autobiography 
+                                <span className="transform transition-transform duration-500 group-hover:translate-x-2 text-amber-500">→</span>
+                            </span>
+                            {/* Premium subtle sweeping light effect */}
+                            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+                        </Link>
+                </section>
 
                 {/* Footer Spacer */}
                 <div className="h-20"></div>
