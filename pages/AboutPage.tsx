@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import { TimelineSection } from '../components/TimelineSection';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 import { AnimatedPen } from '../components/AnimatedPen';
+import { BlurReveal } from '../components/BlurReveal';
 
 export const AboutPage: React.FC = () => {
     const [visible, setVisible] = useState(false);
@@ -193,13 +194,27 @@ export const AboutPage: React.FC = () => {
                             </div>
                         </div>
                         <div className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify space-y-5">
-                            <p>I believe every life is a project under construction.</p>
-                            <p>Every choice shapes the future. Every habit writes a new chapter. Every challenge carries a lesson waiting to be discovered.</p>
-                            <p>I am not searching for the perfect moment to begin. I believe growth comes from starting, learning, failing, improving, and moving forward.</p>
-                            <p>As a student and aspiring engineer, I see technology as more than a career path — it is a tool for turning ideas into reality.</p>
-                            <p className="font-semibold text-white/90">My philosophy is simple:</p>
-                            <p className="font-bold text-white tracking-wide">Stay curious. Build consistently. Learn endlessly.</p>
-                            <p>The destination matters, but the person I become along the way matters even more.</p>
+                            <BlurReveal delay={0}>
+                                <p>I believe every life is a project under construction.</p>
+                            </BlurReveal>
+                            <BlurReveal delay={200}>
+                                <p>Every choice shapes the future. Every habit writes a new chapter. Every challenge carries a lesson waiting to be discovered.</p>
+                            </BlurReveal>
+                            <BlurReveal delay={400}>
+                                <p>I am not searching for the perfect moment to begin. I believe growth comes from starting, learning, failing, improving, and moving forward.</p>
+                            </BlurReveal>
+                            <BlurReveal delay={600}>
+                                <p>As a student and aspiring engineer, I see technology as more than a career path — it is a tool for turning ideas into reality.</p>
+                            </BlurReveal>
+                            <BlurReveal delay={800}>
+                                <p className="font-semibold text-white/90">My philosophy is simple:</p>
+                            </BlurReveal>
+                            <BlurReveal delay={1000}>
+                                <p className="font-bold text-white tracking-wide">Stay curious. Build consistently. Learn endlessly.</p>
+                            </BlurReveal>
+                            <BlurReveal delay={1200}>
+                                <p>The destination matters, but the person I become along the way matters even more.</p>
+                            </BlurReveal>
                         </div>
                     </section>
                 </div>
@@ -219,24 +234,36 @@ export const AboutPage: React.FC = () => {
                     {/* Introduction */}
                     <section className="mb-16" style={{ marginLeft: 'calc(-50vw + 50%)' }}>
                         <div className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify space-y-6">
-                            <p className="first-letter:text-5xl first-letter:font-sans first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:leading-none first-letter:text-amber-500">
-                                I am Ritesh Kumar Lenka, a Computer Science Engineering student at GIET University, Gunupur, originally from the village of Mohiguda in Odisha, India.
-                            </p>
-                            <p>
-                                Growing up in a small village taught me lessons that continue to shape the way I think today — curiosity, adaptability, and the importance of making the most of every opportunity. Those early experiences developed a mindset of learning, building, and continuously improving, which eventually led me toward the world of technology.
-                            </p>
-                            <p>
-                                My primary interests lie in Artificial Intelligence and Machine Learning, where I explore how intelligent systems can solve real-world problems. Alongside AI, I enjoy Full Stack Web Development and Product Design, disciplines that allow me to transform ideas into practical, user-centered digital experiences.
-                            </p>
-                            <p>
-                                What interests me most about technology is not simply writing code, but understanding how systems are designed, how products evolve, and how thoughtful engineering can create meaningful impact. I enjoy breaking down complex problems, exploring new technologies, and turning concepts into solutions that are both functional and intuitive.
-                            </p>
-                            <p>
-                                This archive serves as a record of that journey — a collection of projects, experiments, lessons, and experiences that reflect my growth as an engineer and builder. Every project represents an opportunity to learn something new, refine my thinking, and deepen my understanding of the craft.
-                            </p>
-                            <p>
-                                My long-term goal is to contribute to the development of intelligent products and scalable systems that improve people's lives. I believe great technology is built at the intersection of engineering, creativity, and continuous learning, and I am committed to growing within all three.
-                            </p>
+                            <BlurReveal delay={0}>
+                                <p className="first-letter:text-5xl first-letter:font-sans first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:leading-none first-letter:text-amber-500">
+                                    I am Ritesh Kumar Lenka, a Computer Science Engineering student at GIET University, Gunupur, originally from the village of Mohiguda in Odisha, India.
+                                </p>
+                            </BlurReveal>
+                            <BlurReveal delay={200}>
+                                <p>
+                                    Growing up in a small village taught me lessons that continue to shape the way I think today — curiosity, adaptability, and the importance of making the most of every opportunity. Those early experiences developed a mindset of learning, building, and continuously improving, which eventually led me toward the world of technology.
+                                </p>
+                            </BlurReveal>
+                            <BlurReveal delay={400}>
+                                <p>
+                                    My primary interests lie in Artificial Intelligence and Machine Learning, where I explore how intelligent systems can solve real-world problems. Alongside AI, I enjoy Full Stack Web Development and Product Design, disciplines that allow me to transform ideas into practical, user-centered digital experiences.
+                                </p>
+                            </BlurReveal>
+                            <BlurReveal delay={600}>
+                                <p>
+                                    What interests me most about technology is not simply writing code, but understanding how systems are designed, how products evolve, and how thoughtful engineering can create meaningful impact. I enjoy breaking down complex problems, exploring new technologies, and turning concepts into solutions that are both functional and intuitive.
+                                </p>
+                            </BlurReveal>
+                            <BlurReveal delay={800}>
+                                <p>
+                                    This archive serves as a record of that journey — a collection of projects, experiments, lessons, and experiences that reflect my growth as an engineer and builder. Every project represents an opportunity to learn something new, refine my thinking, and deepen my understanding of the craft.
+                                </p>
+                            </BlurReveal>
+                            <BlurReveal delay={1000}>
+                                <p>
+                                    My long-term goal is to contribute to the development of intelligent products and scalable systems that improve people's lives. I believe great technology is built at the intersection of engineering, creativity, and continuous learning, and I am committed to growing within all three.
+                                </p>
+                            </BlurReveal>
                         </div>
                     </section>
                 </div>
