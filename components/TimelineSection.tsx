@@ -310,19 +310,6 @@ export const TimelineSection: React.FC = () => {
         ))}
       </div>
 
-      {/* ── FOOTER ── */}
-      <div className="relative flex flex-col items-center justify-center min-h-[40vh] border-t border-black/[0.06] px-6 text-center bg-[#f0efe9]">
-        <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-green-700/60 mb-4">The Summit Ahead</p>
-        <h3
-          className="font-black uppercase leading-none tracking-tight text-[#0a0a0a] mb-5"
-          style={{ fontSize: 'clamp(1.8rem, 5vw, 4rem)', opacity: 0.8 }}
-        >
-          Future Vision
-        </h3>
-        <p className="font-serif italic text-black/35 text-base md:text-lg max-w-lg leading-relaxed">
-          &ldquo;To architect scalable systems and craft intelligent AI solutions that leave a lasting legacy in the world.&rdquo;
-        </p>
-      </div>
 
     </section>
   );
