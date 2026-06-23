@@ -117,15 +117,15 @@ export const ResourcesPage: React.FC = () => {
                 </div>
 
                 {/* Text Overlays */}
-                <div className="absolute inset-0 z-20 flex flex-row items-center justify-between px-4 sm:px-8 md:px-24 w-full pointer-events-none">
+                <div className="absolute inset-0 z-20 flex flex-row items-center justify-between px-4 sm:px-8 md:px-24 w-full pointer-events-none -translate-y-8 sm:translate-y-0">
                     {/* Left Text (Dark text on white shape) */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         animate={heroVisible ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
-                        className="w-1/2 flex justify-start"
+                        className="w-1/2 flex justify-start -translate-y-8 sm:translate-y-0"
                     >
-                        <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-black text-black uppercase tracking-tighter leading-[0.9] drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)] md:drop-shadow-none">
+                        <h1 className="text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] font-black text-black uppercase tracking-[-0.04em] leading-[0.85] drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)] md:drop-shadow-none">
                             Tech<br />Library
                         </h1>
                     </motion.div>
@@ -135,9 +135,9 @@ export const ResourcesPage: React.FC = () => {
                         initial={{ opacity: 0, x: 50 }}
                         animate={heroVisible ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
-                        className="w-1/2 flex justify-end text-right"
+                        className="w-1/2 flex justify-end text-right translate-y-8 sm:translate-y-0"
                     >
-                        <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-[0.9] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:drop-shadow-none">
+                        <h1 className="text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] font-black text-white uppercase tracking-[-0.04em] leading-[0.85] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:drop-shadow-none">
                             Knowledge<br />Is Ocean
                         </h1>
                     </motion.div>

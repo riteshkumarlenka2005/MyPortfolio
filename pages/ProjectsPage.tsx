@@ -891,7 +891,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                 </div>
 
                 {/* Project Title */}
-                <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white mb-8 md:mb-12">
+                <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase leading-tight text-white mb-8 md:mb-12">
                     {project.title}
                 </h2>
 
@@ -993,42 +993,30 @@ export const ProjectsPage: React.FC = () => {
 
     useEffect(() => {
         const isReturning = sessionStorage.getItem('hasVisited');
-        const delay = isReturning ? 300 : 2200;
+        const delay = isReturning ? 300 : 400;
         sessionStorage.setItem('hasVisited', 'true');
         const timer = setTimeout(() => setHeaderVisible(true), delay);
         return () => clearTimeout(timer);
     }, []);
 
     return (
-        <div className="min-h-screen bg-parchment-100 dark:bg-antique-50 text-parchment-900 dark:text-antique-800 transition-colors duration-500">
+        <div className="min-h-screen bg-[#080808] text-white">
 
-
-
-            {/* Page Header */}
-            <header className={`
-        pt-24 pb-12 md:pt-40 md:pb-24 border-b border-parchment-400/30 dark:border-antique-200/20
-        transition-all duration-1000 ease-out
-        ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
-      `}>
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-12">
-                    <div className="flex items-center gap-4 mb-6 opacity-50">
-                        <div className="h-[1px] w-12 bg-current"></div>
-                        <span className="font-sans italic text-sm tracking-widest uppercase text-gray-400">Catalog of Works</span>
-                        <div className="h-[1px] w-12 bg-current"></div>
-                    </div>
-
-                        <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide text-white mb-6 md:mb-8">
-                        Projects & Artifacts
+            {/* ═══════════════════════════════════════════
+                HERO SECTION — Clean & Minimal
+            ═══════════════════════════════════════════ */}
+            <section className="w-full h-screen min-h-[500px] bg-[#000000] flex items-center justify-center px-6 sm:px-12 md:px-20">
+                <div className={`text-center transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <h1 className="font-sans font-black uppercase leading-[0.85] tracking-[-0.04em] text-white">
+                        <span className="block text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem]">Projects</span>
+                        <span className="block text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] text-white">&amp;</span>
+                        <span className="block text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem]">Artifacts</span>
                     </h1>
-
-                        <p className="font-sans text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-3xl">
-                        A chronological journey through projects built from curiosity and necessity. Each one represents a problem understood, a solution crafted, and a lesson earned.
-                    </p>
                 </div>
-            </header>
+            </section>
 
             {/* Projects Catalog */}
-            <main>
+            <main className="bg-parchment-100 dark:bg-antique-50 text-parchment-900 dark:text-antique-800">
                 {PROJECTS.map((project, index) => (
                     <ProjectSection key={project.id} project={project} index={index} />
                 ))}

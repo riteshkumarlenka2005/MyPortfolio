@@ -33,7 +33,7 @@ export const ContactPage: React.FC = () => {
 
                     {/* Left Column: Text & Info */}
                     <div className="flex flex-col lg:pt-8">
-                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-5 md:mb-6 text-white uppercase leading-none">
+                        <h1 className="text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] font-black tracking-[-0.04em] leading-[0.85] mb-5 md:mb-6 text-white uppercase">
                             Contact me
                         </h1>
                         <p className="text-gray-400 text-base md:text-lg lg:text-xl leading-relaxed max-w-md mb-8 md:mb-12">
