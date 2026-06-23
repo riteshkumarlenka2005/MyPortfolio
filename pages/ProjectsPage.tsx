@@ -1003,14 +1003,26 @@ export const ProjectsPage: React.FC = () => {
         <div className="min-h-screen bg-[#080808] text-white">
 
             {/* ═══════════════════════════════════════════
-                HERO SECTION — Clean & Minimal
+                HERO SECTION — Long Shadow 3D Typography
             ═══════════════════════════════════════════ */}
-            <section className="w-full h-screen min-h-[500px] bg-[#000000] flex items-center justify-center px-6 sm:px-12 md:px-20">
-                <div className={`text-center transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <h1 className="font-sans font-black uppercase leading-[0.85] tracking-[-0.04em] text-white">
-                        <span className="block text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem]">Projects</span>
-                        <span className="block text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] text-white">&amp;</span>
-                        <span className="block text-[10vw] lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem]">Artifacts</span>
+            <section className="w-full bg-[#000000] flex items-center justify-center overflow-hidden py-10">
+                {/* Long Shadow CSS injected inline */}
+                <style>{`
+                    .long-shadow-text {
+                        color: #ffffff;
+                        text-shadow: ${Array.from({ length: 350 }, (_, i) => {
+                            const offset = i + 1;
+                            const opacity = Math.max(0.008, 0.9 - offset * 0.0024);
+                            return `${offset}px ${offset}px 0 rgba(30,30,30,${opacity.toFixed(3)})`;
+                        }).join(', ')};
+                    }
+                `}</style>
+
+                <div className={`text-center w-full transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <h1 className="font-sans font-black uppercase leading-[0.9] tracking-[-0.04em] long-shadow-text w-full">
+                        <span className="block text-[13vw]">Projects</span>
+                        <span className="block text-[13vw]">&amp;</span>
+                        <span className="block text-[13vw]">Artifacts</span>
                     </h1>
                 </div>
             </section>
