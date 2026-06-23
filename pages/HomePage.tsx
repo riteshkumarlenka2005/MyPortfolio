@@ -17,6 +17,7 @@ import { StatsSection } from '../components/StatsSection';
 import { ScrollRevealText } from '../components/ScrollRevealText';
 import { SkillsSection } from '../components/SkillsSection';
 import { AchievementsSection } from '../components/AchievementsSection';
+import { WhatICanDo } from '../components/WhatICanDo';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 
 // Featured projects data
@@ -57,7 +58,7 @@ const STATS = [
     { value: '10+', label: 'Personal Projects' },
     { value: '5+', label: 'AI Experiments' },
     { value: '7+', label: 'Hackathons' },
-    { value: 'Top', label: 'University Topper (1st Year)' },
+    { value: '#1', label: 'University Topper (1st Year)' },
 ];
 
 // MOTIVATION QUOTES - Inspirational wisdom
@@ -113,7 +114,6 @@ export const HomePage: React.FC = () => {
     const heroRef = useRef<HTMLDivElement>(null);
     const aboutRef = useRef<HTMLElement>(null);
     const projectsRef = useRef<HTMLElement>(null);
-    const statsRef = useRef<HTMLElement>(null);
     const testimonialsRef = useRef<HTMLElement>(null);
     const ctaRef = useRef<HTMLElement>(null);
 
@@ -246,7 +246,7 @@ export const HomePage: React.FC = () => {
             { threshold: 0.1, rootMargin: '-50px' }
         );
 
-        const sections = [aboutRef, projectsRef, statsRef, testimonialsRef, ctaRef];
+        const sections = [aboutRef, projectsRef, testimonialsRef, ctaRef];
         sections.forEach((ref) => {
             if (ref.current) observer.observe(ref.current);
         });
@@ -413,12 +413,18 @@ export const HomePage: React.FC = () => {
                     </div>
 
                     {/* ═══════════════════════════════════════════════════════════════ */}
+                    {/* WHAT I CAN DO SECTION */}
+                    {/* ═══════════════════════════════════════════════════════════════ */}
+                    <div data-scroll-section>
+                        <WhatICanDo />
+                    </div>
+
+                    {/* ═══════════════════════════════════════════════════════════════ */}
                     {/* ACHIEVEMENTS SECTION */}
                     {/* ═══════════════════════════════════════════════════════════════ */}
                     <div
                         id="achievements-section"
                         data-scroll-section
-                        className={`transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${sectionsVisible['achievements-section'] ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-24 scale-95'}`}
                     >
                         <AchievementsSection />
                     </div>
@@ -426,44 +432,6 @@ export const HomePage: React.FC = () => {
 
 
 
-                    {/* ═══════════════════════════════════════════════════════════════ */}
-                    {/* STATS SECTION - Animated Counters */}
-                    {/* ═══════════════════════════════════════════════════════════════ */}
-                    <section
-                        ref={statsRef}
-                        id="stats-section"
-                        data-scroll-section
-                        className="relative py-24 px-6 md:px-12 bg-[#0a0a0a] text-white"
-                    >
-                        {/* Top border line */}
-                        <div className="absolute top-0 left-0 w-full h-px bg-white/10" />
-                        <div className="absolute bottom-0 left-0 w-full h-px bg-white/10" />
-
-                        <div className="max-w-6xl mx-auto relative z-10">
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
-                                {STATS.map((stat, index) => (
-                                    <div
-                                        key={stat.label}
-                                        className={`
-                                    text-center
-                                    transition-all duration-700 ease-out
-                                    ${sectionsVisible['stats-section'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-                                `}
-                                        style={{
-                                            transitionDelay: sectionsVisible['stats-section'] ? `${index * 120}ms` : '0ms',
-                                        }}
-                                    >
-                                        <div className="text-5xl md:text-6xl font-black mb-3 text-green-400">
-                                            {stat.value}
-                                        </div>
-                                        <div className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40">
-                                            {stat.label}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
                     {/* Testimonials section removed for student profile */}
 
 
@@ -505,7 +473,7 @@ export const HomePage: React.FC = () => {
                             <div className="pt-8">
                                 <Link
                                     to="/contact"
-                                    className="inline-flex items-center gap-3 px-10 py-4 bg-green-400 text-black font-semibold tracking-widest uppercase text-sm rounded-full hover:bg-green-300 transition-all duration-300 hover:shadow-[0_0_30px_rgba(74,222,128,0.25)] hover:-translate-y-0.5"
+                                    className="inline-flex items-center gap-3 px-10 py-4 bg-white text-black font-semibold tracking-widest uppercase text-sm rounded-full hover:bg-gray-100 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5"
                                 >
                                     Begin a Conversation
                                     <span>→</span>
