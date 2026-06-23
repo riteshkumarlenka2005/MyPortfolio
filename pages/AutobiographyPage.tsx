@@ -899,7 +899,7 @@ const AutobiographySection: React.FC<{ section: PageSection; index: number }> = 
             ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
           `}
                 >
-                    <h1 className="font-script text-6xl md:text-8xl lg:text-9xl text-parchment-900 dark:text-antique-900 leading-tight">
+                    <h1 className="font-script text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-parchment-900 dark:text-antique-900 leading-tight">
                         {section.title}
                     </h1>
                     <p className="mt-8 font-serif text-2xl md:text-3xl text-parchment-800 dark:text-antique-800 tracking-wide">
@@ -954,13 +954,13 @@ const AutobiographySection: React.FC<{ section: PageSection; index: number }> = 
                 {/* Content displayed directly on parchment - no box */}
                 <div
                     className={`
-            relative max-w-4xl mx-8 px-4 md:px-8
+            relative max-w-4xl mx-4 sm:mx-8 px-4 md:px-8
             transform transition-all duration-1000 delay-300
             ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
           `}
                 >
                     {/* Title */}
-                    <h2 className="relative font-script text-4xl md:text-5xl lg:text-6xl text-parchment-900 dark:text-antique-900 mb-12 text-center">
+                    <h2 className="relative font-script text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-parchment-900 dark:text-antique-900 mb-8 md:mb-12 text-center">
                         {section.title}
                     </h2>
 
@@ -1011,7 +1011,7 @@ const AutobiographySection: React.FC<{ section: PageSection; index: number }> = 
                 <div className="absolute bottom-24 right-8 w-14 h-22 bg-gradient-to-br from-green-800 to-green-900 opacity-50 dark:opacity-30 rounded-full transform rotate-30"></div>
 
                 {/* Main content area */}
-                <div className={`relative z-10 max-w-6xl mx-8 flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${section.imagePosition === 'right' ? 'lg:flex-row-reverse' : ''}`}>
+                <div className={`relative z-10 max-w-6xl mx-4 sm:mx-8 flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${section.imagePosition === 'right' ? 'lg:flex-row-reverse' : ''}`}>
 
                     {/* Photo frame - simple border style */}
                     <div
@@ -1086,20 +1086,20 @@ const AutobiographySection: React.FC<{ section: PageSection; index: number }> = 
             <div className="absolute top-16 left-4 w-20 h-20 opacity-30">
                 <div className="w-full h-full rounded-full bg-gradient-radial from-white/60 to-transparent"></div>
             </div>
-            <div className="absolute bottom-24 right-8 w-12 h-20 bg-gradient-to-br from-green-800 to-green-900 opacity-50 dark:opacity-30 rounded-full transform rotate-45"></div>
-            <div className="absolute bottom-40 left-12 w-10 h-16 bg-gradient-to-br from-green-700 to-green-800 opacity-40 dark:opacity-20 rounded-full transform -rotate-30"></div>
+            <div className="absolute bottom-24 right-4 md:right-8 w-10 h-16 md:w-12 md:h-20 bg-gradient-to-br from-green-800 to-green-900 opacity-50 dark:opacity-30 rounded-full transform rotate-45"></div>
+            <div className="absolute bottom-40 left-4 md:left-12 w-8 h-12 md:w-10 md:h-16 bg-gradient-to-br from-green-700 to-green-800 opacity-40 dark:opacity-20 rounded-full transform -rotate-30"></div>
 
             {/* Content displayed directly on parchment - no box */}
             <div
                 className={`
-          relative max-w-4xl mx-8 px-4 md:px-8
+          relative max-w-4xl mx-4 sm:mx-8 px-4 md:px-8
           transform transition-all duration-1000 delay-300
           ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
         `}
             >
                 {/* Title */}
                 {section.title && (
-                    <h2 className="relative font-script text-3xl md:text-4xl lg:text-5xl text-parchment-900 dark:text-antique-900 mb-10 text-center">
+                    <h2 className="relative font-script text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-parchment-900 dark:text-antique-900 mb-6 md:mb-10 text-center">
                         {section.title}
                     </h2>
                 )}

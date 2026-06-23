@@ -863,7 +863,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
         <section
             ref={containerRef}
             id={`project-${project.id}`}
-            className="relative py-20 md:py-32 border-b border-parchment-400/20 dark:border-antique-200/10 overflow-hidden"
+            className="relative py-16 md:py-24 lg:py-32 border-b border-parchment-400/20 dark:border-antique-200/10 overflow-hidden"
         >
             <div
                 ref={contentRef}
@@ -876,14 +876,14 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                 {/* Large Background Number */}
             <div className={`
         absolute top-8 ${isEven ? 'right-8 md:right-16' : 'left-8 md:left-16'}
-        font-sans text-[8rem] md:text-[12rem] leading-none
+        font-sans text-[5rem] md:text-[8rem] lg:text-[12rem] leading-none
         text-parchment-400/10 dark:text-antique-200/5
         pointer-events-none select-none
       `}>
                 {String(project.id).padStart(2, '0')}
             </div>
 
-            <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
                 {/* Era Badge */}
                 <div className="flex items-center gap-4 mb-6 opacity-60">
                     <div className="h-[1px] w-8 bg-current"></div>
@@ -891,7 +891,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                 </div>
 
                 {/* Project Title */}
-                <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white mb-12">
+                <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white mb-8 md:mb-12">
                     {project.title}
                 </h2>
 
@@ -1006,22 +1006,22 @@ export const ProjectsPage: React.FC = () => {
 
             {/* Page Header */}
             <header className={`
-        pt-32 pb-16 md:pt-40 md:pb-24 border-b border-parchment-400/30 dark:border-antique-200/20
+        pt-24 pb-12 md:pt-40 md:pb-24 border-b border-parchment-400/30 dark:border-antique-200/20
         transition-all duration-1000 ease-out
         ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
       `}>
-                <div className="max-w-5xl mx-auto px-6 md:px-12">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-12">
                     <div className="flex items-center gap-4 mb-6 opacity-50">
                         <div className="h-[1px] w-12 bg-current"></div>
                         <span className="font-sans italic text-sm tracking-widest uppercase text-gray-400">Catalog of Works</span>
                         <div className="h-[1px] w-12 bg-current"></div>
                     </div>
 
-                    <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide text-white mb-8">
+                        <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide text-white mb-6 md:mb-8">
                         Projects & Artifacts
                     </h1>
 
-                    <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
+                        <p className="font-sans text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-3xl">
                         A chronological journey through projects built from curiosity and necessity. Each one represents a problem understood, a solution crafted, and a lesson earned.
                     </p>
                 </div>

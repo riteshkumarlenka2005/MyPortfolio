@@ -28,15 +28,15 @@ export const ContactPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-amber-500/30">
             {/* Main Content */}
-            <main className="max-w-[1200px] mx-auto px-6 md:px-12 pt-32 lg:pt-40 pb-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            <main className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-12 pt-28 md:pt-32 lg:pt-40 pb-16 md:pb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
 
                     {/* Left Column: Text & Info */}
                     <div className="flex flex-col lg:pt-8">
-                        <h1 className="text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-6 text-white uppercase leading-none">
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-5 md:mb-6 text-white uppercase leading-none">
                             Contact me
                         </h1>
-                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-md mb-12">
+                        <p className="text-gray-400 text-base md:text-lg lg:text-xl leading-relaxed max-w-md mb-8 md:mb-12">
                             Feel free to reach out for collaborations, freelance projects, or just to say hello. I am currently available for new opportunities.
                         </p>
 
@@ -48,7 +48,7 @@ export const ContactPage: React.FC = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
                                 </div>
-                                <span className="text-lg font-medium">lenkariteshkumar2005@gmail.com</span>
+                                <span className="text-sm md:text-lg font-medium truncate">lenkariteshkumar2005@gmail.com</span>
                             </div>
 
                             {/* Location */}
@@ -76,17 +76,17 @@ export const ContactPage: React.FC = () => {
 
                     {/* Right Column: Form Card */}
                     <div className="w-full">
-                        <div className="bg-gradient-to-br from-gray-200 via-gray-600 to-[#0a0a0a] rounded-[2.5rem] p-1.5 md:p-2 relative shadow-2xl overflow-hidden">
+                        <div className="bg-gradient-to-br from-gray-200 via-gray-600 to-[#0a0a0a] rounded-[2rem] md:rounded-[2.5rem] p-1.5 relative shadow-2xl overflow-hidden">
                             {/* Top Frame Header */}
-                            <div className="px-6 pt-5 pb-4 flex justify-between items-start text-black">
+                            <div className="px-5 pt-4 pb-3 md:px-6 md:pt-5 md:pb-4 flex justify-between items-start text-black">
                                 <div>
-                                    <div className="font-bold italic text-sm tracking-wider mb-0.5">Let's Connect</div>
-                                    <div className="font-bold italic text-3xl font-sans tracking-tight">I'd love to hear from you.</div>
+                                    <div className="font-bold italic text-xs md:text-sm tracking-wider mb-0.5">Let's Connect</div>
+                                    <div className="font-bold italic text-xl md:text-3xl font-sans tracking-tight">I'd love to hear from you.</div>
                                 </div>
                             </div>
 
                             {/* Inner Card */}
-                            <div className="bg-[#0a0a0a] rounded-[2.25rem] p-8 md:p-10 shadow-inner">
+                            <div className="bg-[#0a0a0a] rounded-[1.75rem] md:rounded-[2.25rem] p-5 sm:p-6 md:p-8 lg:p-10 shadow-inner">
                                 {submitted ? (
                                     <div className="flex flex-col items-center justify-center text-center h-[500px]">
                                         <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-4xl mb-6">
