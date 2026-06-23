@@ -1,33 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 
-
-
-// Social links - customize with your actual links
-const SOCIAL_LINKS = [
-    { id: 'github', label: 'GitHub', href: 'https://github.com/riteshkumarlenka2005', icon: '◈' },
-    { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/ritesh-kumar-lenka-186010320/', icon: '◇' },
-    { id: 'twitter', label: 'Twitter/X', href: 'https://twitter.com/ritesh_kumar_lenka', icon: '◆' },
-    { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/ritesh_kumar_lenka', icon: '○' },
-];
-
 export const ContactPage: React.FC = () => {
-    const [visible, setVisible] = useState(false);
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-    });
+    const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        const isReturning = sessionStorage.getItem('hasVisited');
-        const delay = isReturning ? 300 : 2200;
-        sessionStorage.setItem('hasVisited', 'true');
-        const timer = setTimeout(() => setVisible(true), delay);
-        return () => clearTimeout(timer);
+        window.scrollTo(0, 0);
     }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -38,273 +18,174 @@ export const ContactPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-
-        // Simulate form submission - replace with actual submission logic
+        // Simulate form submission
         await new Promise(resolve => setTimeout(resolve, 1500));
-
         setIsSubmitting(false);
         setSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({ fullName: '', email: '', phone: '', message: '' });
     };
 
     return (
-        <div className="min-h-screen bg-parchment-100 dark:bg-antique-50 text-parchment-900 dark:text-antique-800 transition-colors duration-500">
-
-
-
+        <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-amber-500/30">
             {/* Main Content */}
-            <main className={`
-                max-w-4xl mx-auto px-6 md:px-12 pt-32 pb-20
-                transform transition-all duration-1000 delay-100 ease-[cubic-bezier(0.25,1,0.5,1)]
-                ${visible ? 'opacity-100 translate-y-0 scale-100 blur-none' : 'opacity-0 translate-y-32 scale-90 blur-md'}
-            `}>
+            <main className="max-w-[1200px] mx-auto px-6 md:px-12 pt-32 lg:pt-40 pb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                {/* Page Title */}
-                <header className="mb-16 border-b border-parchment-400/30 dark:border-antique-200/20 pb-8">
-                    <div className="flex items-center gap-4 mb-4 opacity-50">
-                        <div className="h-[1px] w-8 bg-current"></div>
-                        <span className="font-serif italic text-sm tracking-widest uppercase">Get in Touch</span>
-                    </div>
-                    <h1 className="font-display text-3xl md:text-4xl font-semibold tracking-wide text-parchment-900 dark:text-antique-900 mb-4">
-                        Contact
-                    </h1>
-                    <p className="font-serif text-lg max-w-2xl leading-relaxed">
-                        Whether you have a question, a project proposal, or simply wish to exchange ideas—
-                        I welcome thoughtful correspondence. Every message receives careful attention.
-                    </p>
-                </header>
+                    {/* Left Column: Text & Info */}
+                    <div className="flex flex-col lg:pt-8">
+                        <h1 className="text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-6 text-white uppercase leading-none">
+                            Contact me
+                        </h1>
+                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-md mb-12">
+                            Feel free to reach out for collaborations, freelance projects, or just to say hello. I am currently available for new opportunities.
+                        </p>
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
-
-                    {/* Contact Form */}
-                    <div className="lg:col-span-3">
-                        <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-4">
-                            <span className="text-amber-700/30 dark:text-amber-600/30 text-4xl font-light">I.</span>
-                            Send a Message
-                        </h2>
-
-                        {submitted ? (
-                            <div className="p-8 border border-amber-700/30 dark:border-amber-600/30 bg-amber-50/30 dark:bg-amber-900/10 text-center">
-                                <div className="text-4xl mb-4">✓</div>
-                                <h3 className="font-display text-xl mb-2">Message Received</h3>
-                                <p className="font-serif">
-                                    Thank you for reaching out. I shall respond within a fortnight.
-                                </p>
-                                <button
-                                    onClick={() => setSubmitted(false)}
-                                    className="mt-6 font-serif text-amber-700 dark:text-amber-600 hover:underline"
-                                >
-                                    Send another message →
-                                </button>
+                        <div className="space-y-8">
+                            {/* Email */}
+                            <div className="flex items-center gap-5 text-gray-300">
+                                <div className="w-12 h-12 rounded-full bg-[#1a1a1a] flex items-center justify-center shrink-0 border border-white/5">
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <span className="text-lg font-medium">lenkariteshkumar2005@gmail.com</span>
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                {/* Name Field */}
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="block font-serif text-sm uppercase tracking-wider">
-                                        Your Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="w-full px-4 py-3 bg-parchment-200/50 dark:bg-antique-100/50 border border-parchment-400/30 dark:border-antique-200/20 font-serif text-lg focus:outline-none focus:border-amber-700/50 dark:focus:border-amber-600/50 transition-colors duration-300 placeholder:"
-                                        placeholder="John Doe"
-                                    />
+
+                            {/* Location */}
+                            <div className="flex items-center gap-5 text-gray-300">
+                                <div className="w-12 h-12 rounded-full bg-[#1a1a1a] flex items-center justify-center shrink-0 border border-white/5">
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path>
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
                                 </div>
+                                <span className="text-lg font-medium">Odisha, India</span>
+                            </div>
 
-                                {/* Email Field */}
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="block font-serif text-sm uppercase tracking-wider">
-                                        Email Address
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="w-full px-4 py-3 bg-parchment-200/50 dark:bg-antique-100/50 border border-parchment-400/30 dark:border-antique-200/20 font-serif text-lg focus:outline-none focus:border-amber-700/50 dark:focus:border-amber-600/50 transition-colors duration-300 placeholder:"
-                                        placeholder="john@example.com"
-                                    />
+                            {/* Phone */}
+                            <div className="flex items-center gap-5 text-gray-300">
+                                <div className="w-12 h-12 rounded-full bg-[#1a1a1a] flex items-center justify-center shrink-0 border border-white/5">
+                                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
                                 </div>
-
-                                {/* Subject Field */}
-                                <div className="space-y-2">
-                                    <label htmlFor="subject" className="block font-serif text-sm uppercase tracking-wider">
-                                        Subject
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="subject"
-                                        name="subject"
-                                        value={formData.subject}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="w-full px-4 py-3 bg-parchment-200/50 dark:bg-antique-100/50 border border-parchment-400/30 dark:border-antique-200/20 font-serif text-lg focus:outline-none focus:border-amber-700/50 dark:focus:border-amber-600/50 transition-colors duration-300 placeholder:"
-                                        placeholder="Project Inquiry"
-                                    />
-                                </div>
-
-                                {/* Message Field */}
-                                <div className="space-y-2">
-                                    <label htmlFor="message" className="block font-serif text-sm uppercase tracking-wider">
-                                        Your Message
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        value={formData.message}
-                                        onChange={handleInputChange}
-                                        required
-                                        rows={6}
-                                        className="w-full px-4 py-3 bg-parchment-200/50 dark:bg-antique-100/50 border border-parchment-400/30 dark:border-antique-200/20 font-serif text-lg focus:outline-none focus:border-amber-700/50 dark:focus:border-amber-600/50 transition-colors duration-300 resize-none placeholder:"
-                                        placeholder="Write your message here..."
-                                    />
-                                </div>
-
-                                {/* Submit Button */}
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className={`
-                                        w-full py-4 font-display text-lg tracking-wider uppercase
-                                        border-2 border-parchment-900 dark:border-antique-800
-                                        transition-all duration-500
-                                        ${isSubmitting
-                                            ? 'opacity-50 cursor-not-allowed'
-                                            : 'hover:bg-parchment-900 dark:hover:bg-antique-800 hover:text-parchment-100 dark:hover:text-antique-100'
-                                        }
-                                    `}
-                                >
-                                    {isSubmitting ? (
-                                        <span className="flex items-center justify-center gap-3">
-                                            <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
-                                            Sending...
-                                        </span>
-                                    ) : (
-                                        'Send Message'
-                                    )}
-                                </button>
-                            </form>
-                        )}
-                    </div>
-
-                    {/* Contact Info Sidebar */}
-                    <div className="lg:col-span-2 space-y-12">
-
-                        {/* Direct Contact */}
-                        <div>
-                            <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-4">
-                                <span className="text-amber-700/30 dark:text-amber-600/30 text-4xl font-light">II.</span>
-                                Direct Contact
-                            </h2>
-                            <div className="space-y-4">
-                                <a
-                                    href="mailto:lenkariteshkumar2005@gmail.com"
-                                    className="group flex items-start gap-3 font-serif text-lg hover:text-amber-700 dark:hover:text-amber-600 transition-colors duration-300"
-                                >
-                                    <span className="opacity-40 group-hover:opacity-100 transition-opacity">→</span>
-                                    <div>
-                                        <div className="text-sm uppercase tracking-wider mb-1">Email</div>
-                                        <div>lenkariteshkumar2005@gmail.com</div>
-                                    </div>
-                                </a>
-                                <a
-                                    href="tel:+918260049064"
-                                    className="group flex items-start gap-3 font-serif text-lg hover:text-amber-700 dark:hover:text-amber-600 transition-colors duration-300"
-                                >
-                                    <span className="opacity-40 group-hover:opacity-100 transition-opacity">→</span>
-                                    <div>
-                                        <div className="text-sm uppercase tracking-wider mb-1">Phone</div>
-                                        <div>+91-8260049064</div>
-                                    </div>
-                                </a>
-                                <a
-                                    href="tel:+917847935309"
-                                    className="group flex items-start gap-3 font-serif text-lg hover:text-amber-700 dark:hover:text-amber-600 transition-colors duration-300"
-                                >
-                                    <span className="opacity-40 group-hover:opacity-100 transition-opacity">→</span>
-                                    <div>
-                                        <div className="text-sm uppercase tracking-wider mb-1">Alternate Phone</div>
-                                        <div>+91-7847935309</div>
-                                    </div>
-                                </a>
-                                <div
-                                    className="group flex items-start gap-3 font-serif text-lg text-parchment-900/60 dark:text-antique-800/60"
-                                >
-                                    <span className="opacity-40 transition-opacity">→</span>
-                                    <div>
-                                        <div className="text-sm uppercase tracking-wider mb-1">Location</div>
-                                        <div>Odisha, India</div>
-                                    </div>
-                                </div>
+                                <span className="text-lg font-medium">+91 82600 49064</span>
                             </div>
                         </div>
+                    </div>
 
-                        {/* Social Links */}
-                        <div>
-                            <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-4">
-                                <span className="text-amber-700/30 dark:text-amber-600/30 text-3xl font-light">III.</span>
-                                Elsewhere
-                            </h3>
-                            <div className="space-y-3">
-                                {SOCIAL_LINKS.map(link => (
-                                    <a
-                                        key={link.id}
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="group flex items-center gap-3 font-serif text-lg hover:text-amber-700 dark:hover:text-amber-600 transition-colors duration-300"
-                                    >
-                                        <span className="opacity-30 group-hover:opacity-70 transition-opacity">{link.icon}</span>
-                                        <span>{link.label}</span>
-                                        <span className="opacity-0 group-hover: transition-opacity text-sm">↗</span>
-                                    </a>
-                                ))}
+                    {/* Right Column: Form Card */}
+                    <div className="w-full">
+                        <div className="bg-gradient-to-br from-gray-200 via-gray-600 to-[#0a0a0a] rounded-[2.5rem] p-1.5 md:p-2 relative shadow-2xl overflow-hidden">
+                            {/* Top Frame Header */}
+                            <div className="px-6 pt-5 pb-4 flex justify-between items-start text-black">
+                                <div>
+                                    <div className="font-bold italic text-sm tracking-wider mb-0.5">Let's Connect</div>
+                                    <div className="font-bold italic text-3xl font-sans tracking-tight">I'd love to hear from you.</div>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Availability */}
-                        <div className="p-6 border border-parchment-400/20 dark:border-antique-200/10 bg-parchment-200/30 dark:bg-antique-100/30">
-                            <h3 className="font-display text-lg font-semibold mb-3">Current Availability</h3>
-                            <p className="font-serif text-base leading-relaxed mb-4">
-                                I am currently accepting new projects and collaborations.
-                                Response time is typically within 48 hours.
-                            </p>
-                            <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                <span className="font-serif text-sm">Available for work</span>
+                            {/* Inner Card */}
+                            <div className="bg-[#0a0a0a] rounded-[2.25rem] p-8 md:p-10 shadow-inner">
+                                {submitted ? (
+                                    <div className="flex flex-col items-center justify-center text-center h-[500px]">
+                                        <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-4xl mb-6">
+                                            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-white mb-3">Message Sent!</h3>
+                                        <p className="text-gray-400 mb-8 max-w-sm mx-auto">
+                                            Thanks for reaching out. I'll get back to you as soon as possible.
+                                        </p>
+                                        <button
+                                            onClick={() => setSubmitted(false)}
+                                            className="bg-[#2a2a2a] hover:bg-[#333] text-white px-6 py-3 rounded-xl transition-colors font-medium"
+                                        >
+                                            Send Another Message
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                                            {/* Full Name */}
+                                            <div>
+                                                <label htmlFor="fullName" className="block text-sm font-medium text-gray-300 mb-1.5">
+                                                    Full Name
+                                                </label>
+                                                <input
+                                                    type="text" id="fullName" name="fullName" required
+                                                    value={formData.fullName} onChange={handleInputChange}
+                                                    className="w-full bg-[#1e1e1e] border border-transparent focus:border-gray-600 focus:bg-[#252525] text-white rounded-2xl px-4 py-3 focus:outline-none transition-colors placeholder:text-gray-600 text-sm md:text-base"
+                                                    placeholder="Enter Full Name"
+                                                />
+                                            </div>
+
+                                            {/* Email Address */}
+                                            <div>
+                                                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
+                                                    Email
+                                                </label>
+                                                <input
+                                                    type="email" id="email" name="email" required
+                                                    value={formData.email} onChange={handleInputChange}
+                                                    className="w-full bg-[#1e1e1e] border border-transparent focus:border-gray-600 focus:bg-[#252525] text-white rounded-2xl px-4 py-3 focus:outline-none transition-colors placeholder:text-gray-600 text-sm md:text-base"
+                                                    placeholder="Enter Email"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Phone Number */}
+                                        <div>
+                                            <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1.5">
+                                                Phone Number
+                                            </label>
+                                            <input
+                                                type="tel" id="phone" name="phone"
+                                                value={formData.phone} onChange={handleInputChange}
+                                                className="w-full bg-[#1e1e1e] border border-transparent focus:border-gray-600 focus:bg-[#252525] text-white rounded-2xl px-4 py-3 focus:outline-none transition-colors placeholder:text-gray-600 text-sm md:text-base"
+                                                placeholder="Enter Phone Number"
+                                            />
+                                        </div>
+
+                                        {/* Message */}
+                                        <div>
+                                            <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1.5">
+                                                Message
+                                            </label>
+                                            <textarea
+                                                id="message" name="message" required rows={3}
+                                                value={formData.message} onChange={handleInputChange}
+                                                className="w-full bg-[#1e1e1e] border border-transparent focus:border-gray-600 focus:bg-[#252525] text-white rounded-2xl px-4 py-3 focus:outline-none transition-colors resize-none placeholder:text-gray-600 text-sm md:text-base"
+                                                placeholder="Write Your Message"
+                                            />
+                                        </div>
+
+                                        {/* Submit Button */}
+                                        <div className="pt-2">
+                                            <button
+                                                type="submit"
+                                                disabled={isSubmitting}
+                                                className="bg-white hover:bg-gray-200 text-black px-8 py-3.5 rounded-full font-semibold transition-colors flex items-center justify-center w-full md:w-auto gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                            >
+                                                {isSubmitting ? 'Sending...' : 'Send Message'}
+                                                {!isSubmitting && (
+                                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                                    </svg>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </form>
+                                )}
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {/* Decorative Divider */}
-                <div className="flex items-center justify-center gap-6 my-16 opacity-30">
-                    <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-current"></div>
-                    <div className="w-2 h-2 rotate-45 border border-current"></div>
-                    <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-current"></div>
-                </div>
-
-                {/* Location Note */}
-                <div className="text-center max-w-2xl mx-auto">
-                    <p className="font-serif text-lg italic leading-relaxed">
-                        "The best conversations begin with a simple message.
-                        I look forward to hearing from you."
-                    </p>
-                </div>
-
-                {/* Footer Spacer */}
-                <div className="h-20"></div>
             </main>
 
-            {/* Subtle Footer Line */}
-            <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-900/10 to-transparent pointer-events-none"></div>
             <InteractiveFooter />
         </div>
     );

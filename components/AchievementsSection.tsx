@@ -1,6 +1,7 @@
-﻿import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { AnimatedHeading } from "./AnimatedHeading";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,10 +90,8 @@ export const AchievementsSection: React.FC = () => {
     return (
         <div id="achievements-section">
             {/* Heading */}
-            <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-12 pt-24 pb-10">
-                <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-snug">
-                    Milestones That<br />Define My Journey
-                </h2>
+            <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-12 pt-24 pb-10 text-center">
+                <AnimatedHeading text="Milestones That Define My Journey" />
             </div>
 
             {/* ── Desktop: GSAP-pinned stack (locked until cards spread) ── */}
