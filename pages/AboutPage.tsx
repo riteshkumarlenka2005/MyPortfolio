@@ -137,7 +137,7 @@ export const AboutPage: React.FC = () => {
             {/* Main Content - Manuscript Style */}
             <main className={`
         relative z-10 
-        max-w-4xl mx-auto px-6 md:px-12 pt-32 pb-20
+        max-w-4xl mx-auto px-4 sm:px-6 md:px-12 pt-28 md:pt-32 pb-20
         transform transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]
         ${visible ? 'opacity-100 translate-y-0 scale-100 blur-none' : 'opacity-0 translate-y-32 scale-90 blur-md'}
       `}>
@@ -184,9 +184,9 @@ export const AboutPage: React.FC = () => {
                 <div className="relative w-full">
                     <AnimatedPen />
                     {/* Philosophy Section */}
-                    <section className="mb-24 mt-16 relative z-10 w-full max-w-3xl text-left mr-auto -ml-4 md:-ml-20 lg:-ml-40">
+                    <section className="mb-24 mt-16 relative z-10 w-full max-w-3xl text-left mr-auto">
                         <div className="mb-8">
-                            <h2 className="font-sans text-5xl md:text-6xl font-bold text-white mb-3">
+                            <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3">
                                 How I See the World
                             </h2>
                             <div className="text-sm md:text-base font-bold text-white/60 tracking-wide">
@@ -205,20 +205,20 @@ export const AboutPage: React.FC = () => {
                     </section>
                 </div>
 
-                <div className="w-full ml-auto mr-0 -mr-4 md:-mr-20 lg:-mr-40 mt-32">
+                <div className="w-full ml-auto mr-0 mt-32">
                     {/* Page Title - Understated */}
                     <header className="mb-12 border-b border-white/10 pb-8 flex flex-col items-end text-right">
                         <div className="flex items-center gap-4 mb-4 opacity-50 justify-end">
                             <span className="font-serif italic text-sm tracking-widest uppercase text-white">About the Author</span>
                             <div className="h-[1px] w-8 bg-current"></div>
                         </div>
-                        <h2 className="font-sans text-5xl md:text-6xl font-bold tracking-wide text-white">
+                        <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide text-white">
                             The Mind Behind the Archive
                         </h2>
                     </header>
 
                     {/* Introduction */}
-                    <section className="mb-16" style={{ marginLeft: 'calc(-50vw + 50%)' }}>
+                    <section className="mb-16">
                         <div className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify space-y-6">
                             <p className="first-letter:text-5xl first-letter:font-sans first-letter:font-bold first-letter:mr-2 first-letter:float-left first-letter:leading-none first-letter:text-amber-500">
                                     I am Ritesh Kumar Lenka, a Computer Science Engineering student at GIET University, Gunupur, originally from the village of Mohiguda in Odisha, India.
@@ -338,13 +338,13 @@ export const AboutPage: React.FC = () => {
                         {/* Card Body */}
                         <div style={{
                             width: 'min(760px, 94vw)',
-                            backgroundColor: '#1a1a1a', // Dark interior
+                            backgroundColor: '#1a1a1a',
                             borderRadius: '16px',
-                            border: '6px solid #e5e5e5', // Thick white outer border
-                            boxShadow: '0 25px 50px rgba(0,0,0,0.6), inset 0 0 0 1.5px #000, inset 0 0 0 3.5px #e5e5e5', // Inner thin black line + thin white line
-                            padding: '48px 56px',
+                            border: '6px solid #e5e5e5',
+                            boxShadow: '0 25px 50px rgba(0,0,0,0.6), inset 0 0 0 1.5px #000, inset 0 0 0 3.5px #e5e5e5',
+                            padding: 'clamp(24px, 5vw, 48px) clamp(20px, 5vw, 56px)',
                             position: 'relative',
-                            marginTop: '-14px', // Overlap with clip
+                            marginTop: '-14px',
                             zIndex: 5
                         }}>
                             
