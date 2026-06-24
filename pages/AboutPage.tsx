@@ -184,7 +184,7 @@ export const AboutPage: React.FC = () => {
                 <div className="relative w-full">
                     <AnimatedPen />
                     {/* Philosophy Section */}
-                    <section className="mb-24 mt-16 relative z-10 w-full max-w-3xl text-left mr-auto">
+                    <section className="mb-24 mt-16 relative z-10 w-full max-w-3xl text-left mr-auto md:-ml-16 lg:-ml-28">
                         <div className="mb-8">
                             <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3">
                                 How I See the World
@@ -205,7 +205,7 @@ export const AboutPage: React.FC = () => {
                     </section>
                 </div>
 
-                <div className="w-full ml-auto mr-0 mt-32">
+                <div className="w-full ml-auto mr-0 mt-32 md:w-[68vw] lg:w-[72vw] md:ml-auto md:mr-6 lg:mr-10">
                     {/* Page Title - Understated */}
                     <header className="mb-12 border-b border-white/10 pb-8 flex flex-col items-end text-right">
                         <div className="flex items-center gap-4 mb-4 opacity-50 justify-end">
