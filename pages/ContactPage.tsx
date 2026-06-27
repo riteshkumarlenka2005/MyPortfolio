@@ -5,6 +5,7 @@ export const ContactPage: React.FC = () => {
     const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -17,12 +18,47 @@ export const ContactPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitError(null);
         setIsSubmitting(true);
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setSubmitted(true);
-        setFormData({ fullName: '', email: '', phone: '', message: '' });
+        
+        try {
+            const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+            
+            if (!accessKey || accessKey === 'your_web3forms_access_key_here') {
+                throw new Error('Web3Forms Access Key is missing. Please add it to your .env file.');
+            }
+
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: accessKey,
+                    from_name: `${formData.fullName} (Portfolio)`,
+                    name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: formData.message,
+                    subject: 'New Contact Message from Portfolio'
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.status === 200) {
+                setSubmitted(true);
+                setFormData({ fullName: '', email: '', phone: '', message: '' });
+            } else {
+                throw new Error(result.message || 'Failed to send message');
+            }
+        } catch (error: any) {
+            console.error('Error submitting form:', error);
+            setSubmitError(error.message || 'Something went wrong. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -106,7 +142,13 @@ export const ContactPage: React.FC = () => {
                                         </button>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
+                                    <>
+                                        {submitError && (
+                                            <div className="mb-5 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm md:text-base">
+                                                {submitError}
+                                            </div>
+                                        )}
+                                        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                                             {/* Full Name */}
                                             <div>
@@ -177,6 +219,7 @@ export const ContactPage: React.FC = () => {
                                             </button>
                                         </div>
                                     </form>
+                                    </>
                                 )}
 
 
