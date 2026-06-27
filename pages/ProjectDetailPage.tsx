@@ -509,7 +509,7 @@ const PROJECTS: ProjectDetail[] = [
 
             </div>
         ),
-        liveUrl: "https://www.cyberguardianai.tech/",
+        liveUrl: "https://cyber-guardian-ai-client.vercel.app/",
         sourceUrl: "https://github.com/riteshkumarlenka2005/CyberGuardianAI"
     },
     {
