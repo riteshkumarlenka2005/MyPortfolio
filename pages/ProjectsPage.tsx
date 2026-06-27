@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { InteractiveFooter } from '../components/InteractiveFooter';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 
 
@@ -16,6 +18,8 @@ interface Project {
     sourceUrl?: string;
     // Optional: rich structured content that overrides the 4 plain-text fields
     richSections?: React.ReactNode;
+    videoUrl?: string;
+    thumbnailUrl?: string;
 }
 
 const PROJECTS: Project[] = [
@@ -34,7 +38,7 @@ const PROJECTS: Project[] = [
                 {/* ── Overview ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Project Overview
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -48,7 +52,7 @@ const PROJECTS: Project[] = [
                 {/* ── Problem ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         The Problem
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-5 text-justify">
@@ -66,7 +70,7 @@ const PROJECTS: Project[] = [
                             "Administrators lacked a dashboard — oversight of users, blogs, and events required jumping between tools."
                         ].map((point, i) => (
                             <li key={i} className="flex items-start gap-3">
-                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                 <span>{point}</span>
                             </li>
                         ))}
@@ -76,7 +80,7 @@ const PROJECTS: Project[] = [
                 {/* ── Architecture & Tech Stack ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Architecture & Technology Stack
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-7 text-justify">
@@ -100,7 +104,7 @@ const PROJECTS: Project[] = [
                                     { label: "QR Tools", value: "html5-qrcode (scanning) + qrcode.react (generation) for the attendance flow." },
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -121,7 +125,7 @@ const PROJECTS: Project[] = [
                                     { label: "Logging", value: "Morgan for structured HTTP request logging in all environments." },
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -138,7 +142,7 @@ const PROJECTS: Project[] = [
                                     { label: "Client SDK", value: "@supabase/supabase-js for type-safe database queries directly from the server." },
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -150,7 +154,7 @@ const PROJECTS: Project[] = [
                 {/* ── Key Features ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Key Features & Engineering Highlights
                     </h3>
 
@@ -196,7 +200,7 @@ const PROJECTS: Project[] = [
                 {/* ── Outcome ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Outcome & Learning
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-5 text-justify">
@@ -231,7 +235,7 @@ const PROJECTS: Project[] = [
                 {/* ── Overview ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Project Overview
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -242,7 +246,7 @@ const PROJECTS: Project[] = [
                 {/* ── Problem ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         The Problem
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-5 text-justify">
@@ -256,7 +260,7 @@ const PROJECTS: Project[] = [
                             "Property owners lack a simple, unified dashboard to manage multiple rooms or beds simultaneously."
                         ].map((point, i) => (
                             <li key={i} className="flex items-start gap-3">
-                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                 <span>{point}</span>
                             </li>
                         ))}
@@ -266,7 +270,7 @@ const PROJECTS: Project[] = [
                 {/* ── Architecture & Tech Stack ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Architecture & Technology Stack
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-7 text-justify">
@@ -285,7 +289,7 @@ const PROJECTS: Project[] = [
                                     { label: "Forms", value: "React Hook Form combined with Zod for strict, type-safe client and server validation." },
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -303,7 +307,7 @@ const PROJECTS: Project[] = [
                                     { label: "Document Gen", value: "Custom PDF generator routines for automated agreements and receipts." },
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -315,7 +319,7 @@ const PROJECTS: Project[] = [
                 {/* ── Key Features ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Key Features & Engineering Highlights
                     </h3>
 
@@ -349,7 +353,7 @@ const PROJECTS: Project[] = [
                 {/* ── Outcome ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Outcome & Learning
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -377,7 +381,7 @@ const PROJECTS: Project[] = [
                 {/* ── Overview ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Project Overview
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -388,7 +392,7 @@ const PROJECTS: Project[] = [
                 {/* ── Core Features ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Core Features & Functionality
                     </h3>
 
@@ -422,7 +426,7 @@ const PROJECTS: Project[] = [
                 {/* ── Architecture & Tech Stack ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Technical Architecture & Stack
                     </h3>
 
@@ -437,7 +441,7 @@ const PROJECTS: Project[] = [
                                     { label: "State & Data", value: "React Router DOM for navigation and Recharts for dynamic rendering of user progress." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -454,7 +458,7 @@ const PROJECTS: Project[] = [
                                     { label: "Caching & Auth", value: "Redis integration for high-speed sessions, and custom OAuth flows utilizing Authlib." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -470,7 +474,7 @@ const PROJECTS: Project[] = [
                                     { label: "Prompt Engineering Engine", value: "Sophisticated prompt builders that dynamically inject persona contexts, scam variables, and age-appropriate constraints." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -482,7 +486,7 @@ const PROJECTS: Project[] = [
                 {/* ── Engineering Highlights ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Engineering Highlights & Value
                     </h3>
                     <ul className="space-y-3 font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify mb-6">
@@ -492,7 +496,7 @@ const PROJECTS: Project[] = [
                             "Implemented robust session handling and user data protection measures, critical for a cybersecurity-focused application."
                         ].map((point, i) => (
                             <li key={i} className="flex items-start gap-3">
-                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                 <span>{point}</span>
                             </li>
                         ))}
@@ -522,7 +526,7 @@ const PROJECTS: Project[] = [
                 {/* ── Overview ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Project Overview
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -536,7 +540,7 @@ const PROJECTS: Project[] = [
                 {/* ── Architecture & Tech Stack ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Architecture & Technology Stack
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-7 text-justify">
@@ -554,7 +558,7 @@ const PROJECTS: Project[] = [
                                     { label: "Real-Time Rendering", value: "Three.js and custom WebRTC hooks to render live AI insights over the video feed." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -572,7 +576,7 @@ const PROJECTS: Project[] = [
                                     { label: "Security", value: "OAuth2, JWT with Python-Jose, and bcrypt hashing." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -590,7 +594,7 @@ const PROJECTS: Project[] = [
                                     { label: "Explainability (XAI)", value: "SHAP and LIME to generate human-readable explanations for AI-derived metrics." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -606,7 +610,7 @@ const PROJECTS: Project[] = [
                                     { label: "Infrastructure", value: "Docker, Kubernetes (K8s) manifests, Terraform, and GitHub Actions for CI/CD." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -618,7 +622,7 @@ const PROJECTS: Project[] = [
                 {/* ── Key Features ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Key Features & Engineering Highlights
                     </h3>
 
@@ -652,7 +656,7 @@ const PROJECTS: Project[] = [
                 {/* ── Outcome ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Outcome & Learning
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -680,7 +684,7 @@ const PROJECTS: Project[] = [
                 {/* ── Overview ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Project Overview
                     </h3>
                     <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -691,7 +695,7 @@ const PROJECTS: Project[] = [
                 {/* ── Core Features ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Core Features & Functionality
                     </h3>
 
@@ -729,7 +733,7 @@ const PROJECTS: Project[] = [
                 {/* ── Architecture & Tech Stack ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Technical Architecture & Stack
                     </h3>
 
@@ -744,7 +748,7 @@ const PROJECTS: Project[] = [
                                     { label: "Rich Editor & Utilities", value: "Tiptap Headless Editor for block editing. html2canvas & jsPDF for PDF generation, Axios for API integration." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -761,7 +765,7 @@ const PROJECTS: Project[] = [
                                     { label: "Security & Deployment", value: "Spring Security with stateless JWT authentication. Multi-stage Dockerfile optimized for Render deployment." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -777,7 +781,7 @@ const PROJECTS: Project[] = [
                                     { label: "Features", value: "Hardware-accelerated rendering, immersive fullscreen mode, Swipe-to-Refresh UI, and an Offline Fallback Activity." }
                                 ].map(({ label, value }) => (
                                     <li key={label} className="flex items-start gap-3">
-                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                         <span><strong>{label}:</strong> {value}</span>
                                     </li>
                                 ))}
@@ -789,7 +793,7 @@ const PROJECTS: Project[] = [
                 {/* ── Architectural Highlights & Deployment ── */}
                 <section>
                     <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                        <span className="text-amber-500/60">§</span>
+                        <span className="text-white/60">§</span>
                         Architectural Highlights & Deployment
                     </h3>
                     <ul className="space-y-3 font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify mb-6">
@@ -800,7 +804,7 @@ const PROJECTS: Project[] = [
                             "Deployment Strategy: Frontend deployed on Vercel, Backend containerized via Docker on Render, and Database hosted on Neon serverless PostgreSQL."
                         ].map((point, i) => (
                             <li key={i} className="flex items-start gap-3">
-                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-amber-700/50 dark:bg-amber-600/50" />
+                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
                                 <span>{point}</span>
                             </li>
                         ))}
@@ -817,6 +821,56 @@ const PROJECTS: Project[] = [
 const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
     const containerRef = React.useRef<HTMLElement>(null);
     const contentRef = React.useRef<HTMLDivElement>(null);
+    const [isDownloading, setIsDownloading] = React.useState(false);
+
+    const handleDownload = async () => {
+        const printElement = document.getElementById(`print-content-${project.id}`);
+        if (!printElement) return;
+        
+        setIsDownloading(true);
+        
+        try {
+            const canvas = await html2canvas(printElement, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false,
+                onclone: (clonedDoc) => {
+                    const el = clonedDoc.getElementById(`print-content-${project.id}`);
+                    if (el) {
+                        el.style.opacity = '1';
+                        el.style.position = 'static';
+                        el.style.zIndex = '9999';
+                    }
+                }
+            });
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            
+            const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+            
+            pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
+            heightLeft -= pdfHeight;
+            
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
+                heightLeft -= pdfHeight;
+            }
+            
+            pdf.save(`${project.title.replace(/\s+/g, '_')}_Description.pdf`);
+        } catch (error) {
+            console.error("Failed to generate PDF", error);
+        } finally {
+            setIsDownloading(false);
+        }
+    };
 
     React.useEffect(() => {
         let ticking = false;
@@ -895,6 +949,73 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                     {project.title}
                 </h2>
 
+                {/* --- Cinematic Video Card & Actions (Floated Right on Desktop) --- */}
+                <div className="float-none lg:float-right lg:ml-10 lg:mb-6 mb-10 mx-auto lg:mx-0 flex flex-col gap-4 w-[400px] z-20 relative">
+                    <div className="w-[400px] h-[300px] relative rounded-2xl overflow-hidden bg-[#0d0d0d] border border-white/10 shadow-[0_0_40px_-15px_rgba(255,255,255,0.05)] group transition-all duration-700 hover:shadow-[0_0_50px_-10px_rgba(255,255,255,0.15)] hover:border-white/30 flex items-center justify-center">
+                    {project.videoUrl ? (
+                        <div className="w-full h-full bg-black">
+                            {project.videoUrl.includes('youtube') || project.videoUrl.includes('youtu.be') ? (
+                                <iframe 
+                                    src={project.videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')} 
+                                    title={`${project.title} Video Walkthrough`}
+                                    className="w-full h-full border-0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            ) : (
+                                <video 
+                                    src={project.videoUrl} 
+                                    poster={project.thumbnailUrl}
+                                    controls 
+                                    className="w-full h-full object-cover"
+                                    controlsList="nodownload"
+                                />
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            {project.thumbnailUrl && (
+                                <img src={project.thumbnailUrl} alt={`${project.title} Thumbnail`} className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity duration-700" />
+                            )}
+                            <div className="text-center p-4 z-10 flex flex-col items-center justify-center h-full relative">
+                                <div className="w-14 h-14 rounded-full bg-white/5 border border-white/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 group-hover:bg-white/10 group-hover:border-white/40 transition-all duration-500">
+                                    <svg className="w-5 h-5 text-white/80 group-hover:text-white transition-colors ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-[13px] md:text-sm font-black text-white/90 uppercase tracking-widest leading-tight">Project<br/>Walkthrough</h3>
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none"></div>
+                        </>
+                    )}
+                    </div>
+
+                    {/* Download Description Button */}
+                    <button 
+                        id={`download-btn-${project.id}`}
+                        onClick={handleDownload}
+                        disabled={isDownloading}
+                        className="w-full py-3.5 px-4 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold tracking-widest uppercase text-xs border border-white/10 hover:border-white/30 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isDownloading ? (
+                            <>
+                                <svg className="w-5 h-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span>Generating PDF...</span>
+                            </>
+                        ) : (
+                            <>
+                                <svg className="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                <span>Download Description</span>
+                            </>
+                        )}
+                    </button>
+                </div>
+
                 {/* Content: rich sections override the default 2-column grid */}
                 {project.richSections ? (
                     <div>{project.richSections}</div>
@@ -905,7 +1026,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                         {/* Context */}
                         <div>
                             <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                                <span className="text-amber-500/60">§</span>
+                                <span className="text-white/60">§</span>
                                 Context & Motivation
                             </h3>
                             <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -916,7 +1037,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                         {/* Core Idea */}
                         <div>
                             <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                                <span className="text-amber-500/60">§</span>
+                                <span className="text-white/60">§</span>
                                 Core Idea & Logic
                             </h3>
                             <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -930,7 +1051,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                         {/* Implementation */}
                         <div>
                             <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                                <span className="text-amber-500/60">§</span>
+                                <span className="text-white/60">§</span>
                                 Implementation
                             </h3>
                             <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -941,7 +1062,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                         {/* Outcome */}
                         <div>
                             <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
-                                <span className="text-amber-500/60">§</span>
+                                <span className="text-white/60">§</span>
                                 Outcome & Learning
                             </h3>
                             <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
@@ -952,6 +1073,7 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                 </div>
                 )}
 
+                <div className="clear-both"></div>
                 {/* Links & Tags */}
                 <div className="mt-12 pt-8 border-t border-parchment-400/10 dark:border-antique-200/5">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -983,6 +1105,48 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
                     </div>
                 </div>
             </div>
+            </div>
+
+            {/* Hidden Print Container for PDF Generation */}
+            <div 
+                id={`print-content-${project.id}`}
+                className="absolute top-0 left-0 w-[800px] bg-white p-12 opacity-0 pointer-events-none -z-50 text-black font-sans [&_*]:!text-black [&_li>span:first-child]:!bg-black [&_h3_span]:!text-black/50"
+            >
+                <div className="text-center mb-8 border-b border-black/20 pb-6">
+                    <h1 className="text-3xl font-black uppercase tracking-widest mb-2">{project.title}</h1>
+                    <p className="text-sm font-bold tracking-widest uppercase !text-black/60">{project.era}</p>
+                </div>
+                
+                <div className="print-rich-sections space-y-6 [&_h3]:!text-xl [&_h3]:!font-bold [&_h3]:!mb-3 [&_h3]:!mt-8 [&_p]:!text-base [&_p]:!leading-relaxed [&_ul]:!space-y-3 [&_ul]:!text-base [&_li]:!leading-relaxed">
+                    {project.richSections ? (
+                        project.richSections
+                    ) : (
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="font-bold text-xl mb-3"><span className="text-black/50">§</span> Context & Motivation</h3>
+                                <p className="text-base leading-relaxed">{project.context}</p>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-xl mb-3"><span className="text-black/50">§</span> Core Idea & Logic</h3>
+                                <p className="text-base leading-relaxed">{project.coreIdea}</p>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-xl mb-3"><span className="text-black/50">§</span> Implementation</h3>
+                                <p className="text-base leading-relaxed">{project.implementation}</p>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-xl mb-3"><span className="text-black/50">§</span> Outcome & Learning</h3>
+                                <p className="text-base leading-relaxed">{project.outcome}</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-black/20 text-center flex flex-col items-center justify-center">
+                    <p className="text-xs font-bold uppercase tracking-widest mb-1 !text-black/50">Architect & Developer</p>
+                    <p className="text-xl font-black tracking-tight mb-1">Ritesh Kumar Lenka</p>
+                    <p className="text-sm font-medium mt-1">riteshkumarlenka.dev &nbsp;•&nbsp; lenkariteshkumar2005@gmail.com</p>
+                </div>
             </div>
         </section>
     );
