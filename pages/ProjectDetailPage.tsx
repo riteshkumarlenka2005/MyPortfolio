@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Lenis from 'lenis';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 
@@ -826,6 +827,15 @@ export const ProjectDetailPage: React.FC = () => {
 
     const projectId = parseInt(id || '1', 10);
     const project = PROJECTS.find(p => p.id === projectId);
+
+    // Smooth scroll
+    useEffect(() => {
+        const lenis = new Lenis({ lerp: 0.05, smoothWheel: true, wheelMultiplier: 0.8, touchMultiplier: 1.5 });
+        let rafId: number;
+        const update = (time: number) => { lenis.raf(time); rafId = requestAnimationFrame(update); };
+        rafId = requestAnimationFrame(update);
+        return () => { lenis.destroy(); cancelAnimationFrame(rafId); };
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);

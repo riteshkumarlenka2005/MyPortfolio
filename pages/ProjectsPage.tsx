@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Lenis from 'lenis';
 import { InteractiveFooter } from '../components/InteractiveFooter';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -1154,6 +1155,15 @@ const ProjectSection: React.FC<{ project: Project; index: number }> = ({ project
 
 export const ProjectsPage: React.FC = () => {
     const [headerVisible, setHeaderVisible] = useState(false);
+
+    // Smooth scroll
+    useEffect(() => {
+        const lenis = new Lenis({ lerp: 0.05, smoothWheel: true, wheelMultiplier: 0.8, touchMultiplier: 1.5 });
+        let rafId: number;
+        const update = (time: number) => { lenis.raf(time); rafId = requestAnimationFrame(update); };
+        rafId = requestAnimationFrame(update);
+        return () => { lenis.destroy(); cancelAnimationFrame(rafId); };
+    }, []);
 
     useEffect(() => {
         const isReturning = sessionStorage.getItem('hasVisited');
