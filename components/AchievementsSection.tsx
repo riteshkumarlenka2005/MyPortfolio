@@ -82,8 +82,18 @@ export const AchievementsSection: React.FC = () => {
             }, 0);
         });
 
+        // Fix for initial load layout shifts (Preloaders / Conditional rendering)
+        // Refresh GSAP calculations after the DOM has settled and animations finished.
+        const timer1 = setTimeout(() => ScrollTrigger.refresh(), 500);
+        const timer2 = setTimeout(() => ScrollTrigger.refresh(), 2500); // Matches the 2.2s hero delay
+        const timer3 = setTimeout(() => ScrollTrigger.refresh(), 4000);
+
         return () => {
-            ScrollTrigger.getAll().forEach((t) => t.kill());
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            clearTimeout(timer3);
+            // Kill only the ScrollTrigger instances related to this component
+            tl.kill();
         };
     }, []);
 
