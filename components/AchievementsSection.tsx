@@ -49,44 +49,41 @@ export const AchievementsSection: React.FC = () => {
         const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
         if (cards.length === 0) return;
 
-        // Use gsap.context for React 18 strict mode safe cleanup
-        let ctx = gsap.context(() => {
-            // Stacked deck initial state — front card (i=0) visible, others peek behind
-            cards.forEach((card, i) => {
-                gsap.set(card, {
-                    x:        0,
-                    y:        0,
-                    rotation: i * 3,
-                    scale:    1 - i * 0.025,
-                    opacity:  i === 0 ? 1 : Math.max(0, 0.55 - i * 0.12),
-                    zIndex:   8 - i,
-                });
+        // Stacked deck initial state — front card (i=0) visible, others peek behind
+        cards.forEach((card, i) => {
+            gsap.set(card, {
+                x:        0,
+                y:        0,
+                rotation: i * 3,
+                scale:    1 - i * 0.025,
+                opacity:  i === 0 ? 1 : Math.max(0, 0.55 - i * 0.12),
+                zIndex:   8 - i,
             });
+        });
 
-            // Animate cards to final positions driven by scroll
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger:  wrapper,
-                    start:    "top top",
-                    end:      "+=800", // Increased scroll distance for better scrub feel
-                    scrub:    1.2,
-                    pin:      true,    // Pin the section while animating
-                },
-            });
+        // Animate cards to final positions driven by scroll
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger:  wrapper,
+                start:    "top top",
+                end:      "bottom bottom",
+                scrub:    1.2,
+            },
+        });
 
-            FINAL_POS.forEach((pos, i) => {
-                tl.to(cards[i], {
-                    x:        pos.x,
-                    y:        pos.y,
-                    opacity:  1,
-                    scale:    1,
-                    rotation: 0,
-                    ease:     "none",
-                }, 0);
-            });
-        }, wrapperRef);
+        FINAL_POS.forEach((pos, i) => {
+            tl.to(cards[i], {
+                x:        pos.x,
+                y:        pos.y,
+                opacity:  1,
+                scale:    1,
+                rotation: 0,
+                ease:     "none",
+            }, 0);
+        });
 
         // Fix for initial load layout shifts (Preloaders / Conditional rendering)
+        // Refresh GSAP calculations after the DOM has settled and animations finished.
         const timer1 = setTimeout(() => ScrollTrigger.refresh(), 500);
         const timer2 = setTimeout(() => ScrollTrigger.refresh(), 2500); // Matches the 2.2s hero delay
         const timer3 = setTimeout(() => ScrollTrigger.refresh(), 4000);
@@ -95,7 +92,8 @@ export const AchievementsSection: React.FC = () => {
             clearTimeout(timer1);
             clearTimeout(timer2);
             clearTimeout(timer3);
-            ctx.revert(); // Automatically kills triggers and reverts all inline styles
+            // Kill only the ScrollTrigger instances related to this component
+            tl.kill();
         };
     }, []);
 
