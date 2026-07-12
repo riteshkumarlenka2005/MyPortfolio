@@ -16,6 +16,16 @@ interface StackProject {
 
 const PROJECTS: StackProject[] = [
   {
+    id: 7,
+    title: "Intelligent Sales CRM & AI Copilot",
+    era: "Enterprise Architecture",
+    context: "Engineered a production-grade Intelligent Sales CRM equipped with a Universal AI Query Engine. Designed an 8-Stage Secure Orchestration Pipeline that allows users to query thousands of database records using plain English while strictly enforcing Role-Based Access Control, entirely preventing AI hallucinations and SQL injection risks.",
+    tags: ["Next.js 15", "TypeScript", "PostgreSQL", "Prisma", "Vercel AI SDK"],
+    image: "/AI_CRM.jpg",
+    liveUrl: "https://ai-sales-crm-seven.vercel.app/dashboard",
+    sourceUrl: "https://github.com/riteshkumarlenka2005",
+  },
+  {
     id: 1,
     title: "Data Science Club Website",
     era: "Web Development",

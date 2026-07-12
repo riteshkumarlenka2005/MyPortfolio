@@ -13,12 +13,13 @@ import { ProjectStackSection } from '../components/ProjectStackSection';
 import { BionicHero } from '../components/BionicHero';
 import { SplitReveal } from '../components/SplitReveal';
 import { AnimatedHeading } from '../components/AnimatedHeading';
-import { StatsSection } from '../components/StatsSection';
+
 import { ScrollRevealText } from '../components/ScrollRevealText';
 import { SkillsSection } from '../components/SkillsSection';
 import { AchievementsSection } from '../components/AchievementsSection';
 import { WhatICanDo } from '../components/WhatICanDo';
 import { InteractiveFooter } from '../components/InteractiveFooter';
+import { ExperienceSection } from '../components/ExperienceSection';
 
 // Featured projects data
 const FEATURED_PROJECTS = [
@@ -170,6 +171,9 @@ export const HomePage: React.FC = () => {
                 wheelMultiplier: 0.8,
                 touchMultiplier: 1.5,
             });
+
+            // Expose globally so ExperienceSection can pause/resume
+            (window as any).__lenis = lenis;
 
             lenis.on('scroll', ScrollTrigger.update);
 
@@ -392,6 +396,13 @@ export const HomePage: React.FC = () => {
                     </section>
 
                     {/* ═══════════════════════════════════════════════════════════════ */}
+                    {/* EXPERIENCE SECTION */}
+                    {/* ═══════════════════════════════════════════════════════════════ */}
+                    <div data-scroll-section>
+                        <ExperienceSection />
+                    </div>
+
+                    {/* ═══════════════════════════════════════════════════════════════ */}
                     {/* STATE A: Scroll-Locked Stacked Project Slides */}
                     {/* ═══════════════════════════════════════════════════════════════ */}
                     <div
@@ -400,7 +411,7 @@ export const HomePage: React.FC = () => {
                         data-scroll-section
                         className="w-full overflow-hidden"
                     >
-                        <div className={`transform transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${sectionsVisible['projects-section'] ? 'translate-x-0 opacity-100' : 'translate-x-[100vw] opacity-0'}`}>
+                        <div className={`transform transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${sectionsVisible['projects-section'] ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
                             <ProjectStackSection onStateChange={(active) => console.log('State A active:', active)} />
                         </div>
                     </div>

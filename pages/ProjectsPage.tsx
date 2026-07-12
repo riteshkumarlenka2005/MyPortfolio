@@ -25,6 +25,110 @@ interface Project {
 
 const PROJECTS: Project[] = [
     {
+        id: 7,
+        title: "Intelligent Sales CRM & AI Copilot",
+        era: "Enterprise Architecture & Agentic AI",
+        context: "Engineered a production-grade Intelligent Sales CRM equipped with a Universal AI Query Engine and an 8-Stage Secure Orchestration Pipeline.",
+        coreIdea: "To resolve the conflict between AI accessibility and enterprise data security by creating an intelligent, role-aware middleware that allows plain-English querying without direct database access.",
+        implementation: "Implemented a full-stack Next.js application using Prisma, PostgreSQL, Vercel AI SDK, and Google Gemini, wrapped in a strict 8-stage secure pipeline for intent classification, execution planning, and role-based access control.",
+        outcome: "An enterprise-grade system where users can query thousands of records securely, preventing AI hallucinations and SQL injection risks.",
+        tags: ["Next.js 15", "TypeScript", "PostgreSQL", "Prisma", "Vercel AI SDK", "Gemini", "Tailwind CSS"],
+        liveUrl: "https://ai-sales-crm-seven.vercel.app/dashboard",
+        sourceUrl: "https://github.com/riteshkumarlenka2005",
+        richSections: (
+            <div className="space-y-14">
+
+                {/* ── Overview ── */}
+                <section>
+                    <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
+                        <span className="text-white/60">§</span>
+                        Project Overview
+                    </h3>
+                    <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed text-justify">
+                        This project is a production-grade Sales CRM that covers the full sales workflow (Lead → Qualification → Account → Quote → Order → Support). Its defining feature is a deeply integrated, <em>Agentic AI Copilot</em> that allows any CRM user — from Sales Representatives to Directors — to query thousands of database records using plain English sentences, while the system enforces strict security rules, compliance logging, and business role boundaries at every step.
+                    </p>
+                </section>
+
+                {/* ── Problem ── */}
+                <section>
+                    <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
+                        <span className="text-white/60">§</span>
+                        The Problem
+                    </h3>
+                    <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-5 text-justify">
+                        Naively connecting an LLM directly to a database creates catastrophic enterprise risks. Standard AI chatbot integrations are dangerous because:
+                    </p>
+                    <ul className="space-y-3 font-sans text-lg md:text-xl text-gray-300 leading-relaxed">
+                        {[
+                            "SQL Injection via AI Prompt: A malicious user could trick the AI into generating a destructive query (e.g., DROP TABLE).",
+                            "Data Leakage: AI has no concept of role-based permissions and would happily expose confidential financial data to unauthorized users.",
+                            "Hallucination: AI models invent information or guess non-existent column names, causing query failures and returning incorrect data.",
+                            "A growing CRM with thousands of records becomes incredibly difficult for users to navigate manually without a Conversational Analytics Layer."
+                        ].map((point, i) => (
+                            <li key={i} className="flex items-start gap-3">
+                                <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
+                                <span>{point}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+
+                {/* ── Architecture & Tech Stack ── */}
+                <section>
+                    <h3 className="font-sans text-lg font-bold mb-4 flex items-center gap-3 text-white">
+                        <span className="text-white/60">§</span>
+                        The 8-Stage Secure Pipeline Architecture
+                    </h3>
+                    <p className="font-sans text-lg md:text-xl text-gray-300 leading-relaxed mb-7 text-justify">
+                        To solve these challenges, I designed the AI as an intelligent middleware. The AI never touches the database directly. Instead, every single user message travels through an <strong>8-stage processing pipeline</strong> before a single line of database code is executed.
+                    </p>
+
+                    <div className="space-y-7">
+                        <div>
+                            <h4 className="font-sans text-xs uppercase tracking-widest text-gray-500 mb-3">Pipeline Stages</h4>
+                            <ul className="space-y-2 font-sans text-lg md:text-xl text-gray-300 leading-relaxed">
+                                {[
+                                    { label: "1. Intent Classification", value: "Determines what the user wants (e.g. UNIVERSAL_DATA_QUERY) to route requests to the correct tools." },
+                                    { label: "2. Execution Planning", value: "Selects the exact AI tools needed, preventing unauthorized tool access." },
+                                    { label: "3. Permission Validation", value: "Checks if the current user's role is allowed to invoke the planned tool." },
+                                    { label: "4. Context Building", value: "Injects strict schema definitions and business rules into the AI prompt." },
+                                    { label: "5. LLM Execution", value: "The AI generates a structured JSON DSL (Domain Specific Language) query, not raw SQL." },
+                                    { label: "6. DSL Validation", value: "Verifies the AI's JSON output matches strict Zod schemas for safety." },
+                                    { label: "7. Secure DB Execution", value: "Compiles the JSON intent into secure Prisma calls with RBAC filters." },
+                                    { label: "8. Audit Logging", value: "Records everything for enterprise compliance." }
+                                ].map(({ label, value }) => (
+                                    <li key={label} className="flex items-start gap-3">
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
+                                        <span><strong>{label}:</strong> {value}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-sans text-xs uppercase tracking-widest text-gray-500 mb-3">Core Technology Stack</h4>
+                            <ul className="space-y-2 font-sans text-lg md:text-xl text-gray-300 leading-relaxed">
+                                {[
+                                    { label: "Framework", value: "Next.js 16 (App Router) for full-stack performance." },
+                                    { label: "Language", value: "TypeScript for end-to-end type safety." },
+                                    { label: "Database", value: "PostgreSQL 16 managed via Prisma ORM." },
+                                    { label: "AI Integration", value: "Vercel AI SDK and Google Gemini for intent processing and conversational flows." },
+                                    { label: "Auth", value: "Next-Auth (v4) for session-based credentials and role mapping." },
+                                    { label: "UI Layer", value: "Tailwind CSS v4 + Radix UI + lucide-react." },
+                                ].map(({ label, value }) => (
+                                    <li key={label} className="flex items-start gap-3">
+                                        <span className="mt-[6px] shrink-0 w-1.5 h-1.5 rounded-full bg-white/60" />
+                                        <span><strong>{label}:</strong> {value}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        )
+    },
+    {
         id: 1,
         title: "Data Science Club Website",
         era: "2nd Year · Full-Stack Platform & Community Ecosystem",

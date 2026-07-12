@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <PremiumLoader />
-      <div id="main-content" className="relative min-h-screen w-full overflow-x-hidden selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100">
+      <div id="main-content" className="relative min-h-screen w-full selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100">
       <GlobalNavbar />
       <ScrollToTop />
 
