@@ -118,7 +118,7 @@ export const AchievementsSection: React.FC = () => {
                             <div
                                 key={i}
                                 ref={(el) => { cardRefs.current[i] = el; }}
-                                className="absolute bg-[#111111] border border-white/[0.08] rounded-2xl flex flex-col overflow-hidden select-none"
+                                className="absolute bg-black border-[6px] border-white shadow-2xl flex flex-col overflow-hidden select-none"
                                 style={{
                                     width:       `${CW}px`,
                                     height:      `${CH}px`,
@@ -158,7 +158,7 @@ export const AchievementsSection: React.FC = () => {
                 {CARDS.map((card, i) => (
                     <div
                         key={i}
-                        className="bg-[#111111] border border-white/[0.08] rounded-2xl flex flex-col overflow-hidden"
+                        className="bg-black border-[4px] border-white shadow-xl flex flex-col overflow-hidden"
                     >
                         <div className="flex-1 flex flex-col items-center justify-center gap-1 p-4 py-6">
                             <span className="text-3xl font-black text-white leading-none">

@@ -285,7 +285,7 @@ export const BionicHero: React.FC = () => {
                     <div className="flex flex-col lg:flex-row items-center justify-start w-full gap-4 lg:gap-6 lg:-ml-12 pb-6 translate-y-2 lg:translate-y-4">
 
                         <div className={`flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto${skipAnim ? '' : ' animate-fade-in-up'}`} style={skipAnim ? {} : { animationDelay: '0.25s', animationFillMode: 'both' }}>
-                            <Link to="/projects" className="w-full sm:w-auto justify-center px-8 py-3.5 bg-[#ccff00] text-black font-semibold tracking-wide rounded-full text-sm flex items-center gap-2 hover:bg-[#b3e600] transition-colors shadow-[0_0_20px_rgba(204,255,0,0.3)] whitespace-nowrap">
+                            <Link to="/projects" className="w-full sm:w-auto justify-center px-8 py-3.5 bg-[#39FF14] text-black font-semibold tracking-wide rounded-full text-sm flex items-center gap-2 hover:bg-[#2ee612] transition-colors shadow-[0_0_20px_rgba(57,255,20,0.4)] whitespace-nowrap">
                                 View My Work
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                             </Link>

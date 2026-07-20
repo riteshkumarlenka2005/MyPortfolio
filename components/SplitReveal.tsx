@@ -63,8 +63,8 @@ export const SplitReveal: React.FC<SplitRevealProps> = ({ children }) => {
     // Each word: solid half + hatched half. 'stripeSide' controls which half gets diagonal hatching.
     const wordStyles: { text: string; color: string; stripeSide: 'left' | 'right' }[] = [
         { text: 'RITESH', color: '#ffffff',  stripeSide: 'left'  },
-        { text: 'KUMAR',  color: '#f97316',  stripeSide: 'right' },
-        { text: 'LENKA',  color: '#dc2626',  stripeSide: 'left'  },
+        { text: 'KUMAR',  color: '#39FF14',  stripeSide: 'right' },
+        { text: 'LENKA',  color: '#9ca3af',  stripeSide: 'left'  },
     ];
 
     const renderName = () => (
