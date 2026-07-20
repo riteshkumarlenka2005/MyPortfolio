@@ -18,23 +18,23 @@ const CARDS = [
 ];
 
 // Card size
-const CW = 192;
-const CH = 252;
-const GAP = 18;
+const CW = 200;
+const CH = 262;
+const GAP = 24;
 
 // Final positions: 4x2 grid, offsets from center
-// Grid: 4*192 + 3*18 = 822 wide, center=411; 2*252 + 18 = 522 tall, center=261
-// Col offsets: -315, -105, 105, 315
-// Row offsets: -135, 135
+// Grid: 4*200 + 3*24 = 872 wide, center=436; 2*262 + 24 = 548 tall, center=274
+// Col offsets: -336, -112, 112, 336
+// Row offsets: -143, 143
 const FINAL_POS = [
-    { x: -315, y: -135 }, // row0 col0
-    { x: -105, y: -135 }, // row0 col1
-    { x:  105, y: -135 }, // row0 col2
-    { x:  315, y: -135 }, // row0 col3
-    { x: -315, y:  135 }, // row1 col0
-    { x: -105, y:  135 }, // row1 col1
-    { x:  105, y:  135 }, // row1 col2
-    { x:  315, y:  135 }, // row1 col3
+    { x: -336, y: -143 }, // row0 col0
+    { x: -112, y: -143 }, // row0 col1
+    { x:  112, y: -143 }, // row0 col2
+    { x:  336, y: -143 }, // row0 col3
+    { x: -336, y:  143 }, // row1 col0
+    { x: -112, y:  143 }, // row1 col1
+    { x:  112, y:  143 }, // row1 col2
+    { x:  336, y:  143 }, // row1 col3
 ];
 
 export const AchievementsSection: React.FC = () => {
@@ -98,16 +98,18 @@ export const AchievementsSection: React.FC = () => {
     }, []);
 
     return (
-        <div id="achievements-section">
+        <div id="achievements-section" className="relative bg-black" style={{
+            backgroundImage: `repeating-linear-gradient(135deg, #000000 0px, #000000 150px, rgba(255,255,255,0.06) 150px, rgba(255,255,255,0) 180px)`
+        }}>
             {/* Heading */}
-            <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-12 pt-24 pb-10 text-center">
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-12 pt-24 pb-4 text-center">
                 <AnimatedHeading text="Milestones That Define My Journey" />
             </div>
 
             {/* ── Desktop: GSAP-pinned stack (locked until cards spread) ── */}
             <div
                 ref={wrapperRef}
-                className="hidden lg:flex flex-col items-center justify-center min-h-screen overflow-hidden"
+                className="hidden lg:flex flex-col items-center justify-center min-h-screen overflow-hidden -mt-12"
             >
                 {/* Fixed-size grid container — cards are centered inside */}
                 <div
@@ -118,7 +120,7 @@ export const AchievementsSection: React.FC = () => {
                             <div
                                 key={i}
                                 ref={(el) => { cardRefs.current[i] = el; }}
-                                className="absolute bg-black border-[6px] border-white shadow-2xl flex flex-col overflow-hidden select-none"
+                                className="absolute shadow-2xl rounded-[24px] flex flex-col overflow-hidden p-[1.5px] select-none"
                                 style={{
                                     width:       `${CW}px`,
                                     height:      `${CH}px`,
@@ -128,25 +130,35 @@ export const AchievementsSection: React.FC = () => {
                                     marginTop:   `-${CH / 2}px`,
                                 }}
                             >
-                                {/* Visual area */}
-                                <div className="flex-1 flex flex-col items-center justify-center gap-1.5 px-4 pt-5">
-                                    <span className="text-[2.6rem] font-black text-white leading-none tracking-tight">
-                                        {card.bigText}
-                                    </span>
-                                    {card.unit && (
-                                        <span className="text-[10px] tracking-[0.22em] text-white/35 uppercase">
-                                            {card.unit}
+                                {/* The spinning gradient background */}
+                                <div className="absolute inset-[-100%] animate-[spin_4s_linear_infinite]"
+                                     style={{
+                                         background: 'conic-gradient(from 0deg, #ff007f, #7a00ff, #00f0ff, #00ffaa, #ffaa00, #ff007f)'
+                                     }}
+                                />
+                                
+                                {/* Inner Card Container */}
+                                <div className="relative z-10 bg-black flex-1 w-full rounded-[21px] flex flex-col overflow-hidden">
+                                    {/* Visual area */}
+                                    <div className="flex-1 flex flex-col items-center justify-center gap-1.5 px-4 pt-5">
+                                        <span className="text-[2.6rem] font-black text-white leading-none tracking-tight">
+                                            {card.bigText}
                                         </span>
-                                    )}
-                                </div>
-                                {/* Text area */}
-                                <div className="px-4 pb-4 pt-3 border-t border-white/[0.06]">
-                                    <p className="text-[11px] font-semibold text-white mb-1 leading-snug">
-                                        {card.title}
-                                    </p>
-                                    <p className="text-[10px] text-white/40 leading-snug">
-                                        {card.desc}
-                                    </p>
+                                        {card.unit && (
+                                            <span className="text-[10px] tracking-[0.22em] text-white/35 uppercase">
+                                                {card.unit}
+                                            </span>
+                                        )}
+                                    </div>
+                                    {/* Text area */}
+                                    <div className="px-4 pb-4 pt-3 border-t border-white/[0.06]">
+                                        <p className="text-[11px] font-semibold text-white mb-1 leading-snug">
+                                            {card.title}
+                                        </p>
+                                        <p className="text-[10px] text-white/40 leading-snug">
+                                            {card.desc}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -154,25 +166,35 @@ export const AchievementsSection: React.FC = () => {
             </div>
 
             {/* ── Mobile: static 2-column grid ── */}
-            <div className="lg:hidden grid grid-cols-2 gap-3 max-w-sm mx-auto px-4 pb-16">
+            <div className="lg:hidden grid grid-cols-2 gap-4 max-w-sm mx-auto px-4 pb-16">
                 {CARDS.map((card, i) => (
                     <div
                         key={i}
-                        className="bg-black border-[4px] border-white shadow-xl flex flex-col overflow-hidden"
+                        className="relative shadow-xl rounded-[20px] flex flex-col overflow-hidden p-[1px]"
                     >
-                        <div className="flex-1 flex flex-col items-center justify-center gap-1 p-4 py-6">
-                            <span className="text-3xl font-black text-white leading-none">
-                                {card.bigText}
-                            </span>
-                            {card.unit && (
-                                <span className="text-[9px] tracking-widest text-white/35 uppercase">
-                                    {card.unit}
+                        {/* The spinning gradient background */}
+                        <div className="absolute inset-[-100%] animate-[spin_4s_linear_infinite]"
+                             style={{
+                                 background: 'conic-gradient(from 0deg, #ff007f, #7a00ff, #00f0ff, #00ffaa, #ffaa00, #ff007f)'
+                             }}
+                        />
+                        
+                        {/* Inner Card Container */}
+                        <div className="relative z-10 bg-black flex-1 w-full rounded-[18px] flex flex-col overflow-hidden">
+                            <div className="flex-1 flex flex-col items-center justify-center gap-1 p-4 py-6">
+                                <span className="text-3xl font-black text-white leading-none">
+                                    {card.bigText}
                                 </span>
-                            )}
-                        </div>
-                        <div className="px-3 pb-3 pt-2 border-t border-white/[0.06]">
-                            <p className="text-[11px] font-semibold text-white">{card.title}</p>
-                            <p className="text-[10px] text-white/40 mt-0.5">{card.desc}</p>
+                                {card.unit && (
+                                    <span className="text-[9px] tracking-widest text-white/35 uppercase">
+                                        {card.unit}
+                                    </span>
+                                )}
+                            </div>
+                            <div className="px-3 pb-3 pt-2 border-t border-white/[0.06]">
+                                <p className="text-[11px] font-semibold text-white">{card.title}</p>
+                                <p className="text-[10px] text-white/40 mt-0.5">{card.desc}</p>
+                            </div>
                         </div>
                     </div>
                 ))}
