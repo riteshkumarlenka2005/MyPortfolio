@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-
+import Lenis from 'lenis';
 import { jsPDF } from 'jspdf';
 
 interface PageSection {
@@ -845,33 +845,56 @@ const AutobiographySection: React.FC<{ section: PageSection; index: number }> = 
     // Cover page layout
     if (section.type === 'cover') {
         return (
+            <>
             <section
                 ref={sectionRef}
                 className={`
           relative min-h-screen w-full flex items-center justify-center
-          bg-gradient-to-br from-parchment-200 via-parchment-300 to-parchment-400
-          dark:from-antique-100 dark:via-antique-50 dark:to-antique-100
-          transition-all duration-1000 ease-out
+          transition-all duration-1000 ease-out overflow-hidden
           ${visible ? 'opacity-100' : 'opacity-0'}
         `}
             >
-                {/* Background texture */}
-                <div className="absolute inset-0 opacity-30 bg-paper-texture mix-blend-multiply dark:mix-blend-overlay pointer-events-none"></div>
-
-                {/* Decorative map background */}
-                <div className="absolute inset-0 opacity-20 dark:opacity-10 pointer-events-none"
-                    style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M0 0h400v400H0z' fill='none'/%3E%3Cpath d='M50 50c100 50 200-50 300 0M50 150c100 50 200-50 300 0M50 250c100 50 200-50 300 0M50 350c100 50 200-50 300 0' stroke='%238B7355' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
-                        backgroundSize: '400px 400px',
+                {/* Hero Background Image */}
+                <div 
+                    className="absolute inset-0"
+                    style={{ 
+                        backgroundImage: `url('/Dreamers to notice.png')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center top',
+                        backgroundRepeat: 'no-repeat',
                     }}
-                ></div>
+                />
+                {/* Dark overlay so text stays legible */}
+                <div className="absolute inset-0 bg-black/55 pointer-events-none" />
 
-                {/* Download PDF Button - Top Right Corner */}
+                {/* Main content area */}
+                <div
+                    className={`
+            relative z-10 text-center px-8 max-w-4xl pt-24
+            transform transition-all duration-1000 delay-300
+            ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
+          `}
+                >
+                    <h1 className="font-script text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white leading-tight drop-shadow-2xl">
+                        {section.title}
+                    </h1>
+                    <p className="mt-8 font-serif text-2xl md:text-3xl text-white/80 tracking-wide drop-shadow-lg">
+                        {section.subtitle}
+                    </p>
+                </div>
+
+                {/* Page indicator */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-serif text-sm text-white/40">
+                    {section.id}
+                </div>
+            </section>
+
+            {/* Download PDF Button - below hero image, right side */}
+            <div className="flex justify-end px-6 md:px-10 py-4 bg-black">
                 <button
                     onClick={generateAutobiographyPDF}
-                    className="absolute top-40 right-6 md:right-10 z-20 flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5
+                    className="flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5
                                bg-gradient-to-br from-amber-600 to-amber-800 
-                               dark:from-amber-700 dark:to-amber-900
                                text-amber-50 font-serif text-xs md:text-sm
                                rounded-lg shadow-lg hover:shadow-xl 
                                transform hover:scale-105 transition-all duration-300
@@ -890,43 +913,8 @@ const AutobiographySection: React.FC<{ section: PageSection; index: number }> = 
                     </svg>
                     Download PDF
                 </button>
-
-                {/* Main content area - Title displayed directly on parchment */}
-                <div
-                    className={`
-            relative z-10 text-center px-8 max-w-4xl
-            transform transition-all duration-1000 delay-300
-            ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}
-          `}
-                >
-                    <h1 className="font-script text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-parchment-900 dark:text-antique-900 leading-tight">
-                        {section.title}
-                    </h1>
-                    <p className="mt-8 font-serif text-2xl md:text-3xl text-parchment-800 dark:text-antique-800 tracking-wide">
-                        {section.subtitle}
-                    </p>
-                </div>
-
-                {/* Decorative leaves - top left */}
-                <div className="absolute top-16 left-4 md:left-8 w-20 h-28 opacity-50 dark:opacity-40">
-                    <div className="w-12 h-20 bg-gradient-to-br from-green-800 to-green-900 rounded-full transform -rotate-45"></div>
-                </div>
-
-                {/* Decorative leaves - bottom right */}
-                <div className="absolute bottom-24 right-8 md:right-16 w-16 h-24 opacity-50 dark:opacity-40">
-                    <div className="w-10 h-18 bg-gradient-to-br from-green-800 to-green-900 rounded-full transform rotate-30"></div>
-                </div>
-
-                {/* Decorative flower element - bottom left */}
-                <div className="absolute bottom-20 left-1/4 opacity-40">
-                    <div className="w-16 h-16 rounded-full bg-gradient-radial from-white/60 to-transparent"></div>
-                </div>
-
-                {/* Page indicator */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-serif text-sm">
-                    {section.id}
-                </div>
-            </section>
+            </div>
+            </>
         );
     }
 
@@ -1149,7 +1137,14 @@ export const AutobiographyPage: React.FC = () => {
     useEffect(() => {
         // Initial page load animation
         const timer = setTimeout(() => setPageLoaded(true), 100);
-        return () => clearTimeout(timer);
+
+        // Lenis smooth scrolling (same as other pages)
+        let rafId: number;
+        const lenis = new Lenis({ lerp: 0.05, smoothWheel: true, wheelMultiplier: 0.8, touchMultiplier: 1.5 });
+        const update = (time: number) => { lenis.raf(time); rafId = requestAnimationFrame(update); };
+        rafId = requestAnimationFrame(update);
+
+        return () => { clearTimeout(timer); lenis.destroy(); cancelAnimationFrame(rafId); };
     }, []);
 
     return (
