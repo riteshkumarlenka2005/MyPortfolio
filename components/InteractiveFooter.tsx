@@ -99,7 +99,7 @@ export const InteractiveFooter: React.FC = () => {
                         </p>
                         
                         <a 
-                            href="/resume.pdf"
+                            href="/MyRESUME.pdf"
                             target="_blank"
                             rel="noreferrer"
                             className="mt-8 inline-flex items-center gap-2 px-8 py-3 bg-white/5 hover:bg-white text-white hover:text-black border border-white/10 hover:border-white font-medium tracking-wide text-sm transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
