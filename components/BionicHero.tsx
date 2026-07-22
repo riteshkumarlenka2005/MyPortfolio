@@ -313,10 +313,8 @@ export const BionicHero: React.FC = () => {
                                     <path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" />
                                 </svg>
                             </a>
-                            <a href="https://x.com/RiteshKuma6338" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full bg-white/10 border border-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-all shadow-sm">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
+                            <a href="https://leetcode.com/u/riteshkumarlenka/" target="_blank" rel="noreferrer" className="group w-11 h-11 rounded-full bg-white/10 border border-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-all shadow-sm">
+                                <img src="https://cdn.simpleicons.org/leetcode/white" alt="LeetCode" className="w-[18px] h-[18px] object-contain group-hover:invert transition-all" />
                             </a>
                         </div>
                     </div>
