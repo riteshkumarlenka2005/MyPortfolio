@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import { AnimatedHeading } from "./AnimatedHeading";
 
 // 8 cards: interleaved achievements + stats
@@ -41,7 +42,17 @@ export const AchievementsSection: React.FC = () => {
                         />
                         
                         {/* Inner Card Container */}
-                        <div className="relative z-10 bg-black flex-1 w-full rounded-[21px] flex flex-col overflow-hidden group">
+                        <div 
+                            className={`relative z-10 bg-black flex-1 w-full rounded-[21px] flex flex-col overflow-hidden group ${card.link ? 'cursor-pointer' : ''}`}
+                            onClick={() => card.link && navigate(card.link)}
+                        >
+                            {/* Visual Indicator for Links */}
+                            {card.link && (
+                                <div className="absolute top-2.5 right-2.5 text-white/70 group-hover:text-white transition-colors z-20">
+                                    <ArrowUpRight size={22} strokeWidth={2.5} />
+                                </div>
+                            )}
+
                             <div className="flex-1 flex flex-col items-center justify-center gap-1.5 px-4 pt-5">
                                 <span className="text-3xl md:text-[2.6rem] font-black text-white leading-none tracking-tight">
                                     {card.bigText}
@@ -62,11 +73,8 @@ export const AchievementsSection: React.FC = () => {
                             </div>
                             {/* Hover overlay for link */}
                             {card.link && (
-                                <div
-                                    onClick={() => navigate(card.link)}
-                                    className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
-                                >
-                                    <span className="text-white font-bold tracking-widest uppercase text-[10px] md:text-sm border border-white/20 px-4 md:px-6 py-1.5 md:py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none z-10">
+                                    <span className="text-white font-bold tracking-widest uppercase text-sm border border-white/20 px-6 py-2 rounded-full bg-white/5 transition-colors">
                                         Verify
                                     </span>
                                 </div>
