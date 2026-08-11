@@ -6,11 +6,11 @@ const CERTIFICATES = [
     { title: "IDS Certificate", path: "/certificates/IDS_Certificate.png" },
     { title: "IBM", path: "/certificates/IBM.jpg" },
     { title: "CMMC MacLead", path: "/certificates/CMMC_MacLead.jpg" },
+    { title: "NPTEL", path: "/certificates/NPTEL.png" },
+    { title: "NPTEL IoT", path: "/certificates/NptelIoT.jpeg" },
     { title: "Data Science Course", path: "/certificates/DataScienceCourse.jpg" },
     { title: "Internship", path: "/certificates/Internship.png" },
     { title: "EduSkills", path: "/certificates/EduSkills.png" },
-    { title: "NPTEL", path: "/certificates/NPTEL.png" },
-    { title: "NPTEL IoT", path: "/certificates/NptelIoT.jpeg" },
     { title: "Hacknovation 2.0", path: "/certificates/Hacknovation2.0.png" },
     { title: "Hackathon", path: "/certificates/Hakathon.png" },
     { title: "IoT Workshop", path: "/certificates/IoT_workshop.png" },
@@ -43,15 +43,15 @@ export const CertificatesPage: React.FC = () => {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
                 
                 {/* Header */}
-                <div className="max-w-3xl mb-16 md:mb-24">
+                <div className="max-w-3xl mx-auto text-center flex flex-col items-center mb-16 md:mb-24">
                     <button 
                         onClick={() => window.history.back()}
                         className="mb-8 text-sm font-semibold tracking-widest text-white/50 hover:text-white transition-colors flex items-center gap-2 uppercase"
                     >
                         <span>←</span> Back
                     </button>
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
-                        Professional <br className="hidden md:block" />
+                    <h1 className="flex flex-wrap justify-center gap-x-5 md:gap-x-10 text-6xl md:text-8xl font-black uppercase tracking-tight mb-6 leading-none">
+                        <span>Professional</span>
                         <span className="text-white/40">Certificates</span>
                     </h1>
                     <p className="text-lg md:text-xl text-white/60 leading-relaxed font-light">
