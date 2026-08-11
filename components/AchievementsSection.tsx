@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatedHeading } from "./AnimatedHeading";
@@ -13,7 +14,7 @@ const CARDS = [
     { bigText: "7+",    unit: "",       title: "Hackathons",               desc: "Competed across national events" },
     { bigText: "PMST",  unit: "",       title: "Merit Scholarship",        desc: "Awarded for outstanding academic performance" },
     { bigText: "5+",    unit: "",       title: "AI Experiments",           desc: "Researched, trained & deployed" },
-    { bigText: "#1",    unit: "",       title: "University Topper",        desc: "1st Year B.Tech rank holder" },
+    { bigText: "12+",   unit: "",       title: "Certificates",             desc: "Professional certifications", link: "/certificates" },
     { bigText: "10K",   unit: "₹ Prize", title: "Science Exhibition",     desc: "Solar Panel Auto-Wiper innovation" },
 ];
 
@@ -40,6 +41,7 @@ const FINAL_POS = [
 export const AchievementsSection: React.FC = () => {
     const wrapperRef  = useRef<HTMLDivElement>(null);
     const cardRefs    = useRef<(HTMLDivElement | null)[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (window.innerWidth < 1024) return;
@@ -138,7 +140,7 @@ export const AchievementsSection: React.FC = () => {
                                 />
                                 
                                 {/* Inner Card Container */}
-                                <div className="relative z-10 bg-black flex-1 w-full rounded-[21px] flex flex-col overflow-hidden">
+                                <div className="relative z-10 bg-black flex-1 w-full rounded-[21px] flex flex-col overflow-hidden group">
                                     {/* Visual area */}
                                     <div className="flex-1 flex flex-col items-center justify-center gap-1.5 px-4 pt-5">
                                         <span className="text-[2.6rem] font-black text-white leading-none tracking-tight">
@@ -159,6 +161,17 @@ export const AchievementsSection: React.FC = () => {
                                             {card.desc}
                                         </p>
                                     </div>
+                                    {/* Hover overlay for link */}
+                                    {card.link && (
+                                        <div
+                                            onClick={() => navigate(card.link)}
+                                            className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
+                                        >
+                                            <span className="text-white font-bold tracking-widest uppercase text-sm border border-white/20 px-6 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                                                Verify
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -180,7 +193,7 @@ export const AchievementsSection: React.FC = () => {
                         />
                         
                         {/* Inner Card Container */}
-                        <div className="relative z-10 bg-black flex-1 w-full rounded-[18px] flex flex-col overflow-hidden">
+                        <div className="relative z-10 bg-black flex-1 w-full rounded-[18px] flex flex-col overflow-hidden group">
                             <div className="flex-1 flex flex-col items-center justify-center gap-1 p-4 py-6">
                                 <span className="text-3xl font-black text-white leading-none">
                                     {card.bigText}
@@ -195,6 +208,17 @@ export const AchievementsSection: React.FC = () => {
                                 <p className="text-[11px] font-semibold text-white">{card.title}</p>
                                 <p className="text-[10px] text-white/40 mt-0.5">{card.desc}</p>
                             </div>
+                            {/* Hover overlay for link */}
+                            {card.link && (
+                                <div
+                                    onClick={() => navigate(card.link)}
+                                    className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
+                                >
+                                    <span className="text-white font-bold tracking-widest uppercase text-[10px] border border-white/20 px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                                        Verify
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}

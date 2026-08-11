@@ -9,6 +9,7 @@ import { JourneyPage } from './pages/JourneyPage';
 import { AutobiographyPage } from './pages/AutobiographyPage';
 import { ContactPage } from './pages/ContactPage';
 import { ResourcesPage } from './pages/ResourcesPage';
+import { CertificatesPage } from './pages/CertificatesPage';
 import { PremiumLoader } from './components/PremiumLoader';
 import { GlobalNavbar } from './components/GlobalNavbar';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -30,6 +31,7 @@ function App() {
         <Route path="/journey" element={<JourneyPage />} />
         <Route path="/autobiography" element={<AutobiographyPage />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/certificates" element={<CertificatesPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </div>
