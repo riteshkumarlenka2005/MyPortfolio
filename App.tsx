@@ -13,6 +13,7 @@ import { CertificatesPage } from './pages/CertificatesPage';
 import { PremiumLoader } from './components/PremiumLoader';
 import { GlobalNavbar } from './components/GlobalNavbar';
 import { ScrollToTop } from './components/ScrollToTop';
+import { ScrollToTopButton } from './components/ScrollToTopButton';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <div id="main-content" className="relative min-h-screen w-full selection:bg-amber-200 selection:text-amber-900 dark:selection:bg-amber-900 dark:selection:text-amber-100">
       <GlobalNavbar />
       <ScrollToTop />
+      <ScrollToTopButton />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
